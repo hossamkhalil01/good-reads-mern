@@ -2,8 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const app = express();
 const configs = require("./configs");
+
+const app = express();
 
 // get the enviornment configs
 const ENV = process.env.NODE_ENV || "dev";
@@ -31,3 +32,4 @@ app.use(cors());
 // add resources routers
 app.use("/users", require("./routes/users"));
 app.use("/books", require("./routes/books"));
+app.use("/categories", require("./routes/categories"));

@@ -1,5 +1,6 @@
 const sendResponse = (res, data, code) =>
   res.status(code).send({ data, message: {} });
+
 const sendError = (res, message, code) =>
   res.status(code).send({ data: {}, message });
 
@@ -20,4 +21,8 @@ const statusCodes = {
   },
 };
 
-module.exports = { sendError, sendResponse, statusCodes };
+const errorMessages = {
+  notFound: "Not found",
+};
+
+module.exports = { errorMessages, sendError, sendResponse, statusCodes };
