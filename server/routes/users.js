@@ -6,6 +6,13 @@ const Router = express.Router();
 
 /** 
 GET 
+Route: /:id
+Results: get user
+**/
+Router.get("/:id", usersController.getUser);
+
+/** 
+GET 
 Route: / 
 Results: All Users
 **/
@@ -17,5 +24,19 @@ Route: /
 Results: Create New User
 **/
 Router.post("/", usersController.createUser);
+
+/** 
+DELETE 
+Route: / 
+Results: delete User
+**/
+Router.delete("/:id", usersController.deleteUser);
+
+/** 
+PUT 
+Route: / 
+Results: Update User
+**/
+Router.put("/:id", usersController.updateUser);
 
 module.exports = Router;
