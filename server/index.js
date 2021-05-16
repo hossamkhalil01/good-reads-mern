@@ -33,3 +33,4 @@ app.use(cors());
 app.use("/users", require("./routes/users"));
 app.use("/books", require("./routes/books"));
 app.use("/categories", require("./routes/categories"));
+app.use("/authors", require("./routes/authors"));

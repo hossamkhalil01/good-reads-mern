@@ -34,7 +34,7 @@ Router.delete("/:id", categoriesController.deleteCategory);
 /** 
 PUT 
 Route: / 
-Results: Update Catrgory
+Results: Update Category
 **/
 Router.put("/:id", categoriesController.updateCategory);
 
