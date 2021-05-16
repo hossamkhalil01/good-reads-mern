@@ -1,6 +1,6 @@
 import "./App.css";
 import PrimeButton from "@material-ui/core/Button";
-
+import Rate from "./components/Rating";
 function App() {
   return (
     <div className="App">
@@ -12,6 +12,12 @@ function App() {
         <PrimeButton variant="contained" color="primary">
           Material UI
         </PrimeButton>
+      </div>
+      <div>
+        <Rate readOnly={true} />
+      </div>
+      <div>
+        <Rate />
       </div>
     </div>
   );
