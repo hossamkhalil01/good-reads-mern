@@ -1,6 +1,7 @@
-const Schema = require("mongoose").Schema;
+const mongoose = require("mongoose");
+const passwordHash = require("../middlewares/passwordHash");
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -54,6 +55,6 @@ const userSchema = new Schema({
   ],
 });
 
-const User = mongoose.model("User", userSchema);
+userSchema.pre("save", passwordHash);
 
 module.exports = mongoose.model("User", userSchema);

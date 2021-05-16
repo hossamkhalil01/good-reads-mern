@@ -29,4 +29,5 @@ app.use(express.json());
 app.use(cors());
 
 // add resources routers
+app.use("/users", require("./routes/users"));
 app.use("/books", require("./routes/books"));
