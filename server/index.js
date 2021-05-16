@@ -12,7 +12,12 @@ const { DB_URI, PORT } = configs[ENV];
 
 // connect to DB
 mongoose
-  .connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(DB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => {
     console.log("connected to mongodb");
     app.listen(PORT, (err) => {
