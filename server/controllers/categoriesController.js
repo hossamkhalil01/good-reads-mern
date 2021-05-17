@@ -9,7 +9,11 @@ const {
 const getCategory = async (req, res) => {
   const id = req.params.id;
   try {
-    const category = await Category.find({ _id: id });
+    const category = await Category.findOne({ _id: id });
+    // category not found
+    if (!category)
+      return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
+
     return sendResponse(res, category, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);

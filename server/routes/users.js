@@ -7,7 +7,7 @@ const Router = express.Router();
 /** 
 GET 
 Route: /:id
-Results: get user
+Results: get User
 **/
 Router.get("/:id", usersController.getUser);
 

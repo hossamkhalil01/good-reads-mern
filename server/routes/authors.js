@@ -6,7 +6,7 @@ const Router = express.Router();
 /** 
 GET 
 Route: /:id
-Results: get author
+Results: get Author
 **/
 Router.get("/:id", authorsController.getAuthor);
 

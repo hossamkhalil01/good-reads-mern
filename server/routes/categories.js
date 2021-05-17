@@ -6,7 +6,7 @@ const Router = express.Router();
 /** 
 GET 
 Route: /:id
-Results: get category
+Results: get Category
 **/
 Router.get("/:id", categoriesController.getCategory);
 

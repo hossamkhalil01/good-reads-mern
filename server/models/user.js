@@ -4,7 +4,6 @@ const passwordHash = require("../middlewares/passwordHash");
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    unique: true,
     required: "Email address is required",
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -55,6 +54,10 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
+// define unique index for email
+userSchema.index({ email: 1 }, { unique: true });
+
+// apply password hash hook
 userSchema.pre("save", passwordHash);
 
 module.exports = mongoose.model("User", userSchema);

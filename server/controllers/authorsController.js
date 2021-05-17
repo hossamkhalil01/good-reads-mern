@@ -1,5 +1,4 @@
 const Author = require("../models/author");
-console.log(Author);
 const {
   statusCodes,
   sendError,
@@ -10,7 +9,11 @@ const {
 const getAuthor = async (req, res) => {
   const id = req.params.id;
   try {
-    const author = await Author.find({ _id: id });
+    const author = await Author.findOne({ _id: id });
+    // author not found
+    if (!author)
+      return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
+
     return sendResponse(res, author, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);

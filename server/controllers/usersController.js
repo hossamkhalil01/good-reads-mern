@@ -15,7 +15,11 @@ const getUser = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const user = await User.find({ _id: id });
+    const user = await User.findOne({ _id: id });
+    // user not found
+    if (!user)
+      return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
+
     return sendResponse(res, user, statusCodes.success.ok);
   } catch (error) {
     return sendError(
