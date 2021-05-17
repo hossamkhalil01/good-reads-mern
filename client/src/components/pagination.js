@@ -1,5 +1,8 @@
+import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from "react";
 import "../paginationsStyle.css";
+
 const renderData = (data) => {
   return (
     <ul>
@@ -10,14 +13,14 @@ const renderData = (data) => {
   );
 };
 
-function PaginationComponent() {
+function PaginationComponent(props) {
   const [data, setData] = useState([]);
 
   const [currentPage, setcurrentPage] = useState(1);
-  const [itemsPerPage, setitemsPerPage] = useState(5);
+  const [itemsPerPage, setitemsPerPage] = useState(3);
 
-  const [pageNumberLimit, setpageNumberLimit] = useState(5);
-  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
+  const [pageNumberLimit, setpageNumberLimit] = useState(3);
+  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(3);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
   const handleClick = (event) => {
@@ -40,7 +43,7 @@ function PaginationComponent() {
           key={number}
           id={number}
           onClick={handleClick}
-          className={currentPage == number ? "active" : null}
+          className={currentPage == number ? "active" : "notActive"}
         >
           {number}
         </li>
@@ -51,7 +54,7 @@ function PaginationComponent() {
   });
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch(props.api)
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
@@ -74,19 +77,19 @@ function PaginationComponent() {
     }
   };
 
-  let pageIncrementBtn = null;
-  if (pages.length > maxPageNumberLimit) {
-    pageIncrementBtn = <li onClick={handleNextbtn}> &hellip; </li>;
-  }
+//   let pageIncrementBtn = null;
+//   if (pages.length > maxPageNumberLimit) {
+//     // pageIncrementBtn = <li onClick={handleNextbtn}>  </li>;
+//   }
 
-  let pageDecrementBtn = null;
-  if (minPageNumberLimit >= 1) {
-    pageDecrementBtn = <li onClick={handlePrevbtn}> &hellip; </li>;
-  }
+//   let pageDecrementBtn = null;
+//   if (minPageNumberLimit >= 1) {
+//     // pageDecrementBtn = <li onClick={handlePrevbtn}>  </li>;
+//   }
 
-  const handleLoadMore = () => {
-    setitemsPerPage(itemsPerPage + 5);
-  };
+//   const handleLoadMore = () => {
+//     setitemsPerPage(itemsPerPage + 3);
+//   };
 
   return (
     <>
@@ -94,29 +97,24 @@ function PaginationComponent() {
       {renderData(currentItems)}
       <ul className="pageNumbers">
         <li>
-          <button
-            onClick={handlePrevbtn}
-            disabled={currentPage == pages[0] ? true : false}
-          >
-            Prev
+           <button disabled={currentPage == pages[0] ? true : false} >
+            <FontAwesomeIcon icon={faChevronCircleLeft}  onClick={handlePrevbtn}/>
           </button>
         </li>
-        {pageDecrementBtn}
         {renderPageNumbers}
-        {pageIncrementBtn}
-
         <li>
+        
           <button
-            onClick={handleNextbtn}
-            disabled={currentPage == pages[pages.length - 1] ? true : false}
-          >
-            Next
+           
+            disabled={currentPage == pages[pages.length - 1] ? true : false} >
+              <FontAwesomeIcon icon={faChevronCircleRight} onClick={handleNextbtn}
+            /> 
           </button>
         </li>
       </ul>
-      <button onClick={handleLoadMore} className="loadmore">
+      {/* <button onClick={handleLoadMore} className="loadmore">
         Load More
-      </button>
+      </button> */}
     </>
   );
 }

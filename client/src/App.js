@@ -1,10 +1,10 @@
 import PrimeButton from "@material-ui/core/Button";
 import "./App.css";
-import HomePage from "./components/pagination";
+import Paginate from "./components/pagination";
 function App() {
   return (
     <div className="App">
-      <HomePage></HomePage>
+      <Paginate api="https://jsonplaceholder.typicode.com/todos"></Paginate>
       <h3 className="text-center"> Good Reads Running!</h3>
       <h4 className="text-center mb-5">Testing Libraries: </h4>
 
