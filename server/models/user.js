@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const passwordHash = require("../middlewares/passwordHash");
+const iDValidator = require("mongoose-id-validator");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -59,5 +60,10 @@ userSchema.index({ email: 1 }, { unique: true });
 
 // apply password hash hook
 userSchema.pre("save", passwordHash);
+
+// add ref id validator
+userSchema.plugin(iDValidator, {
+  message: "Invalid reference , record not found",
+});
 
 module.exports = mongoose.model("User", userSchema);

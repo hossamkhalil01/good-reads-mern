@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const iDValidator = require("mongoose-id-validator");
 
 const bookSchema = new mongoose.Schema({
   title: {
@@ -35,5 +36,10 @@ const bookSchema = new mongoose.Schema({
 
 // define unique index for title
 bookSchema.index({ title: 1 }, { unique: true });
+
+// add ref id validator
+bookSchema.plugin(iDValidator, {
+  message: "Invalid reference , record not found",
+});
 
 module.exports = mongoose.model("Book", bookSchema);
