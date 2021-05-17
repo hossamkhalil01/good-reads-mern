@@ -27,7 +27,7 @@ Router.post("/", categoriesController.createCategory);
 /** 
 DELETE 
 Route: / 
-Results: delete Category
+Results: Delete Category
 **/
 Router.delete("/:id", categoriesController.deleteCategory);
 

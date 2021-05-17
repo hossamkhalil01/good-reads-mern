@@ -27,7 +27,7 @@ Router.post("/", authorsController.createAuthor);
 /** 
 DELETE 
 Route: / 
-Results: delete Author
+Results: Delete Author
 **/
 Router.delete("/:id", authorsController.deleteAuthor);
 

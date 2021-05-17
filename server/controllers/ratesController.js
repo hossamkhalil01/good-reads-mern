@@ -33,32 +33,40 @@ const getUserRate = async (req, res, userId) => {
 };
 
 const getAllRates = async (req, res) => {
-  const bookId = mapId(req.params.bookId);
-  // get the ratings
-  const rates = await Rate.find({ book: bookId }).populate("users");
-
-  // get the average and total number of ratings
-  const [{ avg, count }] = await Rate.aggregate([
-    {
-      $match: {
-        book: bookId,
-      },
-    },
-    {
-      $group: {
-        _id: "$book",
-        avg: {
-          $avg: "$rating",
-        },
-        count: {
-          $sum: 1,
+  try {
+    const bookId = mapId(req.params.bookId);
+    // get the ratings
+    const rates = await Rate.find({ book: bookId }).populate("users");
+    // get the average and total number of ratings
+    let [aggResult] = await Rate.aggregate([
+      {
+        $match: {
+          book: bookId,
         },
       },
-    },
-  ]);
+      {
+        $group: {
+          _id: "$book",
+          avg: {
+            $avg: "$rating",
+          },
+          count: {
+            $sum: 1,
+          },
+        },
+      },
+    ]);
 
-  // build the resulting object
-  return sendResponse(res, { rates, avg, count }, statusCodes.success.ok);
+    // if there is no book rates
+    if (!aggResult) aggResult = { avg: 0, count: 0 };
+
+    const { avg, count } = aggResult;
+
+    // build the resulting object
+    return sendResponse(res, { rates, avg, count }, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
 };
 
 const createRate = async (req, res) => {
@@ -94,18 +102,18 @@ const deleteRate = async (req, res) => {
 const updateRate = async (req, res) => {
   const bookId = req.params.bookId;
   const userId = req.query.userId;
-  const updates = req.body;
+  const rating = req.body.rating;
   try {
     const updatedRate = await Rate.findOneAndUpdate(
       { book: bookId, user: userId },
-      updates,
+      { rating },
       {
         new: true,
         runValidators: true,
       }
     );
 
-    // catrgory not found
+    // rate not found
     if (!updatedRate)
       return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
 

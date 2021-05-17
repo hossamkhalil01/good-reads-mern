@@ -1,6 +1,7 @@
 const express = require("express");
 const booksController = require("../controllers/booksController");
-const rateRouter = require("../routes/rate");
+const rateRouter = require("../routes/rates");
+const reviewRouter = require("../routes/reviews");
 
 // init router
 const Router = express.Router();
@@ -8,6 +9,8 @@ const Router = express.Router();
 // add rate sub routes
 Router.use("/:bookId/rates", rateRouter);
 
+// add review sub routes
+Router.use("/:bookId/reviews", reviewRouter);
 /** 
 GET 
 Route: /:id
@@ -32,7 +35,7 @@ Router.post("/", booksController.createBook);
 /** 
 DELETE 
 Route: / 
-Results: delete Book
+Results: Delete Book
 **/
 Router.delete("/:id", booksController.deleteBook);
 

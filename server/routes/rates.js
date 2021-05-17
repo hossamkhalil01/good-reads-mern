@@ -5,7 +5,7 @@ const Router = express.Router({ mergeParams: true });
 
 /** 
 GET 
-Route: /:id
+Route: /
 Results: get Rate (returns the book rate from the given user)
 Query Params: userId (optional: if not defined it returns all rates)
 **/
@@ -21,7 +21,7 @@ Router.post("/", ratesController.createRate);
 /** 
 DELETE 
 Route: / 
-Results: delete Rate
+Results: Delete Rate
 **/
 Router.delete("/:id", ratesController.deleteRate);
 
