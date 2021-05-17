@@ -4,7 +4,7 @@ const iDValidator = require("mongoose-id-validator");
 const bookSchema = new mongoose.Schema({
   title: {
     type: String,
-    require: [true, "Book title is required"],
+    required: "Book title is required",
     minLength: [3, "Title must be 3 chars at least"],
     maxLength: [30, "Title must not exceed 30 char"],
     trim: true,

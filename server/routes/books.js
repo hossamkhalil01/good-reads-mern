@@ -1,7 +1,12 @@
 const express = require("express");
 const booksController = require("../controllers/booksController");
+const rateRouter = require("../routes/rate");
+
 // init router
 const Router = express.Router();
+
+// add rate sub routes
+Router.use("/:bookId/rates", rateRouter);
 
 /** 
 GET 
