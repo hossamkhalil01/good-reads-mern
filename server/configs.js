@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const config = {
   dev: {
-    DB_URI: process.env.MONGODB_URI || "mongodb://localhost:27017/good-books",
+    DB_URI: process.env.MONGODB_URI || "mongodb://localhost:27017/good-reads",
 
     PORT: process.env.PORT || 8000,
   },
