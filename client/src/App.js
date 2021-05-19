@@ -1,5 +1,7 @@
 import "./App.css";
 import PrimeButton from "@material-ui/core/Button";
+import { BrowserRouter, Route } from "react-router-dom";
+import AdminDashboard from "./components/admin/AdminDashboard";
 
 function App() {
   return (
@@ -13,6 +15,11 @@ function App() {
           Material UI
         </PrimeButton>
       </div>
+      <BrowserRouter>
+        <div className="App">
+          <Route path="/admin/dashboard" exact component={AdminDashboard} />
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
