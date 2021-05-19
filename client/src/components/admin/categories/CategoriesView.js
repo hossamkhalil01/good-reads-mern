@@ -42,83 +42,83 @@ class CategoriesView extends Component {
 
     }
 
-//     handleUpdateCategory() {
+    handleUpdateCategory() {
 
-//         const title = this.state.NameEdit;
-//         const id = this.state.IdEdit;
-//         if (title && id) {
-//             console.log("k" , id);
-//             const categories = this.state.categories;
-//             for (let key in categories) {
-//                 if (categories[key]._id === id) {
-//                     categories[key].label = title;
-//                     this.setState({ categories: categories });
-//                     this.setState({
-//                         NameEdit: '',
-//                         idEdit: ''
-//                     });
-//                     // send put request
-//                     // const token = localStorage.token;
-//                     // if (token) {
-//                     //     const conf = {
-//                     //         headers: {
-//                     //             "x-auth": token,
-//                     //         }
-//                     //     }
-//                     console.log("j" , id);
-//                     console.log("s" , title , title.length)
-//                         axios.put(`http://localhost:8000/categories/${id}`, {
-//                             label: title
-//                         })
-//                             .then(res => {
-//                                 console.log(res);
-//                                 if (res.status === 200) {
-//                                     console.log(res);
-//                                     this.toggle(null);
+        const title = this.state.NameEdit;
+        const id = this.state.IdEdit;
+        if (title && id) {
+            console.log("k" , id);
+            const categories = this.state.categories;
+            for (let key in categories) {
+                if (categories[key]._id === id) {
+                    categories[key].label = title;
+                    this.setState({ categories: categories });
+                    this.setState({
+                        NameEdit: '',
+                        idEdit: ''
+                    });
+                    // send put request
+                    // const token = localStorage.token;
+                    // if (token) {
+                    //     const conf = {
+                    //         headers: {
+                    //             "x-auth": token,
+                    //         }
+                    //     }
+                    console.log("j" , id);
+                    console.log("s" , title , title.length)
+                        axios.put(`http://localhost:8000/categories/${id}`, {
+                            label: title
+                        })
+                            .then(res => {
+                                console.log(res);
+                                if (res.status === 200) {
+                                    console.log(res);
+                                    this.toggle(null);
 
-//                                 } else {
-//                                     console.log("not updated in db");
-//                                 }
-//                             })
-//                             .catch(err => {
-//                                 console.log({ err });
-//                                 this.setState({ error: 'Error Delete Operation' })
-//                             })
-//                     // }
-//                 }
-//             }
-//         }
-//     }
+                                } else {
+                                    console.log("not updated in db");
+                                }
+                            })
+                            .catch(err => {
+                                console.log({ err });
+                                this.setState({ error: 'Error Delete Operation' })
+                            })
+                    // }
+                }
+            }
+        }
+    }
 
-//     handleData(data) {
-//         this.setState({
-//             categories: data
-//         });
-//     }
+    handleData(data) {
+        this.setState({
+            categories: data
+        });
+    }
 
-//     componentDidMount() {
-//         // const token = localStorage.token;
-//         // if (token) {
-//         //     const conf = {
-//         //         headers: {
-//         //             "x-auth": token,
-//         //         }
-//         //     }
-//             axios.get(`http://localhost:8000/categories`)
-//                 .then(res => {
-//                     console.log(res);
-//                     this.setState({
-//                         categories: res.data.data
-//                     })
-//                     this.props.passCategories(res.data.data);
+    componentDidMount() {
+        // const token = localStorage.token;
+        // if (token) {
+        //     const conf = {
+        //         headers: {
+        //             "x-auth": token,
+        //         }
+        //     }
+            axios.get(`http://localhost:8000/categories`)
+                .then(res => {
+                    console.log(res);
+                    this.setState({
+                        categories: res.data.data
+                    })
+                    this.props.passCategories(res.data.data);
 
-//                 })
-//                 .catch(err => {
-//                     console.log(err)
-//                 })
-//             this.setState({ error: 'Error reteiriving data' })
-//         // }
-//     }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            this.setState({ error: 'Error reteiriving data' })
+        // }
+    }
 
 //     handleDeleteCategory = deletedId => {
 //         const token = localStorage.token;
