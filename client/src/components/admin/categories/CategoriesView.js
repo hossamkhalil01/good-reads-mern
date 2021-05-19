@@ -120,73 +120,73 @@ class CategoriesView extends Component {
         // }
     }
 
-//     handleDeleteCategory = deletedId => {
-//         const token = localStorage.token;
-//         // if (token) {
-//         //     const conf = {
-//         //         headers: {
-//         //             "x-auth": token,
-//         //         }
-//         //     }
-//             axios.delete(`http://localhost:8000/categories/${deletedId}`)
-//                 .then(res => {
-//                         console.log(res);
-//                         this.setState({ categories: this.state.categories.filter(category => category._id !== deletedId) });
-//                 })
-//                 .catch(err => {
-//                     console.log(err)
-//                 })
-//             this.setState({ error: 'Error Delete Operation' })
-//         // }
+    handleDeleteCategory = deletedId => {
+        const token = localStorage.token;
+        // if (token) {
+        //     const conf = {
+        //         headers: {
+        //             "x-auth": token,
+        //         }
+        //     }
+            axios.delete(`http://localhost:8000/categories/${deletedId}`)
+                .then(res => {
+                        console.log(res);
+                        this.setState({ categories: this.state.categories.filter(category => category._id !== deletedId) });
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            this.setState({ error: 'Error Delete Operation' })
+        // }
       
 
-//     }
+    }
 
-//     handleOnChange = event => {
-//         this.setState({ NameEdit: event.target.value });
-//         console.log(this.state.NameEdit);
-//     }
+    handleOnChange = event => {
+        this.setState({ NameEdit: event.target.value });
+        console.log(this.state.NameEdit);
+    }
 
-//     render() {
-//         const { categories, error } = this.state;
-//         const categoriesView = categories.length ? categories.map(category =>
-//             <tr key={category._id}>
-//                 <td>{category.label}</td> 
-//                 <td><Button color='danger' onClick={() => this.handleDeleteCategory(category._id)}>Delete</Button></td>
-//                 <td><Button color='success' onClick={() => this.toggle(category._id)}>Edit</Button></td>
-//             </tr>
-//         ) : error 
+    render() {
+        const { categories, error } = this.state;
+        const categoriesView = categories.length ? categories.map(category =>
+            <tr key={category._id}>
+                <td>{category.label}</td> 
+                <td><Button color='danger' onClick={() => this.handleDeleteCategory(category._id)}>Delete</Button></td>
+                <td><Button color='success' onClick={() => this.toggle(category._id)}>Edit</Button></td>
+            </tr>
+        ) : error 
 
-//         return (
-//                 <div className='CategoriesTable'>
-//                     <AddCategory categories={this.state.categories} handlerFromParant={this.handleData} />
-//                     <Modal isOpen={this.state.modal} toggle={() => this.toggle()}
-//                         className={this.props.className}>
-//                         <ModalHeader>Add Category</ModalHeader>
-//                         <ModalBody>
-//                             <Input type="text" defaultValue={this.state.NameEdit} onChange={this.handleOnChange}
-//                                 placeholder='Category Name' />
-//                         </ModalBody>
-//                         <ModalFooter>
-//                             <Button color="primary" onClick={() => this.handleUpdateCategory()}>Edit
-//                                 Category</Button>{' '}
-//                             <Button color="secondary" onClick={() => this.toggle(null)}>Close</Button>
-//                         </ModalFooter>
-//                     </Modal>
-//                     <Table>
-//                         <thead>
-//                             <tr>
-//                                 <th>Category Name</th>
-//                                 <th>#</th>
-//                                 <th>#</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>{categoriesView}</tbody>
-//                     </Table>
-//                 </div>
+        return (
+                <div className='CategoriesTable'>
+                    <AddCategory categories={this.state.categories} handlerFromParant={this.handleData} />
+                    <Modal isOpen={this.state.modal} toggle={() => this.toggle()}
+                        className={this.props.className}>
+                        <ModalHeader>Add Category</ModalHeader>
+                        <ModalBody>
+                            <Input type="text" defaultValue={this.state.NameEdit} onChange={this.handleOnChange}
+                                placeholder='Category Name' />
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={() => this.handleUpdateCategory()}>Edit
+                                Category</Button>{' '}
+                            <Button color="secondary" onClick={() => this.toggle(null)}>Close</Button>
+                        </ModalFooter>
+                    </Modal>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>Category Name</th>
+                                <th>#</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>{categoriesView}</tbody>
+                    </Table>
+                </div>
                
-//         );
-//     }
-// }
+        );
+    }
+}
 
-// export default CategoriesView;
+export default CategoriesView;
