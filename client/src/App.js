@@ -14,7 +14,7 @@ function App() {
         </PrimeButton>
       </div>
       <div>
-        <UserBookStatus status="Read" onStatusChange={selected => { console.log(selected) }}> </UserBookStatus>
+        <UserBookStatus book="60a1b9a00e48961779fbce0a" status="Read" onStatusChange={selected => { console.log(selected) }}> </UserBookStatus>
         {/* <Rate readOnly={true} />
         <Rate /> */}
       </div>

@@ -1,4 +1,4 @@
-import hostUrl from "./urls";
+import { hostUrl } from "./urls";
 
 const defaultRequestHeaders = {
   Authorization: "",
