@@ -31,13 +31,12 @@ mongoose
     console.log(err);
   });
 
-require("./utils/passport")(passport);
-
-app.use(passport.initialize());
-
 // add middlewares
 app.use(express.json());
 app.use(cors());
+require("./utils/passport")(passport);
+
+app.use(passport.initialize());
 
 // add resources routers
 app.use("/authentication", require("./routes/authentication"));
