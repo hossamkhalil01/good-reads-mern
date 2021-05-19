@@ -1,46 +1,46 @@
-// import React, { Component } from 'react';
-// import { Table, Button, Alert, ModalHeader, ModalBody, ModalFooter, Modal, Input } from "reactstrap";
-// import axios from 'axios';
-// import { Redirect } from 'react-router-dom'
-// // import '../css/CategoriesView.css';
-// import AddCategory from './AddCategory';
+import React, { Component } from 'react';
+import { Table, Button, Alert, ModalHeader, ModalBody, ModalFooter, Modal, Input } from "reactstrap";
+import axios from 'axios';
+import { Redirect } from 'react-router-dom'
+// import '../css/CategoriesView.css';
+import AddCategory from './AddCategory';
 
-// class CategoriesView extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.handleData = this.handleData.bind(this);
-//         this.toggle = this.toggle.bind(this);
-//     }
+class CategoriesView extends Component {
+    constructor(props) {
+        super(props);
+        this.handleData = this.handleData.bind(this);
+        this.toggle = this.toggle.bind(this);
+    }
 
-//     state = {
-//         categories: [],
-//         modal: false,
-//         NameEdit: '',
-//         IdEdit: 0
-//     };
+    state = {
+        categories: [],
+        modal: false,
+        NameEdit: '',
+        IdEdit: 0
+    };
 
-//     toggle(id) {
-//         this.setState(prevState => ({
-//             modal: !prevState.modal,
-//             NameEdit: '',
-//             IdEdit: 0
-//         }));
+    toggle(id) {
+        this.setState(prevState => ({
+            modal: !prevState.modal,
+            NameEdit: '',
+            IdEdit: 0
+        }));
 
-//         if (id !== null) {
-//             const categories = this.state.categories;
-//             const category = categories.filter(category => {
-//                 return category._id === id;
-//             });
+        if (id !== null) {
+            const categories = this.state.categories;
+            const category = categories.filter(category => {
+                return category._id === id;
+            });
 
-//             const catid = category[0]._id;
-//             const cattitle = category[0].label;
-//             this.setState({
-//                 NameEdit: cattitle,
-//                 IdEdit: catid
-//             });
-//         }
+            const catid = category[0]._id;
+            const cattitle = category[0].label;
+            this.setState({
+                NameEdit: cattitle,
+                IdEdit: catid
+            });
+        }
 
-//     }
+    }
 
 //     handleUpdateCategory() {
 
