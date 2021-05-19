@@ -1,13 +1,31 @@
 import Rating from "@material-ui/lab/Rating";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import services from "../services/rateService";
+import { useEffect, useState } from "react";
 
-const AvgRate = () => {
+const AvgRate = ({ bookId }) => {
+  const [rate, setRate] = useState({});
+  useEffect(() => {
+    const getAvgRate = async () => {
+      const { data } = await services.getRates(bookId);
+      setRate(data);
+    };
+    getAvgRate();
+  }, [bookId]);
+
   return (
-    <Box component="fieldset" mb={3} borderColor="transparent">
-      <Typography component="legend">Avg Rate</Typography>
-      <Rating name="read-only" precision={0.5} defaultValue={2.5} readOnly />
-    </Box>
+    <div>
+      <Box component="fieldset" mb={3} borderColor="transparent">
+        <Rating
+          name="read-only"
+          precision={0.5}
+          value={rate.avg ? rate.avg : 0}
+          readOnly
+        />
+        <span>{rate.avg} - </span>
+        <span> {rate.count} ratings</span>
+      </Box>
+    </div>
   );
 };
 

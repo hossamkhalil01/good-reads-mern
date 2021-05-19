@@ -63,7 +63,11 @@ const getAllRates = async (req, res) => {
     const { avg, count } = aggResult;
 
     // build the resulting object
-    return sendResponse(res, { rates, avg, count }, statusCodes.success.ok);
+    return sendResponse(
+      res,
+      { rates, avg: Number(avg.toFixed(1)), count },
+      statusCodes.success.ok
+    );
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
   }
