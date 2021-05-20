@@ -1,5 +1,8 @@
-import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronCircleLeft,
+  faChevronCircleRight
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import "../paginationsStyle.css";
 
@@ -14,6 +17,7 @@ const renderData = (data) => {
 };
 
 function PaginationComponent(props) {
+  const BaseApi = "";
   const [data, setData] = useState([]);
 
   const [currentPage, setcurrentPage] = useState(1);
@@ -77,19 +81,19 @@ function PaginationComponent(props) {
     }
   };
 
-//   let pageIncrementBtn = null;
-//   if (pages.length > maxPageNumberLimit) {
-//     // pageIncrementBtn = <li onClick={handleNextbtn}>  </li>;
-//   }
+  // let pageIncrementBtn = null;
+  // if (pages.length > maxPageNumberLimit) {
+  // // pageIncrementBtn = <li onClick={handleNextbtn}> </li>;
+  // }
 
-//   let pageDecrementBtn = null;
-//   if (minPageNumberLimit >= 1) {
-//     // pageDecrementBtn = <li onClick={handlePrevbtn}>  </li>;
-//   }
+  // let pageDecrementBtn = null;
+  // if (minPageNumberLimit >= 1) {
+  // // pageDecrementBtn = <li onClick={handlePrevbtn}> </li>;
+  // }
 
-//   const handleLoadMore = () => {
-//     setitemsPerPage(itemsPerPage + 3);
-//   };
+  // const handleLoadMore = () => {
+  // setitemsPerPage(itemsPerPage + 3);
+  // };
 
   return (
     <>
@@ -97,24 +101,26 @@ function PaginationComponent(props) {
       {renderData(currentItems)}
       <ul className="pageNumbers">
         <li>
-           <button disabled={currentPage == pages[0] ? true : false} >
-            <FontAwesomeIcon icon={faChevronCircleLeft}  onClick={handlePrevbtn}/>
+          <button disabled={currentPage == pages[0] ? true : false}>
+            <FontAwesomeIcon
+              icon={faChevronCircleLeft}
+              onClick={handlePrevbtn}
+            />
           </button>
         </li>
         {renderPageNumbers}
         <li>
-        
           <button
-           
-            disabled={currentPage == pages[pages.length - 1] ? true : false} >
-              <FontAwesomeIcon icon={faChevronCircleRight} onClick={handleNextbtn}
-            /> 
+            disabled={currentPage == pages[pages.length - 1] ? true : false}
+          >
+            <FontAwesomeIcon
+              icon={faChevronCircleRight}
+              onClick={handleNextbtn}
+            />
           </button>
         </li>
       </ul>
-      {/* <button onClick={handleLoadMore} className="loadmore">
-        Load More
-      </button> */}
+    
     </>
   );
 }
