@@ -36,7 +36,7 @@ class AddCategory extends React.Component {
                 console.log(response);
                 const categoriesProps = this.props.categories;
                 console.log("res" , response);
-                categoriesProps.push({ id:response.data.data._id , label: response.data.data.label});
+                categoriesProps.push({ _id:response.data.data._id , label: response.data.data.label });
                 this.setState({
                     categories: [...this.props.categories,this.state.label],
                     label: '',

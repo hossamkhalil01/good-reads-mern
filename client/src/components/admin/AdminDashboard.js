@@ -2,7 +2,7 @@ import React from 'react';
 import { TabContent, TabPane, Button, Nav, NavItem, NavLink, Col } from 'reactstrap';
 import classnames from 'classnames';
 import CategoriesView from '../admin/categories/CategoriesView'
-// import AuthorView from '../components/AuthorView'
+import AuthorView from '../admin/authors/AuthorView'
 // import BookView from '../components/BookView'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom'
@@ -108,7 +108,7 @@ export default class Example extends React.Component {
                         </TabPane>
                         <TabPane tabId="3">
                             <Col sm="12">
-                                {/* <AuthorView passAuthors={this.handlePassAuthorsProps} /> */}
+                                <AuthorView passAuthors={this.handlePassAuthorsProps} />
                             </Col>
                         </TabPane>
                     </TabContent>

@@ -67,6 +67,8 @@ class CategoriesView extends Component {
                     //     }
                     console.log("j" , id);
                     console.log("s" , title , title.length)
+                    console.log("ssssssss" , id)
+
                         axios.put(`http://localhost:8000/categories/${id}`, {
                             label: title
                         })
@@ -121,6 +123,7 @@ class CategoriesView extends Component {
     }
 
     handleDeleteCategory = deletedId => {
+        console.log("deleted idddd",deletedId)
         const token = localStorage.token;
         // if (token) {
         //     const conf = {
@@ -149,10 +152,22 @@ class CategoriesView extends Component {
 
     render() {
         const { categories, error } = this.state;
+
         const categoriesView = categories.length ? categories.map(category =>
             <tr key={category._id}>
+                {        console.log("aaaaaaa ", category)}
                 <td>{category.label}</td> 
-                <td><Button color='danger' onClick={() => this.handleDeleteCategory(category._id)}>Delete</Button></td>
+                {        console.log("aaaaaaa ", category)}
+                <td><Button color='danger' onClick=
+                {() =>{
+                    this.handleDeleteCategory(category._id)
+
+                    console.log(" inside deleteee ", category._id)
+
+                }
+
+                
+                }>Delete</Button></td>
                 <td><Button color='success' onClick={() => this.toggle(category._id)}>Edit</Button></td>
             </tr>
         ) : error 
@@ -169,7 +184,7 @@ class CategoriesView extends Component {
                         </ModalBody>
                         <ModalFooter>
                             <Button color="primary" onClick={() => this.handleUpdateCategory()}>Edit
-                                Category</Button>{' '}
+                                Category</Button>
                             <Button color="secondary" onClick={() => this.toggle(null)}>Close</Button>
                         </ModalFooter>
                     </Modal>
