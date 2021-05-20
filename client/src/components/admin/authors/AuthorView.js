@@ -435,29 +435,29 @@ class AuthorView extends Component {
 //                                 console.log({ err });
 //                                 this.setState({ error: 'Error Delete Operation' })
 //                             })
-//   handleDeleteAuthor = (deletedId) => {
-//     // const token = localStorage.token;
-//     // if (token) {
-//     //   const conf = {
-//     //     headers: {
-//     //       "x-auth": token,
-//     //     },
-//     //   };
-//     axios
-//       .delete(`http://localhost:8000/authors/${deletedId}`)
-//       .then((res) => {
-//         console.log(res);
-//         this.setState({
-//           authors: this.state.authors.filter(
-//             (author) => author._id !== deletedId
-//           ),
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//     this.setState({ error: "Error Delete Operation" });
-//   };
+  handleDeleteAuthor = (deletedId) => {
+    // const token = localStorage.token;
+    // if (token) {
+    //   const conf = {
+    //     headers: {
+    //       "x-auth": token,
+    //     },
+    //   };
+    axios
+      .delete(`http://localhost:8000/authors/${deletedId}`)
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          authors: this.state.authors.filter(
+            (author) => author._id !== deletedId
+          ),
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    this.setState({ error: "Error Delete Operation" });
+  };
 
   componentDidMount() {
     // const token = localStorage.token;
