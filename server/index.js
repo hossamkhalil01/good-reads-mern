@@ -39,7 +39,7 @@ require("./utils/passport")(passport);
 app.use(passport.initialize());
 
 // add resources routers
-app.use("/authentication", require("./routes/authentication"));
+app.use("/auth", require("./routes/authentication"));
 app.use(
   "/users",
   passport.authenticate("jwt", { session: false }),

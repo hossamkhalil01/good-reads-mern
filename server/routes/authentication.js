@@ -21,7 +21,10 @@ Router.post("/login", async (req, res) => {
     if (!user)
       return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
 
-    var passwordIsValid = bcrypt.compare(req.body.password, user.password);
+    var passwordIsValid = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
 
     if (!passwordIsValid) {
       return sendError(
@@ -32,6 +35,7 @@ Router.post("/login", async (req, res) => {
     }
 
     const jwt = issueJWT.issueJWT(user);
+    delete user._doc.password;
 
     return sendResponse(
       res,
@@ -49,9 +53,10 @@ Router.post("/login", async (req, res) => {
 
 Router.post("/register", async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    let user = await User.create(req.body);
     const jwt = issueJWT.issueJWT(user);
 
+    delete user._doc.password;
     return sendResponse(
       res,
       { user: user, token: jwt.token, expiresIn: jwt.expires },

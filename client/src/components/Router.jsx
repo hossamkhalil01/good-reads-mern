@@ -1,24 +1,26 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import PrivateRoute from "../components/PrivateRoute";
 import Register from "../components/Register";
-import Home from "../pages/HomePage";
+import Home from "../pages/HomePage.jsx";
+import Landing from "../pages/userLandingPage";
 
 export default function Router() {
-  const [authenticated, setAuthenticated] = React.useState(false);
-  const [token, setToken] = React.useState();
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/register">
-          <Register setAuthenticated={setAuthenticated} />
+          <Register />
         </Route>
-        {authenticated ? (
-          <Route path="/">
-            <Home />
-          </Route>
-        ) : (
-          <Redirect to="/register"></Redirect>
-        )}
+        <Route path="/home">
+          <Home />
+        </Route>
+        <PrivateRoute path="/landing">
+          <Landing />
+        </PrivateRoute>
+        <Route path="/">
+          <Redirect to="/home"></Redirect>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

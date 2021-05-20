@@ -6,7 +6,7 @@ const secret = process.env.SECRETKEY;
 function issueJWT(user) {
   const _id = user._id;
 
-  const expiresIn = "1d";
+  const expiresIn = "30d";
 
   const payload = {
     sub: _id,

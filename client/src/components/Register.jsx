@@ -8,30 +8,17 @@ import {
   InputLabel,
   Paper,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import axios from "axios";
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { AuthURL } from "../api/urls";
+import setLocalStorage from "../services/authService";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: "25ch",
-  },
-}));
+const Register = () => {
+  let history = useHistory();
 
-const Register = ({ setAuthenticated }) => {
-  const classes = useStyles();
   const [formValues, setFormValues] = React.useState({
     email: "",
     password: "",
@@ -80,15 +67,19 @@ const Register = ({ setAuthenticated }) => {
       lastName: formValues.lastName,
       password: formValues.password,
     };
-    axios
-      .post("http://127.0.0.1:8000/authentication/register", data)
-      .then((res) => {
-        console.log(res);
-      });
+    axios.post(`${AuthURL}register`, data).then((res) => {
+      setLocalStorage(res.data.data);
+      history.push("/landing");
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate encType="multipart/form-data">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      encType="multipart/form-data"
+      className="mt-5"
+    >
       <Paper style={{ padding: 16, maxWidth: 600 }} elevation={3}>
         <Grid container alignItems="flex-start" justify="center" spacing={2}>
           <Grid item xs={6}>
@@ -216,6 +207,3 @@ const Register = ({ setAuthenticated }) => {
 };
 
 export default Register;
-// Register.propTypes = {
-//   setAuthenticated: PropTypes.func.isRequired,
-// };
