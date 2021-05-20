@@ -435,6 +435,9 @@ class AuthorView extends Component {
 //                                 console.log({ err });
 //                                 this.setState({ error: 'Error Delete Operation' })
 //                             })
+
+
+//Delete Author
   handleDeleteAuthor = (deletedId) => {
     // const token = localStorage.token;
     // if (token) {
