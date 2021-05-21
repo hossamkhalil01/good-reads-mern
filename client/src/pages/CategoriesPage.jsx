@@ -34,8 +34,8 @@ const Categories = () => {
           <div className="row">
             {books.length > 0 ? (
               books.map((book) => (
-                <div key={book?._id} className="col-4">
-                  <Card object={book} />
+                <div key={book?._id} className="col-4 mb-3">
+                  <Card type="book" object={book} />
                 </div>
               ))
             ) : (
