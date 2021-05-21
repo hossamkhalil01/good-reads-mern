@@ -10,77 +10,59 @@ const {
 
 // use the get user middleware
 
-const getShelfBook = async (req, res) => {
-  const users = req.user;
-  return sendResponse(res, users, statusCodes.success.ok);
+const getUserShelf = async (req, res) => {
+  const user = req.user;
+  return sendResponse(res, user.shelf, statusCodes.success.ok);
 };
 
-const getUser = async (req, res) => {
-  const id = req.params.id;
+const updateBookStatus = async (req, res) => {
 
+  let user = req.user;
+  const bookId = req.params.bookId;
+  const status = req.body.status;
+
+  // search for the user's shelf
+  const bookIndx = getBookIndex(user.shelf, bookId);
+
+  // update or create book status if not found
+  if (bookIndx === false) {
+    user.shelf.push({ book: bookId, status });
+  } else {
+    user.shelf[bookIndx].status = status;
+  }
+  // save the changes
   try {
-    const user = await User.findOne({ _id: id });
-    // user not found
-    if (!user)
-      return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
-
+    await user.save();
     return sendResponse(res, user, statusCodes.success.ok);
   } catch (error) {
-    return sendError(
-      res,
-      errorMessages.notFound,
-      statusCodes.error.invalidData
-    );
-  }
-};
-
-const createUser = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    return sendResponse(res, user, statusCodes.success.created);
-  } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
   }
-};
 
-const deleteUser = async (req, res) => {
-  const id = req.params.id;
+}
+
+const deleteShelfBook = async (req, res) => {
+
+  let user = req.user;
+  const bookId = req.params.bookId;
 
   try {
-    const deletedUser = await User.findOneAndDelete({ _id: id });
-
-    // user not found
-    if (!deletedUser)
-      return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
-
-    // deleted
+    user.shelf.pull({ book: bookId });
+    user.save();
     return sendResponse(res, {}, statusCodes.success.noContent);
   } catch (error) {
-    // invalid params
-    return sendError(res, error.message, statusCodes.error.invalidData);
+    return sendError(res, error.message, statusCodes.error.notFound);
   }
-};
+}
 
-const updateUser = async (req, res) => {
-  const id = req.params.id;
-  const updates = req.body;
+const getBookIndex = (shelf, bookId) => {
 
-  try {
-    const updatedUser = await User.findOneAndUpdate({ _id: id }, updates, {
-      new: true,
-      runValidators: true,
-    });
+  const bookIndx = shelf.findIndex(({ book }) => book == bookId);
 
-    // user not found
-    if (!updatedUser)
-      return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
+  // not found
+  if (bookIndx === -1) return false;
 
-    // updated
-    return sendResponse(res, updatedUser, statusCodes.success.ok);
-  } catch (error) {
-    // invalid params
-    return sendError(res, error.message, statusCodes.error.invalidData);
-  }
-};
+  return bookIndx;
+}
 
-module.exports = { getShelfBook };
+
+module.exports = { getUserShelf, updateBookStatus, deleteShelfBook };

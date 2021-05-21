@@ -2,6 +2,35 @@ const mongoose = require("mongoose");
 const passwordHash = require("../middlewares/passwordHash");
 const iDValidator = require("mongoose-id-validator");
 
+
+// create shelf schema
+const createShelfSchema = () => {
+  // create shelf schema 
+  shelfSchema = new mongoose.Schema({
+    book: {
+      type: "ObjectId",
+      ref: "Book",
+
+    },
+    status: {
+      type: String,
+      enum: ["Read", "Currently Reading", "Want To Read"],
+      default: "Want To Read",
+    }
+  }, { _id: false });
+
+
+  // add ref id validator
+  shelfSchema.plugin(iDValidator, {
+    message: "Invalid reference , record not found",
+  });
+
+  return shelfSchema;
+}
+
+
+
+// create user schema
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -40,19 +69,7 @@ const userSchema = new mongoose.Schema({
     default: "default.png",
   },
 
-  shelf: [
-    {
-      book: {
-        type: "ObjectId",
-        ref: "Book",
-      },
-      status: {
-        type: String,
-        enum: ["Read", "Currently Reading", "Want To Read"],
-        default: "Want To Read",
-      },
-    },
-  ],
+  shelf: [createShelfSchema()],
 });
 
 // define unique index for email
@@ -65,5 +82,6 @@ userSchema.pre("save", passwordHash);
 userSchema.plugin(iDValidator, {
   message: "Invalid reference , record not found",
 });
+
 
 module.exports = mongoose.model("User", userSchema);
