@@ -13,11 +13,11 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import axios from "axios";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import { AuthURL } from "../api/urls";
 import setLocalStorage from "../services/authService";
 
-const Register = () => {
+const Register = (props) => {
   let history = useHistory();
 
   const [formValues, setFormValues] = React.useState({
@@ -156,6 +156,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!errorsExist) {
       const data = {
         email: formValues.email,
@@ -167,7 +168,7 @@ const Register = () => {
         .post(`${AuthURL}register`, data)
         .then((res) => {
           setLocalStorage(res.data.data);
-          history.push("/landing");
+          history.push(props.location.state.referer);
         })
         .catch((err) => {
           const msg = err.response.data.message;
@@ -339,4 +340,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default withRouter(Register);
