@@ -22,6 +22,7 @@ Router.get("/:id", booksController.getBook);
 GET 
 Route: / 
 Results: All Books
+Query Params: catgoryId (optional: if not defined it returns all books)
 **/
 Router.get("/", booksController.getBooks);
 

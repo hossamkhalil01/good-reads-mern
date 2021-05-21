@@ -12,8 +12,6 @@ function App() {
           Material UI
         </PrimeButton>
       </div>
-      <div>
-      </div>
     </div>
   );
 }
