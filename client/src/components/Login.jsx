@@ -101,7 +101,6 @@ const Login = (props) => {
           }
         })
         .catch((err) => {
-          console.log(err);
           const msg = err.response.data.message;
           checkServerValidation(msg);
         });

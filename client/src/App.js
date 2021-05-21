@@ -1,7 +1,9 @@
 import "./App.css";
 import Router from "./components/Router";
+import { checkTokenValid } from "./services/authService";
 
 function App() {
+  checkTokenValid();
   return (
     <div className="App">
       {/* <h4 className="text-center mb-5">Testing Libraries: </h4>
