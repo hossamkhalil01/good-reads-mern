@@ -8,9 +8,8 @@ export const bookStatus = {
 }
 
 
-
-export const updateUserBookStatus = (userId, bookId) => {
+export const updateUserBookStatus = (userId, bookId, status) => {
   return requests
-    .putResource(`users/${userId}/rates?userId=${userId}`, {}, {  })
+    .putResource(`users/${userId}/shelf/${bookId}`, {}, { status })
     .then((res) => res.json());
 }

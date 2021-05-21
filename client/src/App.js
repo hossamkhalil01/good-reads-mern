@@ -1,6 +1,5 @@
-import "./App.css";
-import UserBookStatus from "./components/UserBookStatus";
 import PrimeButton from "@material-ui/core/Button";
+import "./App.css";
 
 function App() {
   return (
@@ -14,9 +13,6 @@ function App() {
         </PrimeButton>
       </div>
       <div>
-        <UserBookStatus book="60a1b9a00e48961779fbce0a" status="Read" onStatusChange={selected => { console.log(selected) }}> </UserBookStatus>
-        {/* <Rate readOnly={true} />
-        <Rate /> */}
       </div>
     </div>
   );
