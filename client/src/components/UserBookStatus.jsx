@@ -1,0 +1,38 @@
+import { Select } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+import { useState } from "react";
+import { bookStatus, updateUserBookStatus } from '../services/userBookService';
+
+const userId = "60a7eddc7adbbe201c4cd554"
+
+export default function UserBookStatus({ bookId, status, onStatusChange }) {
+
+  const [selected, setSelected] = useState(status ? status : '');
+
+  const handleChange = async (event) => {
+
+    const newSelection = event.target.value;
+
+    // send update request & update selection
+    updateUserBookStatus(userId, bookId, newSelection)
+      .then(res => setSelected(newSelection))
+
+    // emit event to parent
+    onStatusChange(newSelection);
+  }
+
+  return (
+    <Select
+      value={selected}
+      onChange={handleChange}
+      displayEmpty
+      inputProps={{ 'aria-label': 'Without label' }}
+
+    >
+      {/* construct the menu items */}
+      {Object.values(bookStatus)
+        .map(status => <MenuItem key={status} value={status}>{status}</MenuItem>)}
+
+    </Select>
+  )
+}
