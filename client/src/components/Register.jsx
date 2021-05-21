@@ -168,7 +168,11 @@ const Register = (props) => {
         .post(`${AuthURL}register`, data)
         .then((res) => {
           setLocalStorage(res.data.data);
-          history.push(props.location.state.referer);
+          if (props.location.state) {
+            history.push(props.location.state.referer);
+          } else {
+            history.push("/landing");
+          }
         })
         .catch((err) => {
           const msg = err.response.data.message;
