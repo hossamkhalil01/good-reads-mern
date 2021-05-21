@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../components/PrivateRoute";
-import Register from "../components/Register";
 import Home from "../pages/HomePage.jsx";
+import Registration from "../pages/Registration";
 import Landing from "../pages/userLandingPage";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/register">
-          <Register />
+        <Route path="/registration">
+          <Registration />
         </Route>
-        <Route path="/home">
+        <PrivateRoute path="/home">
           <Home />
-        </Route>
+        </PrivateRoute>
         <PrivateRoute path="/landing">
           <Landing />
         </PrivateRoute>

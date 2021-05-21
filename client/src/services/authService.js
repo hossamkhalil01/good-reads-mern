@@ -3,8 +3,7 @@ import moment from "moment";
 import { BaseURL } from "../api/urls";
 
 export function setLocalStorage(responseObj) {
-  const expires = moment().add(responseObj.expiresIn);
-
+  const expires = moment().add(Number.parseInt(responseObj.expiresIn), "days");
   localStorage.setItem("token", responseObj.token);
   localStorage.setItem("expiresIn", JSON.stringify(expires.valueOf()));
   localStorage.setItem("user", JSON.stringify(responseObj.user));
@@ -17,8 +16,14 @@ export function logout() {
 }
 
 function getExpiration() {
-  const expires = JSON.parse(localStorage.getItem("expires"));
+  const expires = JSON.parse(localStorage.getItem("expiresIn"));
   return moment(expires);
+}
+
+export function checkTokenValid() {
+  if (!moment().isBefore(getExpiration(), "second")) {
+    logout();
+  }
 }
 
 const accessToken = localStorage.getItem("token");
