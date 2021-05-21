@@ -24,7 +24,21 @@ const getBook = async (req, res) => {
 };
 
 const getBooks = async (req, res) => {
+  const catgoryId = req.query.catgoryId;
+  if (!catgoryId || catgoryId === "1") return getAllBooks(req, res);
+
+  getBooksByCatgoryId(req, res, catgoryId);
+};
+
+const getAllBooks = async (req, res) => {
   const books = await Book.find().populate("authors").populate("categories");
+  return sendResponse(res, books, statusCodes.success.ok);
+};
+
+const getBooksByCatgoryId = async (req, res, catgoryId) => {
+  const books = await Book.find({ categories: catgoryId })
+    .populate("authors")
+    .populate("categories");
   return sendResponse(res, books, statusCodes.success.ok);
 };
 

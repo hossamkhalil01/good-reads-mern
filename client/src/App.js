@@ -1,7 +1,7 @@
 import "./App.css";
 import PrimeButton from "@material-ui/core/Button";
 import Rate from "./components/Rating";
-
+import Categories from "./pages/CategoriesPage";
 function App() {
   return (
     <div className="App">
@@ -16,6 +16,9 @@ function App() {
       <div>
         <Rate readOnly={true} />
         <Rate />
+      </div>
+      <div>
+        <Categories />
       </div>
     </div>
   );
