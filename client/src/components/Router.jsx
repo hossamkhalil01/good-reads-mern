@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../components/PrivateRoute";
+import Categories from "../pages/CategoriesPage";
 import Home from "../pages/HomePage.jsx";
 import Registration from "../pages/Registration";
 import Landing from "../pages/userLandingPage";
@@ -11,6 +12,9 @@ export default function Router() {
       <Switch>
         <Route path="/registration">
           <Registration />
+        </Route>
+        <Route path="/categories">
+          <Categories />
         </Route>
         <PrivateRoute path="/home">
           <Home />
