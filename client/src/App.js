@@ -1,17 +1,12 @@
-import PrimeButton from "@material-ui/core/Button";
 import "./App.css";
+import Router from "./components/Router";
+import { checkTokenValid } from "./services/authService";
 
 function App() {
+  checkTokenValid();
   return (
     <div className="App">
-      <h3 className="text-center"> Good Reads Running!</h3>
-      <h4 className="text-center mb-5">Testing Libraries: </h4>
-      <button className="btn btn-primary mb-3 text-center">Bootstrap </button>
-      <div>
-        <PrimeButton variant="contained" color="primary">
-          Material UI
-        </PrimeButton>
-      </div>
+      <Router />
     </div>
   );
 }

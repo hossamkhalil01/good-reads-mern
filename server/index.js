@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const configs = require("./configs");
+const passport = require("passport");
 
 const app = express();
 
@@ -33,9 +34,29 @@ mongoose
 // add middlewares
 app.use(express.json());
 app.use(cors());
+require("./utils/passport")(passport);
+
+app.use(passport.initialize());
 
 // add resources routers
-app.use("/users", require("./routes/users"));
-app.use("/books", require("./routes/books"));
-app.use("/categories", require("./routes/categories"));
-app.use("/authors", require("./routes/authors"));
+app.use("/auth", require("./routes/authentication"));
+app.use(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  require("./routes/users")
+);
+app.use(
+  "/books",
+  passport.authenticate("jwt", { session: false }),
+  require("./routes/books")
+);
+app.use(
+  "/categories",
+  passport.authenticate("jwt", { session: false }),
+  require("./routes/categories")
+);
+app.use(
+  "/authors",
+  passport.authenticate("jwt", { session: false }),
+  require("./routes/authors")
+);

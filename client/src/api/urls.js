@@ -1,4 +1,5 @@
 export const hostUrl = "http://localhost:8000/";
+export const authUrl = `${hostUrl}auth/`;
 
 // resources base url
 export const booksBase = hostUrl + "books/";
