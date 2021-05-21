@@ -19,7 +19,7 @@ export default function Router() {
           <Landing />
         </PrivateRoute>
         <Route path="/">
-          <Redirect to="/home"></Redirect>
+          <Redirect to="/landing"></Redirect>
         </Route>
       </Switch>
     </BrowserRouter>

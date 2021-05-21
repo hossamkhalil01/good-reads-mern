@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  FormHelperText,
   Grid,
   IconButton,
   Input,
@@ -30,8 +31,62 @@ const Register = () => {
     showPassword: false,
     showConfirmPassword: false,
   });
+  const [formValidations, setFormValidations] = React.useState({
+    email: { err: false, msg: "" },
+    password: { err: false, msg: "" },
+    firstName: { err: false, msg: "" },
+    lastName: { err: false, msg: "" },
+    confirmPassword: { err: false, msg: "" },
+  });
+  const [errorsExist, setErrorsExist] = React.useState(false);
 
   const handleChange = (prop) => (event) => {
+    if (!event.target.value) {
+      setFormValidations({
+        ...formValidations,
+        [prop]: { err: true, msg: "This field is required" },
+      });
+      setErrorsExist(true);
+    } else if (prop === "email") {
+      if (
+        !event.target.value.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
+      ) {
+        setFormValidations({
+          ...formValidations,
+          email: { err: true, msg: "Please enter a valid email." },
+        });
+        setErrorsExist(true);
+      } else {
+        setFormValidations({
+          ...formValidations,
+          email: { err: false, msg: "" },
+        });
+        setErrorsExist(false);
+      }
+    } else if (prop === "confirmPassword" || prop === "password") {
+      if (formValues.password !== event.target.value) {
+        setFormValidations({
+          ...formValidations,
+          password: { err: true, msg: "Passwords don't match." },
+          confirmPassword: { err: true, msg: "" },
+        });
+        setErrorsExist(true);
+      } else {
+        setFormValidations({
+          ...formValidations,
+          password: { err: false, msg: "" },
+          confirmPassword: { err: false, msg: "" },
+        });
+        setErrorsExist(false);
+      }
+    } else {
+      setFormValidations({
+        ...formValidations,
+        [prop]: { err: false, msg: "" },
+      });
+      setErrorsExist(false);
+    }
+
     setFormValues({ ...formValues, [prop]: event.target.value });
   };
 
@@ -58,25 +113,72 @@ const Register = () => {
     });
   };
 
+  const checkServerValidation = (msg) => {
+    const errors = msg.split("User validation failed: ");
+    const errsArray = errors[1].split(", ");
+
+    let emailErr = false;
+    let emailMsg = "";
+    let passErr = false;
+    let passMsg = "";
+    let firstNameErr = false;
+    let firstNameMsg = "";
+    let lastNameErr = false;
+    let lastNameMsg = "";
+
+    for (const e of errsArray) {
+      if (e.includes("email")) {
+        emailErr = true;
+        emailMsg = e.split("email: ");
+      }
+      if (e.includes("password")) {
+        passErr = true;
+        passMsg = e.split("password: ");
+      }
+      if (e.includes("firstName")) {
+        firstNameErr = true;
+        firstNameMsg = e.split("firstName: ");
+      }
+      if (e.includes("lastName")) {
+        lastNameErr = true;
+        lastNameMsg = e.split("lastName: ");
+      }
+    }
+    setFormValidations({
+      ...formValidations,
+      firstName: { err: firstNameErr, msg: firstNameMsg },
+      lastName: { err: lastNameErr, msg: lastNameMsg },
+      email: { err: emailErr, msg: emailMsg },
+      password: { err: passErr, msg: passMsg },
+    });
+    setErrorsExist(true);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues);
-    const data = {
-      email: formValues.email,
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      password: formValues.password,
-    };
-    axios.post(`${AuthURL}register`, data).then((res) => {
-      setLocalStorage(res.data.data);
-      history.push("/landing");
-    });
+    if (!errorsExist) {
+      const data = {
+        email: formValues.email,
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        password: formValues.password,
+      };
+      axios
+        .post(`${AuthURL}register`, data)
+        .then((res) => {
+          setLocalStorage(res.data.data);
+          history.push("/landing");
+        })
+        .catch((err) => {
+          const msg = err.response.data.message;
+          checkServerValidation(msg);
+        });
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      noValidate
       encType="multipart/form-data"
       className="mt-5"
     >
@@ -90,9 +192,15 @@ const Register = () => {
               <Input
                 id="firstName"
                 value={formValues.firstName}
+                onBlur={handleChange("firstName")}
                 onChange={handleChange("firstName")}
+                error={formValidations.firstName.err}
+                required
               />
             </FormControl>
+            <FormHelperText error={formValidations.firstName.err}>
+              {formValidations.firstName.msg}
+            </FormHelperText>
           </Grid>
           <Grid item xs={6}>
             <FormControl fullWidth>
@@ -101,9 +209,16 @@ const Register = () => {
               </InputLabel>
               <Input
                 id="lastName"
+                type="text"
                 value={formValues.lastName}
                 onChange={handleChange("lastName")}
+                onBlur={handleChange("lastName")}
+                error={formValidations.lastName.err}
+                required
               />
+              <FormHelperText error={formValidations.lastName.err}>
+                {formValidations.lastName.msg}
+              </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
@@ -115,8 +230,14 @@ const Register = () => {
                 id="email"
                 type="email"
                 value={formValues.email}
+                onBlur={handleChange("email")}
                 onChange={handleChange("email")}
+                error={formValidations.email.err}
+                required
               />
+              <FormHelperText error={formValidations.email.err}>
+                {formValidations.email.msg}
+              </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={6}>
@@ -128,7 +249,10 @@ const Register = () => {
                 id="password"
                 type={formValues.showPassword ? "text" : "password"}
                 value={formValues.password}
+                onBlur={handleChange("password")}
                 onChange={handleChange("password")}
+                error={formValidations.password.err}
+                required
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -145,6 +269,9 @@ const Register = () => {
                   </InputAdornment>
                 }
               />
+              <FormHelperText error={formValidations.password.err}>
+                {formValidations.password.msg}
+              </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={6}>
@@ -156,7 +283,10 @@ const Register = () => {
                 id="confirm-password"
                 type={formValues.showConfirmPassword ? "text" : "password"}
                 value={formValues.confirmPassword}
+                onBlur={handleChange("confirmPassword")}
                 onChange={handleChange("confirmPassword")}
+                error={formValidations.confirmPassword.err}
+                required
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -173,6 +303,9 @@ const Register = () => {
                   </InputAdornment>
                 }
               />
+              <FormHelperText error={formValidations.confirmPassword.err}>
+                {formValidations.confirmPassword.msg}
+              </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
