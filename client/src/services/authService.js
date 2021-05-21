@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import { BaseURL } from "../api/urls";
 
-export default function setLoclaStorage(responseObj) {
+export function setLocalStorage(responseObj) {
   const expires = moment().add(responseObj.expiresIn);
 
   localStorage.setItem("token", responseObj.token);
@@ -10,9 +10,9 @@ export default function setLoclaStorage(responseObj) {
   localStorage.setItem("user", JSON.stringify(responseObj.user));
 }
 
-function logout() {
+export function logout() {
   localStorage.removeItem("token");
-  localStorage.removeItem("expires");
+  localStorage.removeItem("expiresIn");
   localStorage.removeItem("user");
 }
 
