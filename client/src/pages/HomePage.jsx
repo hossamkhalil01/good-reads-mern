@@ -1,5 +1,5 @@
-import CategoriesPage from './CategoriesPage';
+import AuthorsPage from './AuthorsPage';
 
 export default function home() {
-  return <CategoriesPage></CategoriesPage>;
+  return <AuthorsPage></AuthorsPage>;
 }

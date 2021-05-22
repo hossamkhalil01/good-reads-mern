@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import Rating from "@material-ui/lab/Rating";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-import services from "../services/rateService";
+import Rating from "@material-ui/lab/Rating";
+import { useEffect, useState } from "react";
+import services from "../services/ratesService";
 
 const UserRate = ({ userId, bookId, onSetRate }) => {
   const [rate, setRate] = useState(0);
 
   useEffect(() => {
     const getUserRate = async () => {
-      const { data } = await services.userRate(bookId, userId);
+      const { data: { data } } = await services.userRate(bookId, userId);
       setRate(data.rating || 0);
     };
     getUserRate();

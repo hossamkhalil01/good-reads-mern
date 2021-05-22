@@ -1,13 +1,13 @@
-import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
-import {getRates} from "../services/rateService";
+import Rating from "@material-ui/lab/Rating";
 import { useEffect, useState } from "react";
+import { getRates } from "../services/ratesService";
 
 const AvgRate = ({ bookId }) => {
   const [rate, setRate] = useState({});
   useEffect(() => {
     const getAvgRate = async () => {
-      const { data } = await getRates(bookId);
+      const { data: { data } } = await getRates(bookId);
       setRate(data);
     };
     getAvgRate();

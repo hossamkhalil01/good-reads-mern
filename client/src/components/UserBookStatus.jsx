@@ -1,7 +1,7 @@
 import { Select } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useState } from "react";
-import { bookStatus, updateUserBookStatus } from '../services/userBookService';
+import { bookStatus, updateUserBookStatus } from '../services/userBooksService';
 
 const userId = "60a7eddc7adbbe201c4cd554"
 
