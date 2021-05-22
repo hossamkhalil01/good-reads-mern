@@ -40,7 +40,9 @@ const getBooks = async (req, res) => {
   }
 
   try {
+    // get the books
     const books = await Book.paginate(filter, options)
+    // build the resulting object
     return sendResponse(res, books, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
