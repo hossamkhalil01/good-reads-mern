@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const iDValidator = require("mongoose-id-validator");
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 
 reviewSchema = new mongoose.Schema({
   review: {
@@ -17,6 +19,9 @@ reviewSchema = new mongoose.Schema({
 reviewSchema.plugin(iDValidator, {
   message: "Invalid reference , record not found",
 });
+
+// Add pagination plugin
+reviewSchema.plugin(mongoosePaginate);
 
 // define unique index for user and book
 reviewSchema.index({ user: 1, book: 1 }, { unique: true });
