@@ -1,34 +1,19 @@
 import requests from "../api/requests";
+import { getRatesUrl } from "../api/urls";
 
-const getRates = (bookId) => {
-  return requests
-    .getResource(`books/${bookId}/rates`)
-    .then((res) => res.json());
+export const getRates = async (bookId) => {
+  return await requests.get(getRatesUrl(bookId))
 };
 
-const userRate = (bookId, userId) => {
-  return requests
-    .getResource(`books/${bookId}/rates?userId=${userId}`)
-    .then((res) => res.json());
+export const userRate = async (bookId, userId) => {
+  return await requests.get(getRatesUrl(bookId), { userId })
 };
 
-const updateUserRate = (bookId, userId, rating) => {
-  return requests
-    .putResource(`books/${bookId}/rates?userId=${userId}`, {}, { rating })
-    .then((res) => res.json());
+export const updateUserRate = async (bookId, userId, rating) => {
+  return await requests.patch(getRatesUrl(bookId), { rating }, { userId })
+
 };
 
-const addUserRate = (bookId, userId, rating) => {
-  return requests
-    .postResource(`books/${bookId}/rates`, {}, { userId, rating })
-    .then((res) => res.json());
+export const addUserRate = async (bookId, userId, rating) => {
+  return await requests.post(getRatesUrl(bookId), { rating }, { userId })
 };
-
-const exports = {
-  getRates,
-  userRate,
-  updateUserRate,
-  addUserRate,
-};
-
-export default exports;

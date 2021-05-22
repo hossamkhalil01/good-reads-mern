@@ -1,3 +1,5 @@
+import CategoriesPage from './CategoriesPage';
+
 export default function home() {
-  return <h1>Home</h1>;
+  return <CategoriesPage></CategoriesPage>;
 }

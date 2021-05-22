@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import services from "../services/categoriesService";
+import {getCategories} from "../services/categoriesService";
 
 const Category = ({ setCategory, selectedCatgory }) => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    getCategories();
+    getAllCategories();
   }, []);
 
-  const getCategories = async () => {
-    const { data } = await services.getCategories();
+  const getAllCategories = async () => {
+    const { data } = await getCategories();
     setCategories(data);
   };
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Category from "../components/Categories";
-import services from "../services/booksService";
+import {getBooksByCatgoryId} from "../services/booksService";
 const Categories = () => {
   const [category, setCategory] = useState({
     _id: "1",
@@ -15,7 +15,7 @@ const Categories = () => {
   }, [category]);
 
   const getFilterdBooks = async (categoryId) => {
-    const { data } = await services.getBooksByCatgoryId(categoryId);
+    const { data } = await getBooksByCatgoryId(categoryId);
     setBooks(data);
   };
 

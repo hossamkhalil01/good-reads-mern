@@ -1,5 +1,5 @@
 import requests from "../api/requests";
-
+import { getShelfBookUrl } from "../api/urls";
 
 export const bookStatus = {
   'reading': 'Read',
@@ -7,9 +7,6 @@ export const bookStatus = {
   'want': 'Want To Read'
 }
 
-
-export const updateUserBookStatus = (userId, bookId, status) => {
-  return requests
-    .putResource(`users/${userId}/shelf/${bookId}`, {}, { status })
-    .then((res) => res.json());
+export const updateUserBookStatus = async (userId, bookId, status) => {
+  return await requests.patch(getShelfBookUrl(userId, bookId), { status })
 }

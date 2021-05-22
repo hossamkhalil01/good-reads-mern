@@ -1,11 +1,5 @@
 import requests from "../api/requests";
 
-const getAuthors = () => {
-  return requests.getResource(`authors`).then((res) => res.json());
+export const getAuthors = async () => {
+  return await requests.get('authors');
 };
-
-const exports = {
-  getAuthors,
-};
-
-export default exports;
