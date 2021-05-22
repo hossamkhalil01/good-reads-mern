@@ -1,38 +1,39 @@
 import { useEffect, useState } from "react";
-import {getCategories} from "../services/categoriesService";
+import { getCategories } from "../services/categoriesService";
 
-const Category = ({ setCategory, selectedCatgory }) => {
+const Category = ({ onSetCategory, selectedCatgory }) => {
+
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
+
+    const getAllCategories = async () => {
+      const { data: { data } } = await getCategories();
+      setCategories(data);
+    };
     getAllCategories();
   }, []);
 
-  const getAllCategories = async () => {
-    const { data } = await getCategories();
-    setCategories(data);
-  };
+
   return (
     <ul className="list-group">
       <li
         onClick={() =>
-          setCategory({
-            _id: "1",
+          onSetCategory({
             label: "all",
           })
         }
-        className={`list-group-item ${
-          selectedCatgory === "all" ? "active" : ""
-        }`}
+        className={`list-group-item ${selectedCatgory === "all" ? "active" : ""
+          }`}
       >
         All
       </li>
       {categories.map((category) => (
         <li
           key={category?._id}
-          className={`list-group-item ${
-            selectedCatgory === category?.label ? "active" : ""
-          }`}
-          onClick={() => setCategory(category)}
+          className={`list-group-item ${selectedCatgory === category?.label ? "active" : ""
+            }`}
+          onClick={() => onSetCategory(category)}
         >
           {category?.label}
         </li>

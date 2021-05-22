@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Category from "../components/Categories";
-import {getBooksByCatgoryId} from "../services/booksService";
+import { getBooksByCatgoryId } from "../services/booksService";
 const Categories = () => {
   const [category, setCategory] = useState({
-    _id: "1",
     label: "all",
   });
 
@@ -15,7 +14,7 @@ const Categories = () => {
   }, [category]);
 
   const getFilterdBooks = async (categoryId) => {
-    const { data } = await getBooksByCatgoryId(categoryId);
+    const { data: { data } } = await getBooksByCatgoryId(categoryId);
     setBooks(data);
   };
 
@@ -26,7 +25,7 @@ const Categories = () => {
           <aside>
             <Category
               selectedCatgory={category?.label}
-              setCategory={setCategory}
+              onSetCategory={setCategory}
             />
           </aside>
         </div>
@@ -40,7 +39,7 @@ const Categories = () => {
               ))
             ) : (
               <div className="alert alert-info">
-                <h3 className="text-center">no books in this category</h3>
+                <h3 className="text-center">No books in this category</h3>
               </div>
             )}
           </div>
