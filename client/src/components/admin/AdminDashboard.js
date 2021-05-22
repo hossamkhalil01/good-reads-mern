@@ -3,7 +3,7 @@ import { TabContent, TabPane, Button, Nav, NavItem, NavLink, Col } from 'reactst
 import classnames from 'classnames';
 import CategoriesView from '../admin/categories/CategoriesView'
 import AuthorView from '../admin/authors/AuthorView'
-// import BookView from '../components/BookView'
+import BookView from '../admin/books/BookView'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom'
 // import '../css/AdminLogin.css';
@@ -103,7 +103,7 @@ export default class Example extends React.Component {
                         </TabPane>
                         <TabPane tabId="2">
                             <Col sm="12">
-                                {/* <BookView categories={this.state.categories} authors={this.state.authors} /> */}
+                              <BookView categories={this.state.categories} authors={this.state.authors} /> 
                             </Col>
                         </TabPane>
                         <TabPane tabId="3">

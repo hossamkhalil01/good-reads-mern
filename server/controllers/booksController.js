@@ -28,15 +28,39 @@ const getBooks = async (req, res) => {
   return sendResponse(res, books, statusCodes.success.ok);
 };
 
-const createBook = async (req, res) => {
-  try {
-    const book = await Book.create(req.body);
-    return sendResponse(res, book, statusCodes.success.created);
-  } catch (error) {
-    return sendError(res, error.message, statusCodes.error.invalidData);
-  }
-};
+const createBook = (req, res) => {
+  const body = JSON.parse(req.body.body);
 
+  const coverImage = req.file.destination + req.file.filename;
+  console.log("cover Image ....",coverImage);
+  const title = body.title;
+  const authors = body.authors;
+  const categories = body.categories;
+  const description = body.description;
+  Book.findOne({ title }).then((book) => {
+    if (book) {
+      return res.status(400).send({ err: "already exists" });
+    } else {
+     
+      const book = new Book({
+        title,
+        authors,
+        categories,
+        coverImage,
+        description,
+      });
+      book
+        .save()
+        .then(() => {
+          return sendResponse(res, book, statusCodes.success.created)
+        })
+        .catch((e) => {
+          console.log("e" , e);
+          res.status(404).send({ msg: "error" });
+        });
+    }
+  });
+};
 const deleteBook = async (req, res) => {
   const id = req.params.id;
 
@@ -55,8 +79,13 @@ const deleteBook = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
+  console.log(req.body);
   const id = req.params.id;
-  const updates = req.body;
+  let updates = JSON.parse(req.body.body);
+  if (req.file) {
+    const coverPhoto = req.file.destination + req.file.filename;
+    updates.coverImage = coverPhoto;
+  }
 
   try {
     const updatedBook = await Book.findOneAndUpdate({ _id: id }, updates, {
@@ -65,7 +94,7 @@ const updateBook = async (req, res) => {
     })
       .populate("authors")
       .populate("categories");
-
+    console.log(updatedBook);
     // catrgory not found
     if (!updatedBook)
       return sendError(res, errorMessages.notFound, statusCodes.error.notFound);

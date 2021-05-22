@@ -34,6 +34,7 @@ mongoose
 app.use(express.json());
 app.use(cors());
 
+app.use("/public",express.static('public/'));
 // add resources routers
 app.use("/users", require("./routes/users"));
 app.use("/books", require("./routes/books"));

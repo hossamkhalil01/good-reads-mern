@@ -4,15 +4,15 @@ const authorSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: "First name is required",
-    minLength: [2, "First name must be at least 3 chars"],
-    maxLength: [10, "First name must not exceed 10 chars"],
+    minLength: [2, "First name must be at least 2 chars"],
+    maxLength: [20, "First name must not exceed 20 chars"],
     trim: true,
   },
   lastName: {
     required: "Last name is required",
     type: String,
-    minLength: [2, "Last name must be at least 3 chars"],
-    maxLength: [10, "Last name must not exceed 10 chars"],
+    minLength: [2, "Last name must be at least 2 chars"],
+    maxLength: [20, "Last name must not exceed 20 chars"],
     trim: true,
   },
   photo: {

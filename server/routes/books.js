@@ -3,6 +3,42 @@ const booksController = require("../controllers/booksController");
 const rateRouter = require("../routes/rates");
 const reviewRouter = require("../routes/reviews");
 
+const path = require('path')
+const multer = require("multer");
+
+// Set The Storage Engine
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+      cb(null, 'public/img/books/');
+  },
+  filename: function(req, file, cb){
+    cb(null, Date.now() + '-'  + file.originalname);
+  }
+});
+// Init Upload
+const upload = multer({
+  storage: storage,
+});
+
+
+
+// Check File Type
+function checkFileType(file, cb){
+  console.log("check file: " , file);
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(file.originalname).toLowerCase();
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
+
 // init router
 const Router = express.Router();
 
@@ -30,7 +66,7 @@ POST
 Route: / 
 Results: Create New Book
 **/
-Router.post("/", booksController.createBook);
+Router.post("/", upload.single("myImage"), booksController.createBook);
 
 /** 
 DELETE 
@@ -44,6 +80,6 @@ PUT
 Route: / 
 Results: Update Book
 **/
-Router.put("/:id", booksController.updateBook);
+Router.put("/:id",upload.single("myImage"), booksController.updateBook);
 
 module.exports = Router;

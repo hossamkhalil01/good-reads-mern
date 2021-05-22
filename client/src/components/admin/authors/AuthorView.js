@@ -1,266 +1,3 @@
-// import React, { Component } from 'react';
-// // import '../css/AuthorView.css';
-// import AddAuthor from './AddAuthor';
-// import axios from "axios";
-// import { Redirect } from 'react-router-dom'
-// import { Alert, Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table } from "reactstrap";
-
-// class AuthorView extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.handleData = this.handleData.bind(this);
-//         this.toggle = this.toggle.bind(this);
-//     }
-
-//     state = {
-//         authors: [],
-//         modal: false,
-//         author: {
-//             fullName: '',
-//             dateOfBirth: '',
-//         },
-//         IdEdit: 0,
-//         selectedFile: null,
-//         loaded: 0,
-//     };
-
-//     handleData(data) {
-//         this.setState({
-//             authors: data
-//         });
-//     }
-
-//     toggle(id) {
-//         console.log(id);
-//         this.setState(prevState => ({
-//             modal: !prevState.modal,
-//             author: {
-//                 fullName: '',
-//                 dateOfBirth: '',
-//             },
-//             IdEdit: 0
-//         }));
-//         if (id !== null) {
-//             const authors = this.state.authors;
-//             const author = authors.filter(author => {
-//                 return author._id === id;
-//             });
-//             console.log(id);
-//             console.log(author);
-
-//             const fullName = author[0].fullName;
-//             const dateOfBirth = author[0].dateOfBirth;
-//             this.setState({
-//                 author: {
-//                     fullName,
-//                     dateOfBirth,
-//                 },
-//                 IdEdit: id,
-//             });
-//         }
-//     }
-
-//     // handleUpdateAuthor() {
-
-//     //     const fullName = this.state.author.fullName;
-//     //     const dateOfBirth = this.state.author.dateOfBirth;
-//     //     const id = this.state.IdEdit;
-//     //     if (fullName !== '' && id !== 0 && dateOfBirth !== '') {
-//     //         const authors = this.state.authors;
-//     //         for (let key in authors) {
-//     //             if (authors[key]._id === id) {
-//     //                 authors[key].fullName = fullName;
-
-//     //                 // send post
-//     //                 // const token = localStorage.token;
-//     //                 // if (token) {
-//     //                     const data = new FormData();
-//     //                     data.append(
-//     //                         "file",
-//     //                         this.state.selectedFile,
-//     //                         this.state.selectedFile.name
-//     //                     );
-//     //                     data.append("body", JSON.stringify(this.state.author));
-//     //                     const conf = {
-//     //                         onUploadProgress: ProgressEvent => {
-//     //                             this.setState({
-//     //                                 loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
-//     //                             });
-//     //                         },
-//     //                         // headers: {
-//     //                         //     "Content-Type": "application/json",
-//     //                         //     "x-auth": token
-//     //                         // }
-//     //                     };
-//     //                     axios.put(`/api/admin/authors/${id}`, data)
-//     //                         .then(res => {
-//     //                             // console.log(res);
-//     //                             if (res.status === 200) {
-//     //                                 authors[key].photo = res.data.photo;
-
-//     //                                 this.setState({
-//     //                                     authors,
-//     //                                     author: {
-//     //                                         fullName: '',
-//     //                                         dateOfBirth: '',
-//     //                                     },
-//     //                                     IdEdit: 0
-//     //                                 }
-//     //                                 );
-//     //                                 // console.log(res.data.photo);
-//     //                             } else {
-//     //                                 console.log("not updated in db");
-//     //                             }
-//     //                         })
-//     //                         .catch(err => {
-//     //                             console.log({ err });
-//     //                             this.setState({ error: 'Error Delete Operation' })
-//     //                         })
-//     //                 // }
-//     //             }
-
-//     //         }
-//     //     }
-//     //     ;
-
-//     // }
-
-//     handleDeleteAuthor = deletedId => {
-
-//         const token = localStorage.token;
-//         if (token) {
-//             const conf = {
-//                 headers: {
-//                     "x-auth": token,
-//                 }
-//             }
-//             axios.delete(`/api/admin/authors/${deletedId}`, conf)
-//                 .then(res => {
-//                     if (res.status === 200) {
-//                         console.log(res);
-//                     } else {
-//                         console.log("not deleted from db");
-//                     }
-//                 })
-//                 .catch(err => {
-//                     console.log(err)
-//                 })
-//             this.setState({ error: 'Error Delete Operation' })
-//         }
-//         this.setState({ authors: this.state.authors.filter(author => author._id !== deletedId) });
-//     }
-
-//     componentDidMount() {
-//         // const token = localStorage.token;
-//         // if (token) {
-//             // const conf = {
-//             //     headers: {
-//             //         "x-auth": token,
-//             //     }
-//             // }
-//             axios.get('http://localhost:8000/authors')
-//                 .then(response => {
-//                     console.log(response);
-//                     this.setState(
-//                         { authors: response.data}
-//                     );
-//                     this.props.passAuthors(response.data);
-
-//                 }).catch(error => {
-//                     console.log(error);
-//                     this.setState({ error: 'Error reteiriving data' })
-//                 })
-//         // }
-
-//     }
-
-//     handleOnChangefullName = event => {
-//         this.setState({
-//             author: {
-//                 ...this.state.author,
-//                 fullName: event.target.value
-//             }
-//         });
-//         console.log(this.state.author.fullName);
-//     }
-
-//     handleOnChangeDate = event => {
-//         this.setState({
-//             author: {
-//                 ...this.state.author,
-//                 dateOfBirth: event.target.value
-//             }
-//         });
-//         console.log(this.state.author.dateOfBirth);
-//     }
-
-//     handleselectedFile = event => {
-//         this.setState({
-//             selectedFile: event.target.files[0],
-//             loaded: 0
-//         });
-//     };
-
-//     render() {
-//         const { authors, error } = this.state;
-//         const authorsView = authors.length ? authors.map(author =>
-//             <tr key={author._id}>
-//                 <td><img src={author.photo} alt="img" width="75" height="75" /></td>
-//                 <td>{author.fullName}</td>
-//                 <td>{author.dateOfBirth}</td>
-//                 <td><Button color='danger' onClick={() => this.handleDeleteAuthor(author._id)}>Delete</Button></td>
-//                 <td><Button color='success' onClick={() => this.toggle(author._id)}>Edit</Button></td>
-//             </tr>
-//         ) : error
-
-//         return (
-//                 <div>
-//                     <AddAuthor authors={this.state.authors} handlerFromParant={this.handleData} />
-//                     <Modal isOpen={this.state.modal} toggle={() => this.toggle()}
-//                         className={this.props.className}>
-//                         <ModalHeader>Edit Author</ModalHeader>
-//                         <ModalBody>
-//                             <Input type="text" defaultValue={this.state.author.fullName}
-//                                 onChange={this.handleOnChangefullName}
-//                                 placeholder='Full FIrstName' />
-//                             <Input type="date" defaultValue={this.state.author.dateOfBirth}
-//                                 onChange={this.handleOnChangeDate}
-//                                 placeholder='Author Date fo Birth' />
-//                             <Input
-//                                 type="file"
-//                                 name=""
-//                                 id="exampleFile"
-//                                 onChange={this.handleselectedFile}
-//                                 placeholder='Author Photo ' />
-
-//                         </ModalBody>
-//                         <ModalFooter>
-//                             <Button color="primary" onClick={() => this.handleUpdateAuthor()}>Edit Author</Button>{' '}
-//                             <Button color="secondary" onClick={() => this.toggle(null)}>Close</Button>
-//                         </ModalFooter>
-//                     </Modal>
-//                     <Table>
-//                         <thead>
-//                             <tr>
-//                                 <th>Author Photo</th>
-//                                 <th>Author Full-Name</th>
-//                                 <th>Author Date Of Birth</th>
-//                                 <th>#</th>
-//                                 <th>#</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>{authorsView}</tbody>
-//                     </Table>
-//                 </div>
-
-//         );
-//     }
-// }
-
-// export default AuthorView;
-
-///////////////////////////*************************///////////////////////////// */
-
 import React, { Component, useEffect } from "react";
 // import '../css/AuthorView.css';
 import AddAuthor from "./AddAuthor";
@@ -307,7 +44,7 @@ class AuthorView extends Component {
   }
 
   toggle(id) {
-    console.log(id);
+    console.log("id", id);
     this.setState((prevState) => ({
       modal: !prevState.modal,
       author: {
@@ -361,37 +98,16 @@ class AuthorView extends Component {
           authors[key].lastName = lName;
           authors[key].description = Authordescription;
           authors[key].bDate = birthDate;
-          // send post
-          // const token = localStorage.token;
-          // if (token) {
-        //   const data = new FormData();
-        //   data.append(
-        //     "file",
-        //     this.state.selectedFile,
-        //     this.state.selectedFile.name
-        //   );
-        //   data.append("body", JSON.stringify(this.state.author));
-        //   const conf = {
-        //     onUploadProgress: (ProgressEvent) => {
-        //       this.setState({
-        //         loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-        //       });
-        //     },
-            // headers: {
-            //     "Content-Type": "application/json",
-            //     "x-auth": token
-            // }
-        //   };
+          const formData = new FormData();
+          formData.append("body", JSON.stringify(authors[key]));
+          formData.append("myImage", this.state.selectedFile);
+          console.log(formData.get("body"));
+          console.log(formData.get("myImage")) 
           axios
-            .put(`http://localhost:8000/authors/${id}`,{
-                firstName:fName,
-                lastName:lName,
-                bDate:birthDate,
-                description:Authordescription
-            })
+            .put(`http://localhost:8000/authors/${id}`,formData)
             .then((res) => {
-              // console.log(res);
-              authors[key].photo = res.data.photo;
+              console.log(res);
+              authors[key].photo = res.data.data.photo;
               this.setState({
                 authors,
                 author: {
@@ -418,34 +134,9 @@ class AuthorView extends Component {
 
 
 
-// axios.put(`http://localhost:8000/categories/${id}`, {
-//                             label: title
-//                         })
-//                             .then(res => {
-//                                 console.log(res);
-//                                 if (res.status === 200) {
-//                                     console.log(res);
-//                                     this.toggle(null);
-
-//                                 } else {
-//                                     console.log("not updated in db");
-//                                 }
-//                             })
-//                             .catch(err => {
-//                                 console.log({ err });
-//                                 this.setState({ error: 'Error Delete Operation' })
-//                             })
-
-
 //Delete Author
   handleDeleteAuthor = (deletedId) => {
-    // const token = localStorage.token;
-    // if (token) {
-    //   const conf = {
-    //     headers: {
-    //       "x-auth": token,
-    //     },
-    //   };
+   
     axios
       .delete(`http://localhost:8000/authors/${deletedId}`)
       .then((res) => {
@@ -463,19 +154,13 @@ class AuthorView extends Component {
   };
 
   componentDidMount() {
-    // const token = localStorage.token;
-    // if (token) {
-    // const conf = {
-    //     headers: {
-    //         "x-auth": token,
-    //     }
-    // }
+   
     axios
       .get("http://localhost:8000/authors")
       .then((response) => {
         console.log(response.data.data);
         this.setState({ authors: response.data.data });
-        this.props.passAuthors(response.data);
+        this.props.passAuthors(response.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -556,6 +241,7 @@ class AuthorView extends Component {
     const authorsView = authors.length
       ? authors.map((author) => (
           <tr key={author._id}>
+            <img src={`http://localhost:8000/${author.photo}`} alt="img" width="75" height="75" />
             {/* <td><img src={author.photo} alt="img" width="75" height="75" /></td> */}
             <td>{author.firstName}</td>
             <td>{author.lastName}</td>
@@ -591,6 +277,7 @@ class AuthorView extends Component {
           isOpen={this.state.modal}
           toggle={() => this.toggle()}
           className={this.props.className}
+          backdrop="static"
         >
           <ModalHeader>Edit Author</ModalHeader>
           <ModalBody>
@@ -624,12 +311,12 @@ class AuthorView extends Component {
               onChange={this.handleOnChangebDate}
               placeholder="Author Date fo Birth"
             />
-            {/* <Input
+            <Input
                                 type="file"
                                 name=""
                                 id="exampleFile"
                                 onChange={this.handleselectedFile}
-                                placeholder='Author Photo ' /> */}
+                                placeholder='Author Photo ' />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => this.handleUpdateAuthor()}>
