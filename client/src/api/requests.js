@@ -3,11 +3,11 @@ import { getAxiosObj } from '../services/authService';
 
 const requests = {
 
-  post: async function (url, body = {}, params = {}) {
+  create: async function (url, body = {}, params = {}) {
     return getAxiosObj().post(url, body, { params });
   },
 
-  patch: async function (url, body = {}, params = {}) {
+  update: async function (url, body = {}, params = {}) {
     return getAxiosObj().patch(url, body, { params });
   },
 
@@ -16,7 +16,7 @@ const requests = {
   },
 
   delete: async function (url, params = {}) {
-    return getAxiosObj().get(url, { params });
+    return getAxiosObj().delete(url, { params });
   }
 };
 

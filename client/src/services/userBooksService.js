@@ -8,5 +8,5 @@ export const bookStatus = {
 }
 
 export const updateUserBookStatus = async (userId, bookId, status) => {
-  return await requests.patch(getShelfBookUrl(userId, bookId), { status })
+  return await requests.update(getShelfBookUrl(userId, bookId), { status })
 }

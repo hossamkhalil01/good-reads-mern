@@ -32,6 +32,6 @@ Results: Update Rate
 Query Params: userId
 
 **/
-Router.put("/", ratesController.updateRate);
+Router.patch("/", ratesController.updateRate);
 
 module.exports = Router;

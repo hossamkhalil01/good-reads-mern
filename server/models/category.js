@@ -4,8 +4,8 @@ const categorySchema = new mongoose.Schema({
   label: {
     type: String,
     required: [true, "Category label is required"],
-    minLength: [3, "Label must be 3 chars at least"],
-    maxLength: [10, "Label must not exceed 10 char"],
+    minLength: [1, "Label must be 1 chars at least"],
+    maxLength: [20, "Label must not exceed 20 char"],
     trim: true,
     lowercase: true,
   },
