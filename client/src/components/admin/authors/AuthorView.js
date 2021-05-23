@@ -202,11 +202,9 @@ class AuthorView extends Component {
     this.setState({
       author: {
         ...this.state.author,
-        // fullName: event.target.value
+        
         firstName: event.target.value,
-        // lastName: event.target.value,
-        // description: event.target.value,
-        // bDate: event.target.value,
+       
       },
     });
     console.log(this.state.author.fullName);
@@ -248,11 +246,9 @@ class AuthorView extends Component {
     this.setState({
       author: {
         ...this.state.author,
-        // fullName: event.target.value
-        // firstName: event.target.value,
-        // lastName: event.target.value,
+       
         description: event.target.value,
-        // bDate: event.target.value,
+       
       },
     });
     console.log(this.state.author.description);
@@ -262,10 +258,7 @@ class AuthorView extends Component {
     this.setState({
       author: {
         ...this.state.author,
-        //   dateOfBirth: event.target.value
-        // firstName: event.target.value,
-        // lastName: event.target.value,
-        // description: event.target.value,
+     
         bDate: event.target.value,
       },
     });
@@ -295,12 +288,12 @@ this.setState({ errors: { ...this.state.errors, bDate: "Required " } , submitDis
       ? authors.map((author) => (
           <tr key={author._id}>
             <img src={`http://localhost:8000/${author.photo}`} alt="img" width="75" height="75" />
-            {/* <td><img src={author.photo} alt="img" width="75" height="75" /></td> */}
+        
             <td>{author.firstName}</td>
             <td>{author.lastName}</td>
             <td>{author.description}</td>
             <td>{author.bDate.match(/\d{4}-\d{2}-\d{2}/)}</td>
-            {/* <td>{author.dateOfBirth}</td> */}
+     
             <td>
               <Button
                 color="danger"
@@ -360,12 +353,7 @@ this.setState({ errors: { ...this.state.errors, bDate: "Required " } , submitDis
               onChange={this.handleOnChangeDescription}
               placeholder="Description"
             />
-            {/* <Input
-              type="date"
-              defaultValue={this.state.author.bDate.match(/\d{4}-\d{2}-\d{2}/)}
-              onChange={this.handleOnChangebDate}
-              placeholder="BirthDate"
-            /> */}
+           
             <Input
               type="date"
               defaultValue={this.state.author.bDate.match(/\d{4}-\d{2}-\d{2}/)}
@@ -395,11 +383,11 @@ this.setState({ errors: { ...this.state.errors, bDate: "Required " } , submitDis
         <Table>
           <thead>
             <tr>
+              <th>AuthorPhoto</th>
               <th>FirstName</th>
               <th>lastName</th>
               <th>Description</th>
               <th>Date of Birth</th>
-              <th>Photo</th>
               <th>#</th>
               <th>#</th>
             </tr>
