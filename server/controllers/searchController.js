@@ -6,30 +6,20 @@ const { statusCodes, sendResponse, sendError } = require("../utils/responses");
 const getFilterdData = async (req, res) => {
   try {
     const searchKey = req.query?.q;
-    const promises = [];
-    promises.push(
-      authorModel
-        .find({
-          $or: [
-            { firstName: { $regex: searchKey } },
-            { lastName: { $regex: searchKey } },
-          ],
-        })
-        .exec()
-    );
-    promises.push(
+    const promises = [
+      authorModel.find({
+        $or: [
+          { firstName: { $regex: searchKey } },
+          { lastName: { $regex: searchKey } },
+        ],
+      }),
       bookModel
         .find({ title: { $regex: searchKey } })
-        .select("-authors -categories")
-        .exec()
-    );
-    promises.push(
-      categoryModel
-        .find({
-          label: { $regex: searchKey },
-        })
-        .exec()
-    );
+        .select("-authors -categories"),
+      categoryModel.find({
+        label: { $regex: searchKey },
+      }),
+    ];
     const [matchedAuthors, matchedBooks, matchedCategories] = await Promise.all(
       promises
     );
