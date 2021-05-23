@@ -6,7 +6,6 @@ const extractPaginationInfo = (queryParams) => {
     let page = queryParams.page
     if (!page || page < 1) page = 1
 
-    const offset = page - 1;
     const limit = queryParams.limit ? queryParams.limit : DEFAULT_LIMIT;
 
     // copy the object
@@ -16,7 +15,7 @@ const extractPaginationInfo = (queryParams) => {
     delete extractedObj.page
     delete extractedObj.limit
 
-    return [{ offset, limit }, extractedObj]
+    return [{ page, limit }, extractedObj]
 }
 
 module.exports = { extractPaginationInfo }
