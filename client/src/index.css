@@ -23,12 +23,19 @@ div.searchResult {
   z-index: 9;
   max-height: 350px !important;
   display: none;
+  overflow-y: scroll;
+  background-color: #fff;
   /* opacity: 0;
   transition: opacity 1s; */
 }
 
 div.show {
   display: block;
-  /* opacity: 1;
-  transition: opacity 1s; */
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+div.hide {
+  opacity: 0;
+  transition: opacity 1s;
 }

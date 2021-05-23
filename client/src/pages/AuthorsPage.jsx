@@ -8,9 +8,11 @@ const Authors = () => {
   useEffect(() => {
     const getAuthors = async () => {
       const {
-        data: { data },
+        data: {
+          data: { docs },
+        },
       } = await service.getAuthors();
-      setAuthors(data);
+      setAuthors(docs);
     };
 
     getAuthors();
