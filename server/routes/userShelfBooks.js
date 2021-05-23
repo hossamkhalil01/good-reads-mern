@@ -21,7 +21,7 @@ Route: /
 Results: Update Shelf Book Status
 Body: status
 **/
-Router.put("/:bookId", shelfBooksController.updateBookStatus);
+Router.patch("/:bookId", shelfBooksController.updateBookStatus);
 
 
 /** 

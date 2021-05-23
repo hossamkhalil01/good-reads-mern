@@ -32,6 +32,6 @@ Results: Update Review
 Query Params: userId
 
 **/
-Router.put("/", reviewsController.updateReview);
+Router.patch("/", reviewsController.updateReview);
 
 module.exports = Router;
