@@ -32,8 +32,7 @@ const getBooks = async (req, res) => {
   // the pagination options
   const options = {
     sort: { _id: -1 },
-    populate: 'authors',
-    populate: 'categories',
+    populate: ['authors', 'categories'],
     lean: true,
     page,
     limit,
@@ -51,14 +50,29 @@ const getBooks = async (req, res) => {
 };
 
 const createBook = async (req, res) => {
+
+  const body = JSON.parse(req.body.body);
+
+  const coverImage = req.file.destination + req.file.filename;
+  const title = body.title;
+  const authors = body.authors;
+  const categories = body.categories;
+  const description = body.description;
+
   try {
-    const book = await Book.create(req.body);
+    const book = await Book.create({
+      title,
+      authors,
+      categories,
+      coverImage,
+      description,
+    });
     return sendResponse(res, book, statusCodes.success.created);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
   }
-};
 
+};
 const deleteBook = async (req, res) => {
   const id = req.params.id;
 
@@ -77,8 +91,13 @@ const deleteBook = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
+  console.log(req.body);
   const id = req.params.id;
-  const updates = req.body;
+  let updates = JSON.parse(req.body.body);
+  if (req.file) {
+    const coverPhoto = req.file.destination + req.file.filename;
+    updates.coverImage = coverPhoto;
+  }
 
   try {
     const updatedBook = await Book.findOneAndUpdate({ _id: id }, updates, {

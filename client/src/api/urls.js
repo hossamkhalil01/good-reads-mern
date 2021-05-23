@@ -18,3 +18,7 @@ export const getUserShelfUrl = (userId) => {
 export const getShelfBookUrl = (userId, bookId) => {
   return getUserShelfUrl(userId) + bookId;
 }
+
+
+// images base url
+export const imagesBase = "public/img";

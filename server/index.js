@@ -38,6 +38,7 @@ require("./utils/passport")(passport);
 
 app.use(passport.initialize());
 
+app.use("/public",express.static('public/'));
 // add resources routers
 app.use("/auth", require("./routes/authentication"));
 app.use(

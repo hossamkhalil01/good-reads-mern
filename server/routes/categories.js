@@ -36,6 +36,6 @@ PUT
 Route: / 
 Results: Update Category
 **/
-Router.put("/:id", categoriesController.updateCategory);
+Router.patch("/:id", categoriesController.updateCategory);
 
 module.exports = Router;

@@ -1,7 +1,6 @@
 import "./App.css";
 import Router from "./components/Router";
 import { checkTokenValid } from "./services/authService";
-
 function App() {
 
   checkTokenValid();
@@ -11,6 +10,5 @@ function App() {
     </div >
   );
 }
-
 
 export default App;
