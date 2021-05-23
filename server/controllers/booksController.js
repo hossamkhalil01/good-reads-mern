@@ -27,14 +27,14 @@ const getBook = async (req, res) => {
 const getBooks = async (req, res) => {
 
   // process the query params
-  const [{ limit, offset }, filter] = extractPaginationInfo(req.query);
+  const [{ limit, page }, filter] = extractPaginationInfo(req.query);
 
   // the pagination options
   const options = {
     sort: { _id: -1 },
     populate: ['authors', 'categories'],
     lean: true,
-    offset,
+    page,
     limit,
   }
 

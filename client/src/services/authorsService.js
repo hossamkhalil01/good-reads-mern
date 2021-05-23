@@ -1,8 +1,8 @@
 import requests from "../api/requests";
 import { authorsBase } from "../api/urls";
 
-export const getAuthors = async () => {
-  return await requests.get(authorsBase);
+export const getAuthors = async (params) => {
+  return await requests.get('authors', params);
 };
 
 export const updateAuthor = async (authorId, body) => {
