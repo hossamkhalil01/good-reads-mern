@@ -1,5 +1,5 @@
 import requests from "../api/requests";
 
-export const getAuthors = async () => {
-  return await requests.get('authors');
+export const getAuthors = async (params) => {
+  return await requests.get('authors', params);
 };

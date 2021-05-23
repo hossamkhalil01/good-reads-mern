@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../components/PrivateRoute";
+import AuthorsPage from "../pages/AuthorsPage";
 import Categories from "../pages/CategoriesPage";
 import Home from "../pages/HomePage.jsx";
 import Landing from "../pages/LandingPage";
@@ -18,6 +19,9 @@ export default function Router() {
         </Route>
         <PrivateRoute path="/home">
           <Home />
+        </PrivateRoute>
+        <PrivateRoute path="/authors">
+          <AuthorsPage />
         </PrivateRoute>
         <PrivateRoute path="/landing">
           <Landing />
