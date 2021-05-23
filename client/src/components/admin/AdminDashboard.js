@@ -5,8 +5,7 @@ import CategoriesView from '../admin/categories/CategoriesView'
 import AuthorView from '../admin/authors/AuthorView'
 import BookView from '../admin/books/BookView'
 import axios from 'axios';
-import { Redirect } from 'react-router-dom'
-// import '../css/AdminLogin.css';
+
 
 
 export default class Example extends React.Component {
@@ -22,21 +21,7 @@ export default class Example extends React.Component {
         };
     }
 
-    handleSignout(event) {
-        event.preventDefault();
-        if (localStorage.token) {
-            const conf = {
-                headers: { 'x-auth': localStorage.token }
-            };
-            axios.delete('/api/signout', conf)
-                .then(response => {
-                    localStorage.clear();
-                    window.location.href = '/';
-                }).catch(error => {
-                    console.log(error);
-                });
-        }
-    }
+    
 
     handlePassCategoriesProps(categoriesProps) {
         this.setState({
@@ -93,7 +78,7 @@ export default class Example extends React.Component {
                                 Authors
                             </NavLink>
                         </NavItem>
-                        <Button color='danger' onClick={this.handleSignout}>SignOut</Button>
+                        
                     </Nav>
                     <TabContent activeTab={this.state.activeTab}>
                         <TabPane tabId="1">

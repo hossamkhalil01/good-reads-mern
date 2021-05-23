@@ -34,6 +34,12 @@ class AuthorView extends Component {
     },
     IdEdit: 0,
     selectedFile: null,
+    submitDisabled: false,
+    errors: {
+      firstName:"",
+      lastName: "",
+      bDate: "Required",
+    },
     loaded: 0,
   };
 
@@ -107,7 +113,9 @@ class AuthorView extends Component {
             .put(`http://localhost:8000/authors/${id}`,formData)
             .then((res) => {
               console.log(res);
+              
               authors[key].photo = res.data.data.photo;
+            
               this.setState({
                 authors,
                 author: {
@@ -120,6 +128,23 @@ class AuthorView extends Component {
                 IdEdit: 0,
               });
               this.toggle(null);
+              this.setState({
+                authors: [
+                  ...this.props.authors,
+                  this.state.firstName,
+                  this.state.lastName,
+                  this.state.bDate,
+                  this.state.description
+                ],
+                firstName: "",
+                lastName: "",
+                bDate: "",
+                description: "",
+                errors: { ...this.state.errors, firstName: "Required " ,lastName: "Required",
+                bDate: "Required", } , submitDisabled: true 
+              
+                
+              });
               // console.log(res.data.photo);
             })
             .catch((err) => {
@@ -185,6 +210,15 @@ class AuthorView extends Component {
       },
     });
     console.log(this.state.author.fullName);
+    const {firstName } = this.state.author;
+    if (firstName.length >1 ) {
+      this.setState({ errors: { ...this.state.errors, firstName: '' }, submitDisabled: false });
+     
+      
+    } else {
+      this.setState({ errors: { ...this.state.errors, firstName: "Required " } , submitDisabled: true });
+    }
+ 
   };
 
   handleOnChangelastName = (event) => {
@@ -199,6 +233,15 @@ class AuthorView extends Component {
       },
     });
     console.log(this.state.author.fullName);
+    const {lastName } = this.state.author;
+    if (lastName.length > 1) {
+   this.setState({ errors: { ...this.state.errors, lastName: '' }, submitDisabled: false });
+  
+   
+   
+ } else {
+   this.setState({ errors: { ...this.state.errors, lastName: "Required " } , submitDisabled: true });
+ }
   };
 
   handleOnChangeDescription = (event) => {
@@ -227,6 +270,16 @@ class AuthorView extends Component {
       },
     });
     console.log(this.state.author.bDate);
+    const {bDate } = this.state.author;
+    if (bDate.length >0) {
+this.setState({ errors: { ...this.state.errors, bDate: '' } , submitDisabled: false });
+
+
+
+} else {
+this.setState({ errors: { ...this.state.errors, bDate: "Required " } , submitDisabled: true });
+}
+    
   };
 
   handleselectedFile = (event) => {
@@ -237,7 +290,7 @@ class AuthorView extends Component {
   };
 
   render() {
-    const { authors, error } = this.state;
+    const { authors, error ,errors } = this.state;
     const authorsView = authors.length
       ? authors.map((author) => (
           <tr key={author._id}>
@@ -286,13 +339,21 @@ class AuthorView extends Component {
               defaultValue={this.state.author.firstName}
               onChange={this.handleOnChangefirstName}
               placeholder="firstName"
+              maxLength="20"
             />
+            {errors.firstName.length > 0 && (
+                <span className="error">{errors.firstName}</span>
+              )}
             <Input
               type="text"
               defaultValue={this.state.author.lastName}
               onChange={this.handleOnChangelastName}
               placeholder="lastName"
-            />
+              maxLength="20"
+              />
+               {errors.lastName.length > 0 && (
+                  <span className="error">{errors.lastName}</span>
+                )}
             <Input
               type="text"
               defaultValue={this.state.author.description}
@@ -311,6 +372,10 @@ class AuthorView extends Component {
               onChange={this.handleOnChangebDate}
               placeholder="Author Date fo Birth"
             />
+              {errors.bDate.length > 0 && (
+                <span className="error">{errors.bDate}</span>
+              )}
+
             <Input
                                 type="file"
                                 name=""
@@ -347,3 +412,5 @@ class AuthorView extends Component {
 }
 
 export default AuthorView;
+
+

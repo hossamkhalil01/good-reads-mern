@@ -270,6 +270,9 @@ class BookView extends Component {
               onClick={this.handleOnChangeCategory}
             >
               {categoiresView}
+              
+              <option disabled selected>PLease select Category</option>
+        
             </Input>
             <Input
               type="select"
@@ -279,6 +282,9 @@ class BookView extends Component {
               onClick={this.handleOnChangeAuthor}
             >
               {authorView}
+              
+              <option disabled selected>PLease select author</option>
+        
             </Input>
             <textarea
               name="description"

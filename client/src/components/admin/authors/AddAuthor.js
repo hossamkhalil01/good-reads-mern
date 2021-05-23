@@ -170,6 +170,3 @@ class AddAuthor extends React.Component {
 }
 
 export default AddAuthor;
-
-
-
