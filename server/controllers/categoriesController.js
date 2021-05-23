@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const { extractPaginationInfo } = require("../utils/pagination");
 const {
   statusCodes,
   sendError,
@@ -21,9 +22,29 @@ const getCategory = async (req, res) => {
 };
 
 const getCategories = async (req, res) => {
+  const [{ limit, page }, filter] = extractPaginationInfo(req.query);
 
-  const categories = await Category.find();
-  return sendResponse(res, categories, statusCodes.success.ok);
+  if (filter.key) {
+    filter["label"] = manipulateSearchParams(filter.key);
+    delete filter.key;
+  }
+
+  const options = {
+    sort: { _id: -1 },
+    page,
+    limit,
+  };
+
+  try {
+    const categories = await Category.paginate(filter, options);
+    return sendResponse(res, categories, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
+};
+
+const manipulateSearchParams = (key) => {
+  return { $regex: key };
 };
 
 const createCategory = async (req, res) => {

@@ -59,21 +59,24 @@ const getAuthor = async (req, res) => {
 };
 
 const getAuthors = async (req, res) => {
-
   // process the query params
   const [{ limit, page }, filter] = extractPaginationInfo(req.query);
 
+  if (filter.key) {
+    filter["$or"] = manipulateSearchParams(filter.key);
+    delete filter.key;
+  }
   // the pagination options
   const options = {
     sort: { _id: -1 },
     lean: true,
     page,
     limit,
-  }
+  };
 
   try {
     // get the authors
-    const authors = await Author.paginate(filter, options)
+    const authors = await Author.paginate(filter, options);
     // build the resulting object
     return sendResponse(res, authors, statusCodes.success.ok);
   } catch (error) {
@@ -81,8 +84,14 @@ const getAuthors = async (req, res) => {
   }
 };
 
-const createAuthor = (req, res) => {
+const manipulateSearchParams = (key) => {
+  return [
+    { firstName: { $regex: key } },
+    { lastName: { $regex: key } },
+  ];
+};
 
+const createAuthor = (req, res) => {
   const body = JSON.parse(req.body.body);
   const firstName = body.firstName;
   const lastName = body.lastName;
@@ -100,7 +109,7 @@ const createAuthor = (req, res) => {
   author
     .save()
     .then(() => {
-      return sendResponse(res, author, statusCodes.success.created)
+      return sendResponse(res, author, statusCodes.success.created);
     })
     .catch((error) => {
       return sendError(res, error.message, statusCodes.error.invalidData);
