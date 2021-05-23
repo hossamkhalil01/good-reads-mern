@@ -59,7 +59,7 @@ Router.post("/register", async (req, res) => {
     delete user._doc.password;
     return sendResponse(
       res,
-      { user: user, token: jwt.token, expiresIn: jwt.expires },
+      { user, token: jwt.token, expiresIn: jwt.expires },
       statusCodes.success.created
     );
   } catch (error) {

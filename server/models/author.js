@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const authorSchema = new mongoose.Schema({
   firstName: {
@@ -11,7 +12,7 @@ const authorSchema = new mongoose.Schema({
   lastName: {
     required: "Last name is required",
     type: String,
-    minLength: [2, "Last name must be at least 3 chars"],
+    minLength: [2, "Last name must be at least 2 chars"],
     maxLength: [25, "Last name must not exceed 25 chars"],
     trim: true,
   },
@@ -32,7 +33,10 @@ const authorSchema = new mongoose.Schema({
   },
 });
 
-// define compound unique index for firstname + lastname
+// Define compound unique index for firstname + lastname
 authorSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
+
+// Add pagination plugin
+authorSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Author", authorSchema);

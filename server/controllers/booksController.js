@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const { extractPaginationInfo } = require("../utils/pagination");
 const {
   statusCodes,
   sendError,
@@ -24,33 +25,54 @@ const getBook = async (req, res) => {
 };
 
 const getBooks = async (req, res) => {
-  const catgoryId = req.query.catgoryId;
-  if (!catgoryId || catgoryId === "1") return getAllBooks(req, res);
 
-  getBooksByCatgoryId(req, res, catgoryId);
-};
+  // process the query params
+  const [{ limit, offset }, filter] = extractPaginationInfo(req.query);
 
-const getAllBooks = async (req, res) => {
-  const books = await Book.find().populate("authors").populate("categories");
-  return sendResponse(res, books, statusCodes.success.ok);
-};
+  // the pagination options
+  const options = {
+    sort: { _id: -1 },
+    populate: ['authors', 'categories'],
+    lean: true,
+    offset,
+    limit,
+  }
 
-const getBooksByCatgoryId = async (req, res, catgoryId) => {
-  const books = await Book.find({ categories: catgoryId })
-    .populate("authors")
-    .populate("categories");
-  return sendResponse(res, books, statusCodes.success.ok);
+  try {
+    // get the books
+    const books = await Book.paginate(filter, options)
+    // build the resulting object
+    return sendResponse(res, books, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
+
 };
 
 const createBook = async (req, res) => {
+
+  const body = JSON.parse(req.body.body);
+
+  const coverImage = req.file.destination + req.file.filename;
+  const title = body.title;
+  const authors = body.authors;
+  const categories = body.categories;
+  const description = body.description;
+
   try {
-    const book = await Book.create(req.body);
+    const book = await Book.create({
+      title,
+      authors,
+      categories,
+      coverImage,
+      description,
+    });
     return sendResponse(res, book, statusCodes.success.created);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
   }
-};
 
+};
 const deleteBook = async (req, res) => {
   const id = req.params.id;
 
@@ -69,8 +91,13 @@ const deleteBook = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
+  console.log(req.body);
   const id = req.params.id;
-  const updates = req.body;
+  let updates = JSON.parse(req.body.body);
+  if (req.file) {
+    const coverPhoto = req.file.destination + req.file.filename;
+    updates.coverImage = coverPhoto;
+  }
 
   try {
     const updatedBook = await Book.findOneAndUpdate({ _id: id }, updates, {

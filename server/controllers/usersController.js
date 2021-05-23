@@ -7,8 +7,27 @@ const {
 } = require("../utils/responses");
 
 const getUsers = async (req, res) => {
-  const users = await User.find();
-  return sendResponse(res, users, statusCodes.success.ok);
+  // process the query params
+  const [{ limit, offset }, filter] = extractPaginationInfo(req.query);
+
+  // the pagination options
+  const options = {
+    sort: { _id: -1 },
+    lean: true,
+    offset,
+    limit,
+  }
+
+  try {
+    // get the users
+    const users = await User.paginate(filter, options)
+    // build the resulting object
+    return sendResponse(res, users, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
+
+
 };
 
 const getUser = async (req, res) => {

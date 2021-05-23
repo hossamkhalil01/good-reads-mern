@@ -42,6 +42,6 @@ PUT
 Route: / 
 Results: Update User
 **/
-Router.put("/:id", usersController.updateUser);
+Router.patch("/:id", usersController.updateUser);
 
 module.exports = Router;

@@ -1,4 +1,6 @@
 const Review = require("../models/review");
+const { extractPaginationInfo } = require("../utils/pagination");
+
 const {
   statusCodes,
   sendError,
@@ -36,16 +38,28 @@ const getUserReview = async (req, res, userId) => {
 const getAllReviews = async (req, res) => {
   const bookId = req.params.bookId;
 
+  // process the query params
+  const [{ limit, offset }, filter] = extractPaginationInfo(req.query);
+
+  // the pagination options
+  const options = {
+    populate: 'users',
+    sort: { _id: -1 },
+    lean: true,
+    offset,
+    limit,
+  }
+
   try {
     // get the reviews
-    const reviews = await Review.find({ book: bookId }).populate("users");
-
+    const reviews = await Review.paginate({ ...filter, book: bookId }, options)
     // build the resulting object
     return sendResponse(res, reviews, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.notFound);
   }
 };
+
 
 const createReview = async (req, res) => {
   try {

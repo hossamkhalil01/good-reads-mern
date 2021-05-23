@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const passwordHash = require("../middlewares/passwordHash");
 const iDValidator = require("mongoose-id-validator");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 
 // create shelf schema
@@ -25,8 +26,12 @@ const createShelfSchema = () => {
     message: "Invalid reference , record not found",
   });
 
+  // Add pagination plugin
+  shelfSchema.plugin(mongoosePaginate);
+
   return shelfSchema;
 }
+
 
 
 
@@ -77,6 +82,9 @@ userSchema.index({ email: 1 }, { unique: true });
 
 // apply password hash hook
 userSchema.pre("save", passwordHash);
+
+// Add pagination plugin
+userSchema.plugin(mongoosePaginate);
 
 // add ref id validator
 userSchema.plugin(iDValidator, {

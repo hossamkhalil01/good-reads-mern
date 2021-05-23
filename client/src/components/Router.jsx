@@ -5,11 +5,15 @@ import Categories from "../pages/CategoriesPage";
 import Home from "../pages/HomePage.jsx";
 import Landing from "../pages/LandingPage";
 import RegistrationPage from "../pages/RegistrationPage";
+import AdminDashboard from "./admin/AdminDashboard";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Switch>
+        <PrivateRoute path="/admin/dashboard" exact  >
+          <AdminDashboard />
+        </PrivateRoute>
         <Route path="/registration">
           <RegistrationPage />
         </Route>
