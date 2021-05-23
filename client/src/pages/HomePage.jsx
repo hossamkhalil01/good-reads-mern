@@ -1,3 +1,5 @@
+import AuthorsPage from './AuthorsPage';
+
 export default function home() {
-  return <h1>Home</h1>;
+  return <AuthorsPage></AuthorsPage>;
 }

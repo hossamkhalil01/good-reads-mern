@@ -1,13 +1,7 @@
 import requests from "../api/requests";
+import { booksBase } from "../api/urls";
 
-const getBooksByCatgoryId = (catgoryId) => {
-  return requests
-    .getResource(`books?catgoryId=${catgoryId}`)
-    .then((res) => res.json());
+export const getBooksByCatgoryId = async (catgoryId) => {
+  return await requests.get(booksBase, { catgoryId })
 };
 
-const exports = {
-  getBooksByCatgoryId,
-};
-
-export default exports;

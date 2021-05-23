@@ -1,11 +1,6 @@
 import requests from "../api/requests";
+import { categoriesBase } from "../api/urls";
 
-const getCategories = () => {
-  return requests.getResource(`categories`).then((res) => res.json());
+export const getCategories = async (params = {}) => {
+  return await requests.get(categoriesBase, params)
 };
-
-const exports = {
-  getCategories,
-};
-
-export default exports;

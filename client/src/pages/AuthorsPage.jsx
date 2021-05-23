@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
-import services from "../services/authorsServices";
+import * as service from "../services/authorsService";
 const Authors = () => {
   const [authors, setAuthors] = useState([]);
   useEffect(() => {
+
+    const getAuthors = async () => {
+      const { data: { data } } = await service.getAuthors();
+      setAuthors(data);
+    };
+
     getAuthors();
   }, []);
 
-  const getAuthors = async () => {
-    const { data } = await services.getAuthors();
-    setAuthors(data);
-  };
+
   return (
     <div className="container">
       <div className="row">

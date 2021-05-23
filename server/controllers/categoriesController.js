@@ -21,6 +21,7 @@ const getCategory = async (req, res) => {
 };
 
 const getCategories = async (req, res) => {
+
   const categories = await Category.find();
   return sendResponse(res, categories, statusCodes.success.ok);
 };

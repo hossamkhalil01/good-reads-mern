@@ -27,11 +27,20 @@ export function checkTokenValid() {
 }
 
 const accessToken = localStorage.getItem("token");
-export const user = JSON.parse(localStorage.getItem("user"));
 
-export const authAxios = axios.create({
-  baseURL: hostUrl,
-  headers: {
-    Authorization: accessToken,
-  },
-});
+export const currentUser = JSON.parse(localStorage.getItem("user"));
+
+export let authAxios = null
+
+export const getAxiosObj = () => {
+
+  if (!authAxios) {
+    authAxios = (axios.create({
+      baseURL: hostUrl,
+      headers: {
+        Authorization: accessToken,
+      },
+    }))
+  }
+  return authAxios;
+}

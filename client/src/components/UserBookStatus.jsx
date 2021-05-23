@@ -1,9 +1,10 @@
 import { Select } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useState } from "react";
-import { bookStatus, updateUserBookStatus } from '../services/userBookService';
+import { currentUser } from "../services/authService";
+import { bookStatus, updateUserBookStatus } from '../services/userBooksService';
 
-const userId = "60a7eddc7adbbe201c4cd554"
+const userId = currentUser._id;
 
 export default function UserBookStatus({ bookId, status, onStatusChange }) {
 
