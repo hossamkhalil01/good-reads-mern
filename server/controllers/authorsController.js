@@ -1,4 +1,6 @@
 const Author = require("../models/author");
+const { extractPaginationInfo } = require("../utils/pagination");
+
 const {
   statusCodes,
   sendError,
@@ -21,8 +23,26 @@ const getAuthor = async (req, res) => {
 };
 
 const getAuthors = async (req, res) => {
-  const authors = await Author.find();
-  return sendResponse(res, authors, statusCodes.success.ok);
+
+  // process the query params
+  const [{ limit, offset }, filter] = extractPaginationInfo(req.query);
+
+  // the pagination options
+  const options = {
+    sort: { _id: -1 },
+    lean: true,
+    offset,
+    limit,
+  }
+
+  try {
+    // get the authors
+    const authors = await Author.paginate(filter, options)
+    // build the resulting object
+    return sendResponse(res, authors, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
 };
 
 const createAuthor = async (req, res) => {

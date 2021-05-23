@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const { extractPaginationInfo } = require("../utils/pagination");
 const {
   statusCodes,
   sendError,
@@ -24,22 +25,29 @@ const getBook = async (req, res) => {
 };
 
 const getBooks = async (req, res) => {
-  const catgoryId = req.query.catgoryId;
-  if (!catgoryId || catgoryId === "1") return getAllBooks(req, res);
 
-  getBooksByCatgoryId(req, res, catgoryId);
-};
+  // process the query params
+  const [{ limit, offset }, filter] = extractPaginationInfo(req.query);
 
-const getAllBooks = async (req, res) => {
-  const books = await Book.find().populate("authors").populate("categories");
-  return sendResponse(res, books, statusCodes.success.ok);
-};
+  // the pagination options
+  const options = {
+    sort: { _id: -1 },
+    populate: 'authors',
+    populate: 'categories',
+    lean: true,
+    offset,
+    limit,
+  }
 
-const getBooksByCatgoryId = async (req, res, catgoryId) => {
-  const books = await Book.find({ categories: catgoryId })
-    .populate("authors")
-    .populate("categories");
-  return sendResponse(res, books, statusCodes.success.ok);
+  try {
+    // get the books
+    const books = await Book.paginate(filter, options)
+    // build the resulting object
+    return sendResponse(res, books, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
+
 };
 
 const createBook = async (req, res) => {

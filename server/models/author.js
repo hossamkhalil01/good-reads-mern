@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const authorSchema = new mongoose.Schema({
   firstName: {
@@ -32,7 +33,10 @@ const authorSchema = new mongoose.Schema({
   },
 });
 
-// define compound unique index for firstname + lastname
+// Define compound unique index for firstname + lastname
 authorSchema.index({ firstName: 1, lastName: 1 }, { unique: true });
+
+// Add pagination plugin
+authorSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Author", authorSchema);
