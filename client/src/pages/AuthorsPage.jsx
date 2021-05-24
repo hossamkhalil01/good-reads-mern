@@ -4,8 +4,10 @@ import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import Paginator from "../components/Paginator";
 import * as services from "../services/authorsService";
-import { createPaginationParams, parsePaginatedResponse } from "../utils/pagination";
-
+import {
+  createPaginationParams,
+  parsePaginatedResponse
+} from "../utils/pagination";
 
 const Authors = () => {
   const [authors, setAuthors] = useState([]);
@@ -16,14 +18,13 @@ const Authors = () => {
   }, []);
 
   const handlePageChange = async (newPage) => {
-
     // construct the params
     const params = createPaginationParams({}, { ...pagination, page: newPage });
 
     // get the new page from api
-    const { data, paginationInfo } =
-      parsePaginatedResponse(await services.getAuthors(params));
-
+    const { data, paginationInfo } = parsePaginatedResponse(
+      await services.getAuthors(params)
+    );
 
     // set the values
     setPagination(paginationInfo);
@@ -42,7 +43,6 @@ const Authors = () => {
             </div>
           ))}
         </div>
-
         <div className="row justify-content-center">
           <div className="col-6">
             <Paginator paginationInfo={pagination}

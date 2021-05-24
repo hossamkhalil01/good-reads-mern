@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import Category from "../components/Categories";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
-import { getBooksByCatgoryId } from "../services/booksService";
+import { getBooks } from "../services/booksService";
 
 
 const BooksPage = () => {
@@ -21,8 +21,8 @@ const BooksPage = () => {
   }, [category]);
 
   const getFilterdBooks = async (categoryId) => {
-    const { data: { data } } = await getBooksByCatgoryId(categoryId);
-    setBooks(data);
+    const { data: { data: { docs } } } = await getBooks({ categoryId });
+    setBooks(docs);
   };
 
   return (

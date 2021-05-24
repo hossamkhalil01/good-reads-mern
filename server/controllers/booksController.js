@@ -25,32 +25,36 @@ const getBook = async (req, res) => {
 };
 
 const getBooks = async (req, res) => {
-
   // process the query params
   const [{ limit, page }, filter] = extractPaginationInfo(req.query);
-
+  if (filter.key) {
+    filter["title"] = manipulateSearchParams(filter.key);
+    delete filter.key;
+  }
   // the pagination options
   const options = {
     sort: { _id: -1 },
-    populate: ['authors', 'categories'],
+    populate: ["authors", "categories"],
     lean: true,
     page,
     limit,
-  }
+  };
 
   try {
     // get the books
-    const books = await Book.paginate(filter, options)
+    const books = await Book.paginate(filter, options);
     // build the resulting object
     return sendResponse(res, books, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
   }
+};
 
+const manipulateSearchParams = (key) => {
+  return { $regex: key };
 };
 
 const createBook = async (req, res) => {
-
   const body = JSON.parse(req.body.body);
 
   const coverImage = req.file.destination + req.file.filename;
@@ -71,7 +75,6 @@ const createBook = async (req, res) => {
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
   }
-
 };
 const deleteBook = async (req, res) => {
   const id = req.params.id;

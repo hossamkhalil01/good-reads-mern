@@ -1,25 +1,27 @@
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 
-export default function LandingPage() {
+export default function HomePage() {
   return (
     // <Grid container alignItems="flex-start" justify="center" spacing={2}>
     //   <h1>landing</h1>
     //   <Logout />
     // </Grid>
     <div>
-      <Navbar/>
+      <Navbar />
 
       <div>
-        <section id="hero" className="d-flex justify-content-center align-items-center" 
-        style={{ backgroundImage: "url(/assets/img/hero-bg.jpg)",
-              backgroundPosition: "top center",
-              width: "100%",
-              height: "80vh",
-              backgroundSize: "cover",
-              position: "relative" }}
+        <section id="hero" className="d-flex justify-content-center align-items-center"
+          style={{
+            backgroundImage: "url(/assets/img/hero-bg.jpg)",
+            backgroundPosition: "top center",
+            width: "100%",
+            height: "80vh",
+            backgroundSize: "cover",
+            position: "relative"
+          }}
         >
-        
+
           <div className="container position-relative" data-aos="zoom-in" data-aos-delay="100">
             <h1>Learning Today,<br />Leading Tomorrow</h1>
             <h2>We are team of talented designers making websites with Bootstrap</h2>
