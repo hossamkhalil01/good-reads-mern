@@ -5,6 +5,7 @@ const {
   sendError,
   errorMessages,
 } = require("../utils/responses");
+const { extractPaginationInfo } = require("../utils/pagination");
 
 const getUsers = async (req, res) => {
   // process the query params
@@ -16,18 +17,16 @@ const getUsers = async (req, res) => {
     lean: true,
     page,
     limit,
-  }
+  };
 
   try {
     // get the users
-    const users = await User.paginate(filter, options)
+    const users = await User.paginate(filter, options);
     // build the resulting object
     return sendResponse(res, users, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
   }
-
-
 };
 
 const getUser = async (req, res) => {

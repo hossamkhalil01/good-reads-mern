@@ -6,12 +6,13 @@ import {
   createPaginationParams,
   parsePaginatedResponse,
 } from "../utils/pagination";
-import Search from "../components/Search";
+import { Reviews } from "../components/Reviews";
+import { AddReview } from "../components/AddReview";
 
 const Authors = () => {
   const [authors, setAuthors] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
-
+  const [isUpdated, updateReview] = useState(false);
   useEffect(() => {
     handlePageChange();
   }, []);
@@ -32,6 +33,11 @@ const Authors = () => {
 
   return (
     <div className="container">
+      <AddReview
+        onReviewsChanged={updateReview}
+        bookId="60aabaf600ecbab7160a97db"
+      />
+      <Reviews isUpdated={isUpdated} bookId="60aabaf600ecbab7160a97db" />
       <div className="row">
         {authors.map((author) => (
           <div key={author?._id} className="col-3 mb-3">

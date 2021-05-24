@@ -11,6 +11,10 @@ export const getRatesUrl = (bookId) => {
   return `${booksBase}${bookId}/rates/`;
 };
 
+export const getReviewsUrl = (bookId) => {
+  return `${booksBase}${bookId}/reviews/`;
+};
+
 export const getUserShelfUrl = (userId) => {
   return `${usersBase}${userId}/shelf/`;
 };

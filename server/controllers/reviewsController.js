@@ -43,23 +43,22 @@ const getAllReviews = async (req, res) => {
 
   // the pagination options
   const options = {
-    populate: 'users',
+    populate: "user",
     sort: { _id: -1 },
     lean: true,
     page,
     limit,
-  }
+  };
 
   try {
     // get the reviews
-    const reviews = await Review.paginate({ ...filter, book: bookId }, options)
+    const reviews = await Review.paginate({ ...filter, book: bookId }, options);
     // build the resulting object
     return sendResponse(res, reviews, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.notFound);
   }
 };
-
 
 const createReview = async (req, res) => {
   try {
