@@ -1,12 +1,8 @@
 import requests from "../api/requests";
 import { booksBase } from "../api/urls";
 
-export const getBooks = async () => {
-  return await requests.get(booksBase)
-};
-
-export const getBooksByCatgoryId = async (catgoryId) => {
-  return await requests.get(booksBase, { catgoryId })
+export const getBooks = async (params) => {
+  return await requests.get(booksBase, params);
 };
 
 export const createBook = async (body) => {
@@ -20,4 +16,3 @@ export const updateBook = async (id, body) => {
 export const deleteBook = async (id) => {
   return await requests.delete(booksBase + id);
 };
-

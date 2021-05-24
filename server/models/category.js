@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const categorySchema = new mongoose.Schema({
   label: {
@@ -13,5 +14,6 @@ const categorySchema = new mongoose.Schema({
 
 // define unique index for labewl
 categorySchema.index({ label: 1 }, { unique: true });
-
+// add Pagination package
+categorySchema.plugin(mongoosePaginate);
 module.exports = mongoose.model("Category", categorySchema);

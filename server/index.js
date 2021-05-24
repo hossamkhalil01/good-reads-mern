@@ -61,3 +61,5 @@ app.use(
   passport.authenticate("jwt", { session: false }),
   require("./routes/authors")
 );
+
+app.use("/search", require("./routes/search"));

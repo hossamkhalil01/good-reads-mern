@@ -1,20 +1,38 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Category from "../components/Categories";
-import { getBooksByCatgoryId } from "../services/booksService";
+import Paginator from "../components/Paginator";
+import { getBooks } from "../services/booksService";
+import {
+  createPaginationParams,
+  parsePaginatedResponse,
+} from "../utils/pagination";
 const Categories = () => {
   const [category, setCategory] = useState({
     label: "all",
   });
 
   const [books, setBooks] = useState([]);
+  const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
 
   useEffect(() => {
-    getFilterdBooks(category._id);
+    handlePageChange();
   }, [category]);
 
-  const getFilterdBooks = async (categoryId) => {
-    const { data: { data } } = await getBooksByCatgoryId(categoryId);
+  const handlePageChange = async (newPage) => {
+    // construct the params
+    const params = createPaginationParams(
+      { categories: category._id },
+      { ...pagination, page: newPage }
+    );
+
+    // get the new page from api
+    const { data, paginationInfo } = parsePaginatedResponse(
+      await getBooks(params)
+    );
+
+    // set the values
+    setPagination(paginationInfo);
     setBooks(data);
   };
 
@@ -42,6 +60,14 @@ const Categories = () => {
                 <h3 className="text-center">No books in this category</h3>
               </div>
             )}
+            <div className="row justify-content-center">
+              <div className="col-6">
+                <Paginator
+                  paginationInfo={pagination}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

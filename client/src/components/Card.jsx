@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const Card = ({ object, type }) => {
   return type === "book" ? (
     <div className="card">
@@ -7,11 +8,14 @@ const Card = ({ object, type }) => {
         alt="..."
       />
       <div className="card-body">
-        <p className="card-text">{object?.title}</p>
+        <p className="card-text">
+          <Link to={`/book/${object?._id}`}>{object?.title}</Link>
+        </p>
         {object?.authors.map((author) => (
-          
           <p key={author?._id} className="card-text">
-            {author?.firstName + author?.lastName}
+            <Link to={`/author/${object?._id}`}>
+              {author?.firstName + author?.lastName}
+            </Link>
           </p>
         ))}
       </div>
@@ -24,7 +28,11 @@ const Card = ({ object, type }) => {
         alt="..."
       />
       <div className="card-body">
-        <p className="card-text">{object?.firstName + object?.lastName}</p>
+        <p className="card-text">
+          <Link to={`/author/${object?._id}`}>
+            {object?.firstName + object?.lastName}
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const { extractPaginationInfo } = require("../utils/pagination");
 const {
   statusCodes,
   sendError,
@@ -21,9 +22,16 @@ const getCategory = async (req, res) => {
 };
 
 const getCategories = async (req, res) => {
+  try {
+    const categories = await Category.find();
+    return sendResponse(res, categories, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
+};
 
-  const categories = await Category.find();
-  return sendResponse(res, categories, statusCodes.success.ok);
+const manipulateSearchParams = (key) => {
+  return { $regex: key };
 };
 
 const createCategory = async (req, res) => {
