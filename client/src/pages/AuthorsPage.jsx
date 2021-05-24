@@ -26,11 +26,8 @@ const Authors = () => {
 
 
     // set the values
-    console.log("info: ", paginationInfo)
     setPagination(paginationInfo);
     setAuthors(data);
-
-    console.log("pagination: ", pagination)
   }
 
 

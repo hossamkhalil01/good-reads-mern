@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import { getCategories } from "../../services/categoriesService";
 
 
 export default function NavBar() {
 
+    const [categories, setCategories] = useState([]);
+    
+    useEffect(() => {
+        const getAllCategories = async () => {
+            const { data: { data } } = await getCategories({limit: 5});
+            setCategories(data);
+        };
+        getAllCategories();
+    }, []);  
+    
     return (
         <header id="header" className="sticky-top">
             <div className="container d-flex align-items-center">
@@ -23,10 +33,8 @@ export default function NavBar() {
                         </li>
                         <li className="dropdown"><a href="#"><span>Categories</span> <i className="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li><a href="#">Drop Down 1</a></li>
-                                <li><a href="#">Drop Down 2</a></li>
-                                <li><a href="#">Drop Down 3</a></li>
-                                <li><a href="#">Drop Down 4</a></li>
+                                {categories.map(category => <li key={category._id}> <NavLink  activeClassName=""
+                                                            to={{pathname: "/books" , category:category}} >{category.label} </NavLink></li>)}
                             </ul>
                         </li>
                         <li><NavLink

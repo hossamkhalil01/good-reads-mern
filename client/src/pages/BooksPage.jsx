@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import Card from "../components/Card";
 import Category from "../components/Categories";
 import Footer from "../components/layouts/Footer";
@@ -6,10 +7,12 @@ import Navbar from "../components/layouts/Navbar";
 import { getBooksByCatgoryId } from "../services/booksService";
 
 
-const Categories = () => {
-  const [category, setCategory] = useState({
-    label: "all",
-  });
+const BooksPage = () => {
+
+  const location = useLocation();
+  const initCategory = location.category ? location.category : { label: "all" };
+
+  const [category, setCategory] = useState(initCategory);
 
   const [books, setBooks] = useState([]);
 
@@ -57,4 +60,5 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+
+export default BooksPage;
