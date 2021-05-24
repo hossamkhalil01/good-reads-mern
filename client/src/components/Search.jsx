@@ -1,21 +1,20 @@
 import { useState } from "react";
 import { getSearchResult } from "../services/searchService";
+import { Link } from "react-router-dom";
 const Search = () => {
   const [searchKey, updateSearchKey] = useState("");
   const [authors, setAuthors] = useState([]);
   const [books, setBooks] = useState([]);
-  const [categories, setCategories] = useState([]);
   const getFilterdData = async (key) => {
     updateSearchKey(key);
     if (key === "") return;
     const {
       data: {
-        data: { matchedAuthors, matchedBooks, matchedCategories },
+        data: { matchedAuthors, matchedBooks },
       },
     } = await getSearchResult(key);
     setAuthors(matchedAuthors);
     setBooks(matchedBooks);
-    setCategories(matchedCategories);
   };
   return (
     <>
@@ -65,24 +64,8 @@ const Search = () => {
               </ul>
             )}
           </div>
-          <div>
-            <h4 className="">Matched Categories</h4>
-            {categories.length > 0 ? (
-              <ul class="list-group list-group-flush">
-                {categories.map((category) => (
-                  <li key={category._id} class="list-group-item">
-                    {category.label}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  No Categories Found with this search
-                </li>
-              </ul>
-            )}
-          </div>
+          <hr />
+          <Link to={`/search/${searchKey}`}>Show More</Link>
         </div>
       </div>
     </>

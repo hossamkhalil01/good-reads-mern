@@ -22,21 +22,8 @@ const getCategory = async (req, res) => {
 };
 
 const getCategories = async (req, res) => {
-  const [{ limit, page }, filter] = extractPaginationInfo(req.query);
-
-  if (filter.key) {
-    filter["label"] = manipulateSearchParams(filter.key);
-    delete filter.key;
-  }
-
-  const options = {
-    sort: { _id: -1 },
-    page,
-    limit,
-  };
-
   try {
-    const categories = await Category.paginate(filter, options);
+    const categories = await Category.find();
     return sendResponse(res, categories, statusCodes.success.ok);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);

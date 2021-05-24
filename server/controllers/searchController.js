@@ -21,19 +21,11 @@ const getFilterdData = async (req, res) => {
         .select("-authors -categories")
         .limit(3)
         .sort("title"),
-      categoryModel
-        .find({
-          label: { $regex: searchKey },
-        })
-        .limit(3)
-        .sort("label"),
     ];
-    const [matchedAuthors, matchedBooks, matchedCategories] = await Promise.all(
-      promises
-    );
+    const [matchedAuthors, matchedBooks] = await Promise.all(promises);
     return sendResponse(
       res,
-      { matchedAuthors, matchedBooks, matchedCategories },
+      { matchedAuthors, matchedBooks },
       statusCodes.success.ok
     );
   } catch (error) {

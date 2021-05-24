@@ -21,7 +21,7 @@ div.searchResult {
   top: 100%;
   width: 100%;
   z-index: 9;
-  max-height: 350px !important;
+  max-height: 250px !important;
   display: none;
   overflow-y: scroll;
   background-color: #fff;
@@ -32,10 +32,5 @@ div.searchResult {
 div.show {
   display: block;
   opacity: 1;
-  transition: opacity 1s;
-}
-
-div.hide {
-  opacity: 0;
   transition: opacity 1s;
 }
