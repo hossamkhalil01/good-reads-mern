@@ -15,11 +15,19 @@ const Category = ({ onSetCategory, selectedCatgory }) => {
   }, []);
 
 
+  const handleCategoryChange = (category) => {
+
+    if (category.label === selectedCatgory) return
+
+    // emit event to parent
+    onSetCategory(category)
+
+  }
   return (
     <ul className="list-group">
       <li
         onClick={() =>
-          onSetCategory({
+          handleCategoryChange({
             label: "all",
           })
         }
@@ -33,7 +41,7 @@ const Category = ({ onSetCategory, selectedCatgory }) => {
           key={category?._id}
           className={`list-group-item ${selectedCatgory === category?.label ? "active" : ""
             }`}
-          onClick={() => onSetCategory(category)}
+          onClick={() => handleCategoryChange(category)}
         >
           {category?.label}
         </li>

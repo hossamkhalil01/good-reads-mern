@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Category from "../components/Categories";
-import { getBooksByCatgoryId } from "../services/booksService";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
+import { getBooksByCatgoryId } from "../services/booksService";
 
 
 const Categories = () => {
@@ -24,8 +24,8 @@ const Categories = () => {
 
   return (
     <div>
-       <Navbar/>
-      <div className="container">
+      <Navbar />
+      <div className="mt-5 container">
         <div className="row">
           <div className="col-4">
             <aside>

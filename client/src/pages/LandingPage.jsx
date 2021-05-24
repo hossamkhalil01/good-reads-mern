@@ -11,7 +11,15 @@ export default function LandingPage() {
       <Navbar/>
 
       <div>
-        <section id="hero" className="d-flex justify-content-center align-items-center" >
+        <section id="hero" className="d-flex justify-content-center align-items-center" 
+        style={{ backgroundImage: "url(/assets/img/hero-bg.jpg)",
+              backgroundPosition: "top center",
+              width: "100%",
+              height: "80vh",
+              backgroundSize: "cover",
+              position: "relative" }}
+        >
+        
           <div className="container position-relative" data-aos="zoom-in" data-aos-delay="100">
             <h1>Learning Today,<br />Leading Tomorrow</h1>
             <h2>We are team of talented designers making websites with Bootstrap</h2>
