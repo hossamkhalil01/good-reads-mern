@@ -2,8 +2,7 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../components/PrivateRoute";
 import AuthorsPage from "../pages/AuthorsPage";
-import Categories from "../pages/CategoriesPage";
-import Home from "../pages/HomePage.jsx";
+import BooksPage from "../pages/BooksPage";
 import Landing from "../pages/LandingPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import AdminDashboard from "./admin/AdminDashboard";
@@ -18,20 +17,17 @@ export default function Router() {
         <Route path="/registration">
           <RegistrationPage />
         </Route>
-        <Route path="/categories">
-          <Categories />
+        <Route path="/books">
+          <BooksPage />
         </Route>
-        <PrivateRoute path="/home">
-          <Home />
-        </PrivateRoute>
         <PrivateRoute path="/authors">
           <AuthorsPage />
         </PrivateRoute>
-        <PrivateRoute path="/landing">
+        <PrivateRoute path="/home">
           <Landing />
         </PrivateRoute>
         <Route path="/">
-          <Redirect to="/landing"></Redirect>
+          <Redirect to="/home"></Redirect>
         </Route>
       </Switch>
     </BrowserRouter>

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
+import Footer from "../components/layouts/Footer";
+import Navbar from "../components/layouts/Navbar";
 import Paginator from "../components/Paginator";
 import * as services from "../services/authorsService";
 import { createPaginationParams, parsePaginatedResponse } from "../utils/pagination";
@@ -33,6 +35,8 @@ const Authors = () => {
 
 
   return (
+  <div>
+    <Navbar/>
     <div className="container">
       <div className="row">
         {authors.map((author) => (
@@ -49,6 +53,8 @@ const Authors = () => {
         </div>
       </div>
     </div>
+    <Footer />
+  </div> 
   );
 };
 
