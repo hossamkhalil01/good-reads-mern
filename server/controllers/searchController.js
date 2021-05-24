@@ -5,7 +5,7 @@ const { statusCodes, sendResponse, sendError } = require("../utils/responses");
 
 const getFilterdData = async (req, res) => {
   try {
-    const searchKey = req.query?.q;
+    const searchKey = req.query.q ? req.query.q : '';
     const promises = [
       authorModel
         .find({
