@@ -6,6 +6,7 @@ import {
   createPaginationParams,
   parsePaginatedResponse,
 } from "../utils/pagination";
+import Search from "../components/Search";
 
 const Authors = () => {
   const [authors, setAuthors] = useState([]);
