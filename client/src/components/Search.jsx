@@ -35,7 +35,9 @@ const Search = () => {
               <ul class="list-group list-group-flush">
                 {authors.map((author) => (
                   <li key={author._id} class="list-group-item">
-                    {author.firstName + author.lastName}
+                    <Link to={`/author/${author._id}`}>
+                      {author.firstName + author.lastName}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -54,7 +56,7 @@ const Search = () => {
               <ul class="list-group list-group-flush">
                 {books.map((book) => (
                   <li key={book._id} class="list-group-item">
-                    {book.title}
+                    <Link to={`/book/${book._id}`}>{book.title}</Link>
                   </li>
                 ))}
               </ul>
