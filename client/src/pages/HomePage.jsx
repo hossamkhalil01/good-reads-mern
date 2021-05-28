@@ -59,9 +59,9 @@ export default function HomePage() {
         >
 
           <div className="container position-relative" data-aos="zoom-in" data-aos-delay="100">
-            <h1>Learning Today,<br />Leading Tomorrow</h1>
-            <h2>We are team of talented designers making websites with Bootstrap</h2>
-            <a href="courses.html" className="btn-get-started">Get Started</a>
+            <h1>A reader lives a thousand lives,<br />before he dies</h1>
+            <h2>The man who never reads lives only one.</h2>
+            <a href="courses.html" className="btn-get-started">Find a Book</a>
           </div>
         </section >
 
@@ -124,7 +124,7 @@ export default function HomePage() {
 
               {popularAuthors.map((author) => {
                 return (
-                  <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
+                  <div className="col-lg-4 col-md-6 d-flex align-items-stretch" key={author._id}>
                     <div className="member">
                       <img src={`${hostUrl}${author.photo}`} className="img-fluid" alt="" />
                       <div className="member-content">
