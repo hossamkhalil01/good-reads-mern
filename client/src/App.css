@@ -771,9 +771,14 @@ section {
     border-top: 1px solid #eef0ef;
 }
 
+.author-name {
+    color: #37423b;
+}
+
+
 .courses .trainer .trainer-profile img {
     max-width: 50px;
-    border-radius: 50px;
+    border-radius: 50%;
 }
 
 .courses .trainer .trainer-profile span {
@@ -783,10 +788,6 @@ section {
     color: #5a6c60;
 }
 
-.courses .trainer .trainer-rank {
-    font-size: 18px;
-    color: #657a6d;
-}
 
 /*--------------------------------------------------------------
   # Trainers
@@ -800,6 +801,8 @@ section {
 
 .trainers .member img {
     margin: -1px -1px 30px -1px;
+    max-height: 60%;
+    width: 100%;
 }
 
 .trainers .member .member-content {
@@ -838,7 +841,7 @@ section {
     color: #5fcf80;
 }
 
-.trainers .member .social i {
+. .trainers .member .social i {
     font-size: 18px;
     margin: 0 2px;
 }
