@@ -10,3 +10,8 @@ img {
   display: flex;
   justify-content: center;
 }
+
+.book-content {
+  margin-bottom: 10%;
+  /* height: 100vh; */
+}

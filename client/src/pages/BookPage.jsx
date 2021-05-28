@@ -49,60 +49,62 @@ export const BookPage = () => {
   return (
     <div className="BookPage">
       <Navbar />
-      <div className="row mt-5">
-        <div className="col-md-4 justify-content-center">
-          {book?.coverImage ? (
-            <img src={`${hostUrl}${book?.coverImage}`} alt="" />
-          ) : (
-            ""
-          )}
-        </div>
-        <div className="col-md-6">
-          {book?.title ? (
-            <div>
-              <h1>{capitalize(book?.title)}</h1>
-              <h6>
-                by {book?.authors[0].firstName} {book?.authors[0].lastName}
-              </h6>
-              <h6>{capitalize(book?.categories[0].label)}</h6>
-              <AvgRating bookId={id} />
-              <p>{book?.description}</p>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-4 justify-content-center">
-          <div className="rating-component mt-3">
-            {updatedUser?.shelf && book?.title ? (
-              <UserBookStatus
-                bookId={id}
-                status={getUserBook}
-                onStatusChange={() => {}}
-              />
+      <div className="book-content">
+        <div className="row mt-5">
+          <div className="col-md-4 justify-content-center">
+            {book?.coverImage ? (
+              <img src={`${hostUrl}${book?.coverImage}`} alt="" />
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="col-md-6">
+            {book?.title ? (
+              <div>
+                <h1>{capitalize(book?.title)}</h1>
+                <h6>
+                  by {book?.authors[0].firstName} {book?.authors[0].lastName}
+                </h6>
+                <h6>{capitalize(book?.categories[0].label)}</h6>
+                <AvgRating bookId={id} />
+                <p>{book?.description}</p>
+              </div>
             ) : (
               ""
             )}
           </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="col-md-4 justify-content-center">
-          <div className="rating-component mt-3">
-            <UserRating bookId={id} />
+        <div className="row">
+          <div className="col-md-4 justify-content-center">
+            <div className="rating-component mt-3">
+              {updatedUser?.shelf && book?.title ? (
+                <UserBookStatus
+                  bookId={id}
+                  status={getUserBook}
+                  onStatusChange={() => {}}
+                />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="row justify-content-center mt-5">
-        <div className="col-md-10">
-          <AddReview bookId={id} />
+        <div className="row">
+          <div className="col-md-4 justify-content-center">
+            <div className="rating-component mt-3">
+              <UserRating bookId={id} />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="row justify-content-center mt-5">
-        <div className="col-md-10">
-          <Reviews bookId={id} />
+        <div className="row justify-content-center mt-5">
+          <div className="col-md-10">
+            <AddReview bookId={id} />
+          </div>
+        </div>
+        <div className="row justify-content-center mt-5">
+          <div className="col-md-10">
+            <Reviews bookId={id} />
+          </div>
         </div>
       </div>
       <Footer />
