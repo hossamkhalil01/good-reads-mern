@@ -13,7 +13,6 @@ const getBook = async (req, res) => {
     const book = await Book.findOne({ _id: id })
       .populate("authors")
       .populate("categories");
-
     // book not found
     if (!book)
       return sendError(res, errorMessages.notFound, statusCodes.error.notFound);

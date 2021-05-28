@@ -5,6 +5,11 @@ export const getBooks = async (params) => {
   return await requests.get(booksBase, params);
 };
 
+export const getBook = async (id) => {
+  console.log("id: " + id);
+  return await requests.get(`${booksBase}${id}`);
+};
+
 export const createBook = async (body) => {
   return await requests.create(booksBase, body);
 };
