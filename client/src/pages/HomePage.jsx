@@ -10,7 +10,7 @@ export default function HomePage() {
     <div>
       <Navbar />
 
-      <div>
+      <div className="main-content">
         <section id="hero" className="d-flex justify-content-center align-items-center"
           style={{
             backgroundImage: "url(/assets/img/hero-bg.jpg)",

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { getCategories } from "../../services/categoriesService";
 
 
-export default function NavBar() {
+export default function Navbar() {
 
     const [categories, setCategories] = useState([]);
     
