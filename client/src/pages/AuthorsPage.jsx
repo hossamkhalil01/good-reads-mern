@@ -6,7 +6,7 @@ import Paginator from "../components/Paginator";
 import * as services from "../services/authorsService";
 import {
   createPaginationParams,
-  parsePaginatedResponse
+  parsePaginatedResponse,
 } from "../utils/pagination";
 
 const Authors = () => {
@@ -29,8 +29,7 @@ const Authors = () => {
     // set the values
     setPagination(paginationInfo);
     setAuthors(data);
-  }
-
+  };
 
   return (
     <div>
@@ -45,8 +44,10 @@ const Authors = () => {
         </div>
         <div className="row justify-content-center">
           <div className="col-6">
-            <Paginator paginationInfo={pagination}
-              onPageChange={handlePageChange} />
+            <Paginator
+              paginationInfo={pagination}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </div>

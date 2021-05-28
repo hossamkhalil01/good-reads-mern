@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import { hostUrl } from "../api/urls";
 const Card = ({ object, type }) => {
   return type === "book" ? (
     <div className="card">
       <img
-        src="https://via.placeholder.com/150"
         className="card-img-top"
-        alt="..."
+        src={`${hostUrl}${object?.coverImage}`}
+        alt={`${object?.title}'s cover`}
       />
       <div className="card-body">
         <p className="card-text">
@@ -23,9 +24,9 @@ const Card = ({ object, type }) => {
   ) : (
     <div className="card">
       <img
-        src="https://via.placeholder.com/150"
+        src={`${hostUrl}${object?.photo}`}
         className="card-img-top"
-        alt="..."
+        alt={`${object?.firstName + object?.lastName}'s cover.`}
       />
       <div className="card-body">
         <p className="card-text">

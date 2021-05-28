@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import Card from "../components/Card";
 import Category from "../components/Categories";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import { getBooks } from "../services/booksService";
 
-
 const BooksPage = () => {
-
   const location = useLocation();
   const initCategory = location.category ? location.category : { label: "all" };
 
@@ -21,7 +19,11 @@ const BooksPage = () => {
   }, [category]);
 
   const getFilterdBooks = async (categoryId) => {
-    const { data: { data: { docs } } } = await getBooks({ categoryId });
+    const {
+      data: {
+        data: { docs },
+      },
+    } = await getBooks({ categoryId });
     setBooks(docs);
   };
 
@@ -59,6 +61,5 @@ const BooksPage = () => {
     </div>
   );
 };
-
 
 export default BooksPage;
