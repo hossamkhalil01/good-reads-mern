@@ -7,7 +7,7 @@ import {
   Input,
   InputAdornment,
   InputLabel,
-  Paper
+  Paper,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import axios from "axios";
@@ -97,7 +97,7 @@ const Login = (props) => {
           if (props.location.state) {
             history.push(props.location.state.referer);
           } else {
-            history.push("/landing");
+            history.push("/");
           }
         })
         .catch((err) => {

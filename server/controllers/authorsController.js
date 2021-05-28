@@ -85,10 +85,7 @@ const getAuthors = async (req, res) => {
 };
 
 const manipulateSearchParams = (key) => {
-  return [
-    { firstName: { $regex: key } },
-    { lastName: { $regex: key } },
-  ];
+  return [{ firstName: { $regex: key } }, { lastName: { $regex: key } }];
 };
 
 const createAuthor = (req, res) => {
@@ -97,7 +94,10 @@ const createAuthor = (req, res) => {
   const lastName = body.lastName;
   const description = body.description;
   const bDate = body.bDate;
-  const photo = req.file.destination + req.file.filename;
+  let photo = "public/img/authors/default.png";
+  if (req.file) {
+    photo = req.file.destination + req.file.filename;
+  }
 
   const author = new Author({
     firstName,

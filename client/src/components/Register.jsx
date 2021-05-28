@@ -7,7 +7,7 @@ import {
   Input,
   InputAdornment,
   InputLabel,
-  Paper
+  Paper,
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
@@ -124,7 +124,7 @@ const Register = (props) => {
     let lastNameErr = false;
     let lastNameMsg = "";
 
-    let errsArray = ['email: Email already exists']
+    let errsArray = ["email: Email already exists"];
 
     if (errors[1]) errsArray = errors[1].split(", ");
 
@@ -173,7 +173,7 @@ const Register = (props) => {
           if (props.location.state) {
             history.push(props.location.state.referer);
           } else {
-            history.push("/landing");
+            history.push("/home");
           }
         })
         .catch((err) => {

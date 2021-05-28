@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import Card from "../components/Card";
 import Category from "../components/Categories";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import { getBooks } from "../services/booksService";
-
+import { capitalize } from "../utils/utils";
 
 const BooksPage = () => {
-
   const location = useLocation();
   const initCategory = location.category ? location.category : { label: "all" };
 
@@ -21,7 +20,11 @@ const BooksPage = () => {
   }, [category]);
 
   const getFilterdBooks = async (categoryId) => {
-    const { data: { data: { docs } } } = await getBooks({ categoryId });
+    const {
+      data: {
+        data: { docs },
+      },
+    } = await getBooks({ categoryId });
     setBooks(docs);
   };
 
@@ -33,7 +36,7 @@ const BooksPage = () => {
           <div className="col-4">
             <aside>
               <Category
-                selectedCatgory={category?.label}
+                selectedCatgory={capitalize(category?.label)}
                 onSetCategory={setCategory}
               />
             </aside>
@@ -59,6 +62,5 @@ const BooksPage = () => {
     </div>
   );
 };
-
 
 export default BooksPage;

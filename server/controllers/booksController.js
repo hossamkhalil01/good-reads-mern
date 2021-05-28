@@ -13,7 +13,6 @@ const getBook = async (req, res) => {
     const book = await Book.findOne({ _id: id })
       .populate("authors")
       .populate("categories");
-
     // book not found
     if (!book)
       return sendError(res, errorMessages.notFound, statusCodes.error.notFound);
@@ -56,8 +55,11 @@ const manipulateSearchParams = (key) => {
 
 const createBook = async (req, res) => {
   const body = JSON.parse(req.body.body);
+  let coverImage = "public/img/books/default.png";
+  if (req.file) {
+    coverImage = req.file.destination + req.file.filename;
+  }
 
-  const coverImage = req.file.destination + req.file.filename;
   const title = body.title;
   const authors = body.authors;
   const categories = body.categories;

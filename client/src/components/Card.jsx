@@ -1,20 +1,25 @@
 import { Link } from "react-router-dom";
+import { hostUrl } from "../api/urls";
+import { capitalize } from "../utils/utils";
+
 const Card = ({ object, type }) => {
   return type === "book" ? (
     <div className="card">
       <img
-        src="https://via.placeholder.com/150"
         className="card-img-top"
-        alt="..."
+        src={`${hostUrl}${object?.coverImage}`}
+        alt={`${object?.title}'s cover`}
       />
       <div className="card-body">
         <p className="card-text">
-          <Link to={`/book/${object?._id}`}>{object?.title}</Link>
+          <Link to={`/book/${object?._id}`}>{capitalize(object?.title)}</Link>
         </p>
         {object?.authors.map((author) => (
           <p key={author?._id} className="card-text">
             <Link to={`/author/${object?._id}`}>
-              {author?.firstName + author?.lastName}
+              {capitalize(author?.firstName) +
+                " " +
+                capitalize(author?.lastName)}
             </Link>
           </p>
         ))}
@@ -23,14 +28,14 @@ const Card = ({ object, type }) => {
   ) : (
     <div className="card">
       <img
-        src="https://via.placeholder.com/150"
+        src={`${hostUrl}${object?.photo}`}
         className="card-img-top"
-        alt="..."
+        alt={`${object?.firstName + object?.lastName}'s cover.`}
       />
       <div className="card-body">
         <p className="card-text">
           <Link to={`/author/${object?._id}`}>
-            {object?.firstName + object?.lastName}
+            {capitalize(object?.firstName) + " " + capitalize(object?.lastName)}
           </Link>
         </p>
       </div>

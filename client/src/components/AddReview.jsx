@@ -16,16 +16,30 @@ export const AddReview = ({ bookId, onReviewsChanged }) => {
       .catch((err) => setError("you cant review same book twice"));
   };
   return (
-    <div>
-      <textarea
-        value={review}
-        onChange={(e) => updateReview(e.target.value)}
-        className="form-control"
-      ></textarea>
-      <button onClick={() => handleReviewSubmit()} className="btn btn-success">
-        Add
-      </button>
-      {error === "" ? "" : <div className="alert alert-danger">{error}</div>}
+    <div className="row align-baseline">
+      <div className="col-md-10">
+        <textarea
+          value={review}
+          onChange={(e) => updateReview(e.target.value)}
+          className="form-control"
+        ></textarea>
+      </div>
+      <div className="col-md-2">
+        <button
+          onClick={() => handleReviewSubmit()}
+          className="btn btn-success"
+        >
+          Add
+        </button>
+      </div>
+      {error === "" ? (
+        ""
+      ) : (
+        <div className="row justify-content-center">
+          <div className="col-md-9 alert alert-danger mt-3">{error}</div>
+          <div className="col-md-2"></div>
+        </div>
+      )}
     </div>
   );
 };
