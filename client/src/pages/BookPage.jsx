@@ -12,6 +12,7 @@ import { currentUser } from "../services/authService";
 import { getBook } from "../services/booksService";
 import { getUser } from "../services/userService";
 import "../styles/BookPage.css";
+import { capitalize } from "../utils/utils";
 
 export const BookPage = () => {
   const { id } = useParams();
@@ -59,11 +60,11 @@ export const BookPage = () => {
         <div className="col-md-6">
           {book?.title ? (
             <div>
-              <h1>{book?.title}</h1>
+              <h1>{capitalize(book?.title)}</h1>
               <h6>
                 by {book?.authors[0].firstName} {book?.authors[0].lastName}
               </h6>
-              <h6>{book?.categories[0].label}</h6>
+              <h6>{capitalize(book?.categories[0].label)}</h6>
               <AvgRating bookId={id} />
               <p>{book?.description}</p>
             </div>

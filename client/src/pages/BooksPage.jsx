@@ -5,6 +5,7 @@ import Category from "../components/Categories";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import { getBooks } from "../services/booksService";
+import { capitalize } from "../utils/utils";
 
 const BooksPage = () => {
   const location = useLocation();
@@ -35,7 +36,7 @@ const BooksPage = () => {
           <div className="col-4">
             <aside>
               <Category
-                selectedCatgory={category?.label}
+                selectedCatgory={capitalize(category?.label)}
                 onSetCategory={setCategory}
               />
             </aside>
