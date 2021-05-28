@@ -6,7 +6,6 @@ export const getBooks = async (params) => {
 };
 
 export const getBook = async (id) => {
-  console.log("id: " + id);
   return await requests.get(`${booksBase}${id}`);
 };
 

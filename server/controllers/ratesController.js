@@ -105,7 +105,7 @@ const deleteRate = async (req, res) => {
 
 const updateRate = async (req, res) => {
   const bookId = req.params.bookId;
-  const userId = req.query.userId;
+  const userId = req.body.userId;
   const rating = req.body.rating;
   try {
     const updatedRate = await Rate.findOneAndUpdate(
