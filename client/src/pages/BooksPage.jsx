@@ -26,9 +26,9 @@ const BooksPage = () => {
   };
 
   return (
-    <div>
+    <div >
       <Navbar />
-      <div className="mt-5 container">
+      <div className="mt-5 container main-content">
         <div className="row">
           <div className="col-4">
             <aside>
