@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { hostUrl } from "../api/urls";
+import { AddReview } from "../components/AddReview";
 import AvgRating from "../components/AvgRate";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
+import { Reviews } from "../components/Reviews";
 import UserBookStatus from "../components/UserBookStatus";
 import UserRating from "../components/UserRate";
 import { currentUser } from "../services/authService";
@@ -90,6 +92,16 @@ export const BookPage = () => {
           <div className="rating-component mt-3">
             <UserRating bookId={id} />
           </div>
+        </div>
+      </div>
+      <div className="row justify-content-center mt-5">
+        <div className="col-md-10">
+          <AddReview bookId={id} />
+        </div>
+      </div>
+      <div className="row justify-content-center mt-5">
+        <div className="col-md-10">
+          <Reviews bookId={id} />
         </div>
       </div>
       <Footer />
