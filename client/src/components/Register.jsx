@@ -173,7 +173,7 @@ const Register = (props) => {
           if (props.location.state) {
             history.push(props.location.state.referer);
           } else {
-            history.push("/");
+            history.push("/home");
           }
         })
         .catch((err) => {

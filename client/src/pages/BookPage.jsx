@@ -4,21 +4,45 @@ import { hostUrl } from "../api/urls";
 import AvgRating from "../components/AvgRate";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
+import UserBookStatus from "../components/UserBookStatus";
 import UserRating from "../components/UserRate";
+import { currentUser } from "../services/authService";
 import { getBook } from "../services/booksService";
+import { getUser } from "../services/userService";
 import "../styles/BookPage.css";
 
 export const BookPage = () => {
   const { id } = useParams();
   const [book, setBook] = useState({});
+  const [updatedUser, setUpdatedUser] = useState({});
+
   const retrieveBook = async (bookId) => {
     const data = await getBook(bookId);
 
     setBook(data.data.data);
   };
+
+  const getUpdatedUser = async (userId) => {
+    const data = await getUser(userId);
+
+    setUpdatedUser(data.data.data);
+  };
+
+  const getUserBook = () => {
+    const shelf = updatedUser.shelf;
+    const userBook = shelf.find((userBook) => {
+      return userBook.book == book._id;
+    });
+
+    if (userBook) return userBook.status;
+    return;
+  };
+
   useEffect(() => {
     retrieveBook(id);
+    getUpdatedUser(currentUser._id);
   }, [id]);
+
   return (
     <div className="BookPage">
       <Navbar />
@@ -44,6 +68,21 @@ export const BookPage = () => {
           ) : (
             ""
           )}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-4 justify-content-center">
+          <div className="rating-component mt-3">
+            {updatedUser?.shelf && book?.title ? (
+              <UserBookStatus
+                bookId={id}
+                status={getUserBook}
+                onStatusChange={() => {}}
+              />
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
       <div className="row">
