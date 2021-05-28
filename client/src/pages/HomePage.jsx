@@ -6,6 +6,7 @@ import Navbar from "../components/layouts/Navbar";
 import { getAuthors } from "../services/authorsService";
 import { getBooks } from "../services/booksService";
 import { parsePaginatedResponse } from "../utils/pagination";
+import { capitalize } from "../utils/utils";
 
 export default function HomePage() {
   const [popularAuthors, setPopularAuthors] = useState([]);
@@ -92,7 +93,7 @@ export default function HomePage() {
                       />
                       <div className="course-content">
                         <div className="d-flex justify-content-between align-items-center mb-3">
-                          <h4>{book.categories[0].label}</h4>
+                          <h4>{capitalize(book.categories[0].label)}</h4>
                         </div>
 
                         <h3>
@@ -101,7 +102,7 @@ export default function HomePage() {
                             to={`/book/${book._id}`}
                             exact
                           >
-                            {book.title}
+                            {capitalize(book.title)}
                           </NavLink>
                         </h3>
                         <p>{book.description}</p>
@@ -118,9 +119,9 @@ export default function HomePage() {
                               exact
                             >
                               <span>
-                                {book.authors[0].firstName +
+                                {capitalize(book.authors[0].firstName) +
                                   " " +
-                                  book.authors[0].lastName}{" "}
+                                  capitalize(book.authors[0].lastName)}{" "}
                               </span>
                             </NavLink>
                           </div>
@@ -161,7 +162,9 @@ export default function HomePage() {
                             to={`/author/${author._id}`}
                             exact
                           >
-                            {`${author.firstName} ${author.lastName}`}
+                            {`${capitalize(author.firstName)} ${capitalize(
+                              author.lastName
+                            )}`}
                           </NavLink>
                         </h4>
 
