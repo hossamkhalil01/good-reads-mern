@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from "../components/Card";
+import Footer from "../components/layouts/Footer";
+import Navbar from "../components/layouts/Navbar";
 import Paginator from "../components/Paginator";
 import { getAuthors } from "../services/authorsService";
 import { getBooks } from "../services/booksService";
 import {
   createPaginationParams,
-  parsePaginatedResponse,
+  parsePaginatedResponse
 } from "../utils/pagination";
+
 export const SearchResult = () => {
   const { key } = useParams();
   const [authors, setAuthors] = useState([]);
@@ -69,40 +72,44 @@ export const SearchResult = () => {
     setBooks(data);
   };
   return (
-    <div className="container">
-      <h2>Authors</h2>
-      <div className="row">
-        {authors.map((author) => (
-          <div key={author?._id} className="col-3 mb-3">
-            <Card type="author" object={author} />
+    <div>
+      <Navbar />
+      <div className="container main-content">
+        <h2>Authors</h2>
+        <div className="row">
+          {authors.map((author) => (
+            <div key={author?._id} className="col-3 mb-3">
+              <Card type="author" object={author} />
+            </div>
+          ))}
+          <div className="row justify-content-center">
+            <div className="col-6">
+              <Paginator
+                paginationInfo={authorsPagination}
+                onPageChange={handleAuthorsPageChange}
+              />
+            </div>
           </div>
-        ))}
+        </div>
+        <hr />
+        <h2>Books</h2>
+        <div className="row">
+          {books.map((book) => (
+            <div key={book?._id} className="col-3 mb-3">
+              <Card type="book" object={book} />
+            </div>
+          ))}
+        </div>
         <div className="row justify-content-center">
           <div className="col-6">
             <Paginator
-              paginationInfo={authorsPagination}
-              onPageChange={handleAuthorsPageChange}
+              paginationInfo={booksPagination}
+              onPageChange={handleBooksPageChange}
             />
           </div>
         </div>
       </div>
-      <hr />
-      <h2>Books</h2>
-      <div className="row">
-        {books.map((book) => (
-          <div key={book?._id} className="col-3 mb-3">
-            <Card type="book" object={book} />
-          </div>
-        ))}
-      </div>
-      <div className="row justify-content-center">
-        <div className="col-6">
-          <Paginator
-            paginationInfo={booksPagination}
-            onPageChange={handleBooksPageChange}
-          />
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 };
