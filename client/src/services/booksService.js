@@ -9,6 +9,10 @@ export const getBook = async (id) => {
   return await requests.get(`${booksBase}${id}`);
 };
 
+export const getAuthorBooks = async (authorId, params) => {
+  return await requests.get(`${booksBase}authorBooks/${authorId}`, params);
+};
+
 export const createBook = async (body) => {
   return await requests.create(booksBase, body);
 };

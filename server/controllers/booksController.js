@@ -56,7 +56,7 @@ const getBooksByAuthor = async (req, res) => {
   const [{ limit, page }, filter] = extractPaginationInfo(req.query);
   // the pagination options
   const options = {
-    sort: { _id: -1 },
+    sort: { title: -1 },
     populate: ["authors", "categories"],
     lean: true,
     page,
