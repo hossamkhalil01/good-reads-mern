@@ -4,6 +4,7 @@ export const AddReview = ({ bookId, onReviewsChanged }) => {
   const [review, updateReview] = useState("");
   const [error, setError] = useState("");
   const handleReviewSubmit = async () => {
+    if (review === "") return setError("you can't add empty review ");
     addReview(bookId, {
       userId: "60a981eb95ff413435e2364f",
       review,
@@ -13,12 +14,21 @@ export const AddReview = ({ bookId, onReviewsChanged }) => {
         setError("");
         onReviewsChanged((review) => !review);
       })
-      .catch((err) => setError("you cant review same book twice"));
+      .catch((err) => {
+        console.log(err);
+        setError("you can't review same book twice");
+      });
   };
+
+  const upadteInputStates = () => {
+    setError("");
+  };
+
   return (
     <div className="row align-baseline">
       <div className="col-md-10">
         <textarea
+          onBlur={() => upadteInputStates()}
           value={review}
           onChange={(e) => updateReview(e.target.value)}
           className="form-control"
