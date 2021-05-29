@@ -2,7 +2,7 @@ import { Grid } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
-import Register from "../components/Register";
+import Login from "../components/Login";
 export default function Registration(props) {
   let user = localStorage.getItem("user");
   if (user) {
@@ -17,7 +17,7 @@ export default function Registration(props) {
         <Navbar />
         <div className="row justify-content-center mt-5">
           <div className="col-md-6 text-center">
-            <h1 className="fw-bold">Register</h1>
+            <h1 className="fw-bold">Log In</h1>
           </div>
         </div>
         <Grid
@@ -27,7 +27,7 @@ export default function Registration(props) {
           spacing={2}
           className="main-content"
         >
-          <Register />
+          <Login />
         </Grid>
         <Footer />
       </div>

@@ -16,6 +16,7 @@ import React from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import { authUrl } from "../api/urls";
 import { setLocalStorage } from "../services/authService";
+import "../styles/Register.css";
 
 const Register = (props) => {
   let history = useHistory();
@@ -26,8 +27,7 @@ const Register = (props) => {
     firstName: "",
     lastName: "",
     confirmPassword: "",
-    avatarFile: "",
-    avatarFileName: "",
+    avatar: "",
     showPassword: false,
     showConfirmPassword: false,
   });
@@ -108,8 +108,7 @@ const Register = (props) => {
   const handleUploadClick = (e) => {
     setFormValues({
       ...formValues,
-      avatarFile: e.target.files[0],
-      avatarFileName: e.target.files[0].name,
+      avatar: e.target.files[0],
     });
   };
 
@@ -166,8 +165,15 @@ const Register = (props) => {
         lastName: formValues.lastName,
         password: formValues.password,
       };
+
+      const myImage = formValues.avatar;
+
+      const formData = new FormData();
+      formData.append("body", JSON.stringify(data));
+      formData.append("myImage", myImage);
+
       axios
-        .post(`${authUrl}register`, data)
+        .post(`${authUrl}register`, formData)
         .then((res) => {
           setLocalStorage(res.data.data);
           if (props.location.state) {
@@ -184,11 +190,7 @@ const Register = (props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      encType="multipart/form-data"
-      className="mt-5"
-    >
+    <form onSubmit={handleSubmit} className="mt-5 Register">
       <Paper style={{ padding: 16, maxWidth: 600 }} elevation={3}>
         <Grid container alignItems="flex-start" justify="center" spacing={2}>
           <Grid item xs={6}>
@@ -336,9 +338,16 @@ const Register = (props) => {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained" color="primary" type="submit">
-              Sign Up
-            </Button>
+            <div className="signup-btn">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                className="signup-btn"
+              >
+                Sign Up
+              </Button>
+            </div>
           </Grid>
         </Grid>
       </Paper>
