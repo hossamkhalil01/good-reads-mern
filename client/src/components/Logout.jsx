@@ -9,7 +9,7 @@ const Logout = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     logout();
-    history.push("/home");
+    history.push("/login");
   };
 
   return (

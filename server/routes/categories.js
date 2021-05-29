@@ -2,6 +2,7 @@ const express = require("express");
 const categoriesController = require("../controllers/categoriesController");
 // init router
 const Router = express.Router();
+const passport = require("passport");
 
 /** 
 GET 
@@ -22,20 +23,32 @@ POST
 Route: / 
 Results: Create New Category
 **/
-Router.post("/", categoriesController.createCategory);
+Router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  categoriesController.createCategory
+);
 
 /** 
 DELETE 
 Route: / 
 Results: Delete Category
 **/
-Router.delete("/:id", categoriesController.deleteCategory);
+Router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  categoriesController.deleteCategory
+);
 
 /** 
 PUT 
 Route: / 
 Results: Update Category
 **/
-Router.patch("/:id", categoriesController.updateCategory);
+Router.patch(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  categoriesController.updateCategory
+);
 
 module.exports = Router;
