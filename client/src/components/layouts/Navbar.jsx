@@ -71,12 +71,17 @@ export default function NavBar() {
                 Contact
               </NavLink>
             </li>
+            <li>
+              <NavLink activeClassName="active" to={`/user/${{# user._id }}`} exact>
+                Profile
+              </NavLink>
+            </li>
           </ul>
           <i className="bi bi-list mobile-nav-toggle"></i>
         </nav>
 
         <div className="ms-auto d-flex">
-          <NavLink className="login-link fs-6" to="/registration" exact>
+        <NavLink className="login-link fs-6" to="/registration" exact>
             Login
           </NavLink>
 

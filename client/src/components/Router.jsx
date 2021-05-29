@@ -9,6 +9,7 @@ import HomePage from "../pages/HomePage";
 import RegistrationPage from "../pages/RegistrationPage";
 import { SearchResult } from "../pages/SearchResultPage";
 import AdminDashboard from "./admin/AdminDashboard";
+import UserProfilePage from "../pages/UserProfilePage"
 export default function Router() {
   return (
     <BrowserRouter>
@@ -39,6 +40,9 @@ export default function Router() {
         </PrivateRoute>
         <Route path="/">
           <Redirect to="/home"></Redirect>
+        </Route>
+        <Route path="/profile/:id">
+          <Redirect to="/user"></Redirect>
         </Route>
       </Switch>
     </BrowserRouter>
