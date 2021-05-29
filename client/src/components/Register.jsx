@@ -16,6 +16,7 @@ import React from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import { authUrl } from "../api/urls";
 import { setLocalStorage } from "../services/authService";
+import "../styles/Register.css";
 
 const Register = (props) => {
   let history = useHistory();
@@ -189,7 +190,7 @@ const Register = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-5">
+    <form onSubmit={handleSubmit} className="mt-5 Register">
       <Paper style={{ padding: 16, maxWidth: 600 }} elevation={3}>
         <Grid container alignItems="flex-start" justify="center" spacing={2}>
           <Grid item xs={6}>
@@ -337,9 +338,16 @@ const Register = (props) => {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained" color="primary" type="submit">
-              Sign Up
-            </Button>
+            <div className="signup-btn">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                className="signup-btn"
+              >
+                Sign Up
+              </Button>
+            </div>
           </Grid>
         </Grid>
       </Paper>
