@@ -1,3 +1,4 @@
+import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -11,6 +12,7 @@ import AvgRating from "../components/AvgRate";
 import UserBookStatus from "../components/UserBookStatus";
 import UserRating from "../components/UserRate";
 import { capitalize } from "../utils/utils";
+
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -58,7 +60,7 @@ const ShelfTable = ({ shelf }) => {
                     {shelf.map(({ book }) => (
                         <TableRow key={book._id} >
                             <TableCell align="center" component="th" scope="row">
-                                <img src={`${hostUrl}${book.coverImage}`} alt="" />
+                                <Avatar alt="Cover Image" src={`${hostUrl}${book.coverImage}`} />
                             </TableCell>
                             <TableCell align="center">
                                 {capitalize(book.title)}

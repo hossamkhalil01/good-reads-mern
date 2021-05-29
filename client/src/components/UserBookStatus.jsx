@@ -1,4 +1,4 @@
-import { FormControl, Grid, InputLabel, Select } from "@material-ui/core";
+import { FormControl, InputLabel, Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useEffect, useState } from "react";
 import { currentUser } from "../services/authService";
@@ -38,28 +38,26 @@ export default function UserBookStatus({ bookId, onStatusChange }) {
   };
 
   return (
-    <Grid item xs={3}>
-      <FormControl fullWidth>
-        {!selected ? (
-          <InputLabel id="select-label">Add to Shelf</InputLabel>
-        ) : (
-          ""
-        )}
-        <Select
-          labelId="select-label"
-          value={selected}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          {/* construct the menu items */}
-          {Object.values(bookStatus).map((status) => (
-            <MenuItem key={status} value={status}>
-              {status}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Grid>
+    <FormControl fullWidth>
+      {!selected ? (
+        <InputLabel id="select-label">Add to Shelf</InputLabel>
+      ) : (
+        ""
+      )}
+      <Select
+        labelId="select-label"
+        value={selected}
+        onChange={handleChange}
+        displayEmpty
+        inputProps={{ "aria-label": "Without label" }}
+      >
+        {/* construct the menu items */}
+        {Object.values(bookStatus).map((status) => (
+          <MenuItem key={status} value={status}>
+            {status}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

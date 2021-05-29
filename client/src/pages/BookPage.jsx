@@ -77,7 +77,7 @@ export const BookPage = () => {
         </div>
         <div className="row">
           <div className="col-md-4 justify-content-center">
-            <div className="rating-component mt-3">
+            <div className="col-3 m-auto rating-component  text-center mt-3">
               <UserBookStatus
                 bookId={id}
                 onStatusChange={() => { }}

@@ -46,7 +46,7 @@ const UserRate = ({ bookId }) => {
   };
 
   return (
-    <Box component="fieldset" mb={3} borderColor="transparent">
+    <Box component="fieldset" borderColor="transparent">
       <Rating
         name={bookId}
         value={rate}

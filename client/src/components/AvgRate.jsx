@@ -15,14 +15,13 @@ const AvgRate = ({ bookId }) => {
 
   return (
     <div>
-      <Box component="fieldset" mb={3} borderColor="transparent">
+      <Box component="fieldset" borderColor="transparent">
         <Rating
           name="read-only"
           precision={0.5}
           value={rate.avg ? rate.avg : 0}
           readOnly
         />
-        <span>{rate.avg} - </span>
         <span> {rate.count} ratings</span>
       </Box>
     </div>
