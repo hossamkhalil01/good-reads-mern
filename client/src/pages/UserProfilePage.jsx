@@ -7,8 +7,8 @@ import { currentUser } from "../services/authService";
 import { capitalize } from "../utils/utils";
 //import axios from "axios";
 import React from "react";
-
-import { Button, Form, FormControl, Nav, Card, Modal } from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+import { Button, form, Nav, Card, Modal } from 'react-bootstrap';
 import { getUser } from "../services/userService";
 
 
@@ -19,8 +19,8 @@ function UserProfilePage() {
         const { id } = useParams();
         const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
 
         const retrieveUser = async (id) => {
                 const data = await getUser(id);
@@ -47,23 +47,60 @@ function UserProfilePage() {
                                         <Card.Text>
                                                 <h5>{user.email}</h5>
                                         </Card.Text>
-                                        <Button variant="primary" onClick={handleShow}>
-                                                Launch demo modal
+                                        <Button variant="warning" onClick={handleShow}>
+                                                Edit
       </Button>
 
                                         <Modal show={show} onHide={handleClose}>
+                                                <form>
                                                 <Modal.Header closeButton>
-                                                        <Modal.Title>Modal heading</Modal.Title>
+                                                        <Modal.Title>Edit Your Information</Modal.Title>
                                                 </Modal.Header>
-                                                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                                                
+                                                <Modal.Body>
+                                                        
+                                                                <label>FirstName: </label><br></br>
+
+                                                                <input
+                                                                        type="text"
+                                                                /><br></br>
+
+                                                                <label>LastName: </label><br></br>
+
+                                                                <input
+                                                                        type="text"
+                                                                /><br></br>
+                                                                <label>Email: </label><br></br>
+
+                                                                <input
+                                                                        type="text"
+                                                                /><br></br>
+                                                                <label>New Password: </label><br></br>
+
+                                                                <input
+                                                                        type="text"
+                                                                /><br></br>
+                                                                <label>Confirm Password: </label><br></br>
+
+                                                                <input
+                                                                        type="text"
+                                                                /><br></br>
+                                                                
+                                                       
+
+
+                                                </Modal.Body>
                                                 <Modal.Footer>
+                                                        <input
+                                                                        type='submit'
+                                                                        class="btn btn-info"
+                                                                />
                                                         <Button variant="secondary" onClick={handleClose}>
                                                                 Close
           </Button>
-                                                        <Button variant="primary" onClick={handleClose}>
-                                                                Save Changes
-          </Button>
+
                                                 </Modal.Footer>
+                                                </form>
                                         </Modal>
                                 </Card.Body>
                         </Card>
