@@ -8,7 +8,8 @@ import Logout from "../Logout";
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
   let user = localStorage.getItem("user");
-  
+  const userId = JSON.parse(localStorage.getItem("user"))._id;
+
   
   useEffect(() => {
     const getAllCategories = async () => {
@@ -81,7 +82,7 @@ export default function NavBar() {
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName="active" to={`/user/${user}`} exact>
+              <NavLink activeClassName="active" to={`/user/${userId}`} exact>
                 Profile
               </NavLink>
             </li>
