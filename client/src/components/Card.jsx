@@ -17,7 +17,7 @@ const Card = ({ object, type }) => {
         </p>
         {object?.authors.map((author) => (
           <p key={author?._id} className="card-text">
-            <Link to={`/author/${object?._id}`}>
+            <Link to={`/author/${author?._id}`}>
               {capitalize(author?.firstName) +
                 " " +
                 capitalize(author?.lastName)}

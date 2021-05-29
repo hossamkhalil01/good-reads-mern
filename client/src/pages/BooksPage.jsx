@@ -6,6 +6,7 @@ import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import Paginator from "../components/Paginator";
 import { getBooks } from "../services/booksService";
+import "../styles/AuthorsPage.css";
 import {
   createPaginationParams,
   parsePaginatedResponse,
@@ -42,7 +43,7 @@ const BooksPage = () => {
   };
 
   return (
-    <div>
+    <div className="AuthorsPage">
       <Navbar />
       <div className="mt-5 container main-content">
         <div className="row">
@@ -72,10 +73,12 @@ const BooksPage = () => {
         </div>
         <div className="row justify-content-center">
           <div className="col-4">
-            <Paginator
-              paginationInfo={pagination}
-              onPageChange={handlePageChange}
-            />
+            <div className="pagination-component">
+              <Paginator
+                paginationInfo={pagination}
+                onPageChange={handlePageChange}
+              />
+            </div>
           </div>
         </div>
       </div>
