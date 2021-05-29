@@ -4,37 +4,6 @@ const iDValidator = require("mongoose-id-validator");
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 
-// create shelf schema
-const createShelfSchema = () => {
-  // create shelf schema 
-  shelfSchema = new mongoose.Schema({
-    book: {
-      type: "ObjectId",
-      ref: "Book",
-
-    },
-    status: {
-      type: String,
-      enum: ["Read", "Currently Reading", "Want To Read"],
-      default: "Want To Read",
-    }
-  }, { _id: false });
-
-
-  // add ref id validator
-  shelfSchema.plugin(iDValidator, {
-    message: "Invalid reference , record not found",
-  });
-
-  // Add pagination plugin
-  shelfSchema.plugin(mongoosePaginate);
-
-  return shelfSchema;
-}
-
-
-
-
 // create user schema
 const userSchema = new mongoose.Schema({
   email: {
@@ -72,9 +41,7 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default: "default.png",
-  },
-
-  shelf: [createShelfSchema()],
+  }
 });
 
 // define unique index for email
@@ -90,6 +57,5 @@ userSchema.plugin(mongoosePaginate);
 userSchema.plugin(iDValidator, {
   message: "Invalid reference , record not found",
 });
-
 
 module.exports = mongoose.model("User", userSchema);

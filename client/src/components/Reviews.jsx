@@ -4,11 +4,11 @@ import {
   deleteReview,
   editUserReview,
   getBookReviews,
-  getUserReview,
+  getUserReview
 } from "../services/reviewsServices";
 import {
   createPaginationParams,
-  parsePaginatedResponse,
+  parsePaginatedResponse
 } from "../utils/pagination";
 import Paginator from "./Paginator";
 

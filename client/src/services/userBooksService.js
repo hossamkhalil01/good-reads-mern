@@ -1,5 +1,5 @@
 import requests from "../api/requests";
-import { getShelfBookUrl } from "../api/urls";
+import { shelfBase } from "../api/urls";
 
 export const bookStatus = {
   'reading': 'Read',
@@ -7,6 +7,14 @@ export const bookStatus = {
   'want': 'Want To Read'
 }
 
-export const updateUserBookStatus = async (userId, bookId, status) => {
-  return await requests.update(getShelfBookUrl(userId, bookId), { status })
+export const getUserShelf = async (filter) => {
+  return await requests.get(shelfBase, filter)
+}
+
+export const getBookStatus = async (bookId) => {
+  return await requests.get(shelfBase, { book: bookId });
+}
+
+export const updateBookStatus = async (bookId, status) => {
+  return await requests.update(shelfBase, { bookId, status })
 }

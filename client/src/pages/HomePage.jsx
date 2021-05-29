@@ -30,10 +30,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    // <Grid container alignItems="flex-start" justify="center" spacing={2}>
-    //   <h1>landing</h1>
-    //   <Logout />
-    // </Grid>
+
     <div>
       <Navbar />
       <div className="main-content">

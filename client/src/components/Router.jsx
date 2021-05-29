@@ -9,6 +9,7 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import { SearchResult } from "../pages/SearchResultPage";
+import ShelfPage from "../pages/ShelfPage";
 import AdminDashboard from "./admin/AdminDashboard";
 export default function Router() {
   return (
@@ -16,6 +17,9 @@ export default function Router() {
       <Switch>
         <PrivateRoute path="/admin/dashboard" exact>
           <AdminDashboard />
+        </PrivateRoute>
+        <PrivateRoute path="/shelf">
+          <ShelfPage />
         </PrivateRoute>
         <Route path="/registration">
           <RegistrationPage />
@@ -44,6 +48,7 @@ export default function Router() {
         <Route path="/">
           <Redirect to="/home"></Redirect>
         </Route>
+
       </Switch>
     </BrowserRouter>
   );

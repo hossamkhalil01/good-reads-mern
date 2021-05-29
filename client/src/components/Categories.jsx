@@ -28,18 +28,16 @@ const Category = ({ onSetCategory, selectedCatgory }) => {
             label: "all",
           })
         }
-        className={`list-group-item ${
-          selectedCatgory === "All" ? "active" : ""
-        }`}
+        className={`list-group-item ${selectedCatgory === "All" ? "active-selection" : ""
+          }`}
       >
         All
       </li>
       {categories.map((category) => (
         <li
           key={category?._id}
-          className={`list-group-item ${
-            selectedCatgory === capitalize(category?.label) ? "active" : ""
-          }`}
+          className={`list-group-item ${selectedCatgory === capitalize(category?.label) ? "active-selection" : ""
+            }`}
           onClick={() => handleCategoryChange(category)}
         >
           {capitalize(category?.label)}
