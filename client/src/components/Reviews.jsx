@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { currentUser } from "../services/authService";
+import {
+  deleteReview,
+  editUserReview, getBookReviews,
+  getUserReview
+} from "../services/reviewsServices";
 import {
   createPaginationParams,
-  parsePaginatedResponse,
+  parsePaginatedResponse
 } from "../utils/pagination";
-import {
-  getBookReviews,
-  getUserReview,
-  deleteReview,
-  editUserReview,
-} from "../services/reviewsServices";
-import { Link } from "react-router-dom";
 import Paginator from "./Paginator";
-import { currentUser } from "../services/authService";
 
 const userId = currentUser?._id;
 
@@ -84,12 +83,10 @@ export const Reviews = ({ bookId, isUpdated }) => {
         <div className="d-flex justify-content-between">
           <p>
             <span>
-              <Link to={`/author/${myReview?._id}`}>
-                {myReview?.user?.firstName +
-                  "" +
-                  myReview?.user?.lastName +
-                  ": "}
-              </Link>
+              {myReview?.user?.firstName +
+                "" +
+                myReview?.user?.lastName +
+                ": "}
             </span>
             {myReview.review}
           </p>

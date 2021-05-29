@@ -78,6 +78,10 @@ export const BookPage = () => {
         <div className="row">
           <div className="col-md-4 justify-content-center">
             <div className="rating-component mt-3">
+              <UserBookStatus
+                bookId={id}
+                onStatusChange={() => { }}
+              />
               {updatedUser?.shelf && book?.title ? (
                 <UserBookStatus
                   bookId={id}
@@ -87,6 +91,7 @@ export const BookPage = () => {
               ) : (
                 ""
               )}
+
             </div>
           </div>
         </div>

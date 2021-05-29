@@ -1,19 +1,35 @@
 import { FormControl, Grid, InputLabel, Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { currentUser } from "../services/authService";
-import { bookStatus, updateUserBookStatus } from "../services/userBooksService";
+import { bookStatus, getBookStatus, updateBookStatus } from "../services/userBooksService";
+import { parsePaginatedResponse } from "../utils/pagination";
 
 const userId = currentUser._id;
 
-export default function UserBookStatus({ bookId, status, onStatusChange }) {
-  const [selected, setSelected] = useState(status ? status : "");
+export default function UserBookStatus({ bookId, onStatusChange }) {
+
+  const [selected, setSelected] = useState("");
+
+  useEffect(() => {
+
+    const getInitBookStatus = async () => {
+      // get the new page from api
+      const { data: [shelfBook] } = parsePaginatedResponse(
+        await getBookStatus(bookId)
+      );
+
+      if (shelfBook?.status) setSelected(shelfBook.status);
+    }
+    getInitBookStatus();
+  }, [bookId])
+
 
   const handleChange = async (event) => {
     const newSelection = event.target.value;
 
     // send update request & update selection
-    updateUserBookStatus(userId, bookId, newSelection).then((res) =>
+    updateBookStatus(bookId, newSelection).then((res) =>
       setSelected(newSelection)
     );
 
@@ -25,7 +41,7 @@ export default function UserBookStatus({ bookId, status, onStatusChange }) {
     <Grid item xs={3}>
       <FormControl fullWidth>
         {!selected ? (
-          <InputLabel id="select-label">Add Book to Shelf</InputLabel>
+          <InputLabel id="select-label">Add to Shelf</InputLabel>
         ) : (
           ""
         )}
