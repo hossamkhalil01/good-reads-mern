@@ -8,6 +8,7 @@ import BooksPage from "../pages/BooksPage";
 import HomePage from "../pages/HomePage";
 import RegistrationPage from "../pages/RegistrationPage";
 import { SearchResult } from "../pages/SearchResultPage";
+import ShelfPage from "../pages/ShelfPage";
 import AdminDashboard from "./admin/AdminDashboard";
 export default function Router() {
   return (
@@ -24,6 +25,9 @@ export default function Router() {
         </Route>
         <PrivateRoute path="/home">
           <HomePage />
+        </PrivateRoute>
+        <PrivateRoute path="/shelf">
+          <ShelfPage />
         </PrivateRoute>
         <PrivateRoute path="/search/:key">
           <SearchResult />
