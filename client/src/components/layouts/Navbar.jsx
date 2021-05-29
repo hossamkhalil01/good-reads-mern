@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getCategories } from "../../services/categoriesService";
 import { imageBase } from "../../utils/urls";
+import { currentUser } from "../../services/authService";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user"))._id;
 
   useEffect(() => {
     const getAllCategories = async () => {
@@ -72,7 +74,7 @@ export default function NavBar() {
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName="active" to={`/user/${{# user._id }}`} exact>
+              <NavLink activeClassName="active" to={`/user/${user}`} exact>
                 Profile
               </NavLink>
             </li>

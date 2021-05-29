@@ -38,12 +38,13 @@ export default function Router() {
         <PrivateRoute path="/book/:id">
           <BookPage />
         </PrivateRoute>
+        <Route path="/user/:id">
+          <UserProfilePage />
+        </Route>
         <Route path="/">
           <Redirect to="/home"></Redirect>
         </Route>
-        <Route path="/profile/:id">
-          <Redirect to="/user"></Redirect>
-        </Route>
+        
       </Switch>
     </BrowserRouter>
   );

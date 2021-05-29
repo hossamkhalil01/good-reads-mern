@@ -1,10 +1,9 @@
 import axios from "axios";
 import React from "react";
-import { LinkContainer } from 'react-router-bootstrap';
 import { useState, useEffect } from "react";
 import { Button, Form, FormControl, Nav, Navbar,Card,Container,Row,Col} from 'react-bootstrap';
-import withAuth from "./WithAuth";
-import URLs from '../services/apiUrls.js';
+
+
 
 
  
@@ -92,4 +91,4 @@ useEffect(() => {
         
         }
 
-    export default withAuth(User);
+    export default User;
