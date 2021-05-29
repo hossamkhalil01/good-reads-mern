@@ -7,8 +7,8 @@ export const bookStatus = {
   'want': 'Want To Read'
 }
 
-export const getUserShelf = async () => {
-  return await requests.get(shelfBase)
+export const getUserShelf = async (filter) => {
+  return await requests.get(shelfBase, filter)
 }
 
 export const getBookStatus = async (bookId) => {

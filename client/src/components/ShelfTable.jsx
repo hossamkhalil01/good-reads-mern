@@ -20,6 +20,21 @@ const useStyles = makeStyles({
 
 const ShelfTable = ({ shelf }) => {
 
+    const checkEmptyTable = () => {
+        if (shelf.length) return
+
+        return (
+            <TableRow>
+                <TableCell colSpan={6} align="center">
+
+                    <h4 className="alert alert-info text-center">
+                        No avaliable books yet!
+                    </h4>
+                </TableCell>
+            </TableRow>
+        )
+    }
+
     const classes = useStyles();
 
     return (
@@ -37,6 +52,9 @@ const ShelfTable = ({ shelf }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
+
+                    {checkEmptyTable()}
+
                     {shelf.map(({ book }) => (
                         <TableRow key={book._id} >
                             <TableCell align="center" component="th" scope="row">

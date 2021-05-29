@@ -6,25 +6,27 @@ import { currentUser } from "../services/authService";
 import {
   addUserRate,
   updateUserRate,
-  userRate,
+  userRate
 } from "../services/ratesService";
 
 const userId = currentUser?._id;
 
 const UserRate = ({ bookId }) => {
+
   const [rate, setRate] = useState(0);
 
+  const getUserRate = async () => {
+    try {
+      const {
+        data: { data },
+      } = await userRate(bookId, userId);
+      setRate(data.rating || 0);
+    } catch (error) {
+      setRate(0);
+    }
+  };
+
   useEffect(() => {
-    const getUserRate = async () => {
-      try {
-        const {
-          data: { data },
-        } = await userRate(bookId, userId);
-        setRate(data.rating || 0);
-      } catch (error) {
-        setRate(0);
-      }
-    };
     getUserRate();
   }, [bookId]);
 
@@ -45,9 +47,8 @@ const UserRate = ({ bookId }) => {
 
   return (
     <Box component="fieldset" mb={3} borderColor="transparent">
-      {/* <Typography component="legend">Rate</Typography> */}
       <Rating
-        name="customized-empty"
+        name={bookId}
         value={rate}
         onChange={(event, rate) => {
           rating(rate);
