@@ -2,6 +2,7 @@ const express = require("express");
 const ratesController = require("../controllers/ratesController");
 // init router
 const Router = express.Router({ mergeParams: true });
+const passport = require("passport");
 
 /** 
 GET 
@@ -16,14 +17,22 @@ POST
 Route: / 
 Results: Create New Rate
 **/
-Router.post("/", ratesController.createRate);
+Router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  ratesController.createRate
+);
 
 /** 
 DELETE 
 Route: / 
 Results: Delete Rate
 **/
-Router.delete("/:id", ratesController.deleteRate);
+Router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  ratesController.deleteRate
+);
 
 /** 
 PUT 
@@ -32,6 +41,10 @@ Results: Update Rate
 Query Params: userId
 
 **/
-Router.patch("/", ratesController.updateRate);
+Router.patch(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  ratesController.updateRate
+);
 
 module.exports = Router;

@@ -33,7 +33,7 @@ export const BookPage = () => {
   };
 
   const getUserBook = () => {
-    const shelf = updatedUser.shelf;
+    const shelf = updatedUser?.shelf;
     const userBook = shelf.find((userBook) => {
       return userBook.book === book._id;
     });
@@ -44,7 +44,9 @@ export const BookPage = () => {
 
   useEffect(() => {
     retrieveBook(id);
-    getUpdatedUser(currentUser._id);
+    if (currentUser) {
+      getUpdatedUser(currentUser._id);
+    }
   }, [id]);
 
   return (
@@ -54,7 +56,11 @@ export const BookPage = () => {
         <div className="row mt-5">
           <div className="col-md-4 justify-content-center">
             {book?.coverImage ? (
-              <img src={`${hostUrl}${book?.coverImage}`} alt="" />
+              <img
+                className="book-img"
+                src={`${hostUrl}${book?.coverImage}`}
+                alt=""
+              />
             ) : (
               ""
             )}
@@ -64,7 +70,8 @@ export const BookPage = () => {
               <div>
                 <h1>{capitalize(book?.title)}</h1>
                 <h6>
-                  by {book?.authors[0].firstName} {book?.authors[0].lastName}
+                  by {capitalize(book?.authors[0].firstName)}{" "}
+                  {capitalize(book?.authors[0].lastName)}
                 </h6>
                 <h6>{capitalize(book?.categories[0].label)}</h6>
                 <AvgRating bookId={id} />

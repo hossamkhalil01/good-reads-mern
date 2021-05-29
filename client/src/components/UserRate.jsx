@@ -2,17 +2,17 @@ import Box from "@material-ui/core/Box";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import Rating from "@material-ui/lab/Rating";
 import { useEffect, useState } from "react";
-import { currentUser } from "../services/authService";
+import { useHistory } from "react-router-dom";
 import {
   addUserRate,
   updateUserRate,
   userRate
 } from "../services/ratesService";
 
-const userId = currentUser?._id;
-
 const UserRate = ({ bookId }) => {
+  const userId = JSON.parse(localStorage.getItem("user"))?._id;
 
+  let history = useHistory();
   const [rate, setRate] = useState(0);
 
   const getUserRate = async () => {
@@ -38,11 +38,19 @@ const UserRate = ({ bookId }) => {
   };
 
   const addRate = (newRate) => {
-    addUserRate(bookId, userId, newRate);
+    if (userId) {
+      addUserRate(bookId, userId, newRate);
+    } else {
+      history.push("/login");
+    }
   };
 
   const updateRate = (newRate) => {
-    updateUserRate(bookId, userId, newRate);
+    if (userId) {
+      updateUserRate(bookId, userId, newRate);
+    } else {
+      history.push("/login");
+    }
   };
 
   return (

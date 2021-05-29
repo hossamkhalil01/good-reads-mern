@@ -2,25 +2,24 @@ const express = require("express");
 const booksController = require("../controllers/booksController");
 const rateRouter = require("../routes/rates");
 const reviewRouter = require("../routes/reviews");
+const passport = require("passport");
 
-const path = require('path')
+const path = require("path");
 const multer = require("multer");
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/img/books/');
+    cb(null, "public/img/books/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
 // Init Upload
 const upload = multer({
   storage: storage,
 });
-
-
 
 // Check File Type
 function checkFileType(file, cb) {
@@ -35,7 +34,7 @@ function checkFileType(file, cb) {
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb('Error: Images Only!');
+    cb("Error: Images Only!");
   }
 }
 
@@ -68,20 +67,36 @@ POST
 Route: / 
 Results: Create New Book
 **/
-Router.post("/", upload.single("myImage"), booksController.createBook);
+Router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("myImage"),
+  booksController.createBook
+);
 
 /** 
 DELETE 
 Route: / 
 Results: Delete Book
 **/
-Router.delete("/:id", booksController.deleteBook);
+Router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  booksController.deleteBook
+);
 
 /** 
 PUT 
 Route: / 
 Results: Update Book
 **/
-Router.patch("/:id", upload.single("myImage"), booksController.updateBook);
+Router.patch(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("myImage"),
+  booksController.updateBook
+);
+
+Router.get("/authorBooks/:authorId", booksController.getBooksByAuthor);
 
 module.exports = Router;
