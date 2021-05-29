@@ -10,12 +10,12 @@ export default function Footer() {
                   </div>
                     <div className="credits">
                         Designed by ITI Students:
-                        <a href="https://www.linkedin.com/in/abdelrahman-montaser/"> Abdul-Rahman Montaser </a>-
-                        <a href="https://www.linkedin.com/in/hossamkhalil01/"> Hossam Khalil </a>-
-                        <a href="https://www.linkedin.com/in/leena-sherif/"> Leena Sherif </a> -
-                        <a href="https://www.linkedin.com/in/mai-maher/"> Mai Maher </a> -
-                        <a href="https://www.linkedin.com/in/omnia-mostafa-339b4b211/"> Omnia Mustafa </a> -
-                        <a href="https://www.linkedin.com/in/sarah-magdy-mostafa/"> Sarah Magdy </a>
+                        <a href="https://www.linkedin.com/in/abdelrahman-montaser/" target="_blank" rel="noopener noreferrer"> Abdul-Rahman Montaser </a>-
+                        <a href="https://www.linkedin.com/in/hossamkhalil01/" target="_blank" rel="noopener noreferrer"> Hossam Khalil </a>-
+                        <a href="https://www.linkedin.com/in/leena-sherif/" target="_blank" rel="noopener noreferrer"> Leena Sherif </a> -
+                        <a href="https://www.linkedin.com/in/mai-maher/" target="_blank" rel="noopener noreferrer"> Mai Maher </a> -
+                        <a href="https://www.linkedin.com/in/omnia-mostafa-339b4b211/" target="_blank" rel="noopener noreferrer"> Omnia Mustafa </a> -
+                        <a href="https://www.linkedin.com/in/sarah-magdy-mostafa/" target="_blank" rel="noopener noreferrer"> Sarah Magdy </a>
                     </div>
                 </div>
                 <div className="social-links text-center text-md-right pt-3 pt-md-0">

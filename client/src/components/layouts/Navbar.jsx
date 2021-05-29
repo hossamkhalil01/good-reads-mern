@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getCategories } from "../../services/categoriesService";
 import { imageBase } from "../../utils/urls";
+import { capitalize } from "../../utils/utils";
 import Logout from "../Logout";
 
 export default function NavBar() {
@@ -40,6 +41,12 @@ export default function NavBar() {
                 Home
               </NavLink>
             </li>
+
+            {/* Show shelf for logged in user */}
+            {user ? (<li><NavLink activeClassName="active" to="/shelf" exact>
+              My Shelf
+            </NavLink> </li>) : ''}
+
             <li className="dropdown">
               <a href="#">
                 <span>Categories</span> <i className="bi bi-chevron-down"></i>
@@ -47,12 +54,11 @@ export default function NavBar() {
               <ul>
                 {categories.map((category) => (
                   <li key={category._id}>
-                    {" "}
                     <NavLink
                       activeClassName=""
                       to={{ pathname: "/books", category: category }}
                     >
-                      {category.label}{" "}
+                      {capitalize(category.label)}
                     </NavLink>
                   </li>
                 ))}
@@ -66,11 +72,6 @@ export default function NavBar() {
             <li>
               <NavLink activeClassName="active" to="/authors" exact>
                 Authors
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="active" to="/" exact>
-                Contact
               </NavLink>
             </li>
           </ul>
@@ -92,6 +93,6 @@ export default function NavBar() {
           </div>
         )}
       </div>
-    </header>
+    </header >
   );
 }
