@@ -6,7 +6,24 @@
   margin: auto;
 }
 
+.author-book-img {
+  width: 20%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin: auto;
+}
+
 .author-content {
   margin-bottom: 10%;
   /* height: 100vh; */
+}
+
+.pagination-component {
+  display: flex;
+  justify-content: center;
+}
+
+.rating-component {
+  margin-top: 2%;
 }
