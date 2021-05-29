@@ -3,24 +3,22 @@ const booksController = require("../controllers/booksController");
 const rateRouter = require("../routes/rates");
 const reviewRouter = require("../routes/reviews");
 
-const path = require('path')
+const path = require("path");
 const multer = require("multer");
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/img/books/');
+    cb(null, "public/img/books/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
 // Init Upload
 const upload = multer({
   storage: storage,
 });
-
-
 
 // Check File Type
 function checkFileType(file, cb) {
@@ -35,7 +33,7 @@ function checkFileType(file, cb) {
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb('Error: Images Only!');
+    cb("Error: Images Only!");
   }
 }
 
@@ -83,5 +81,7 @@ Route: /
 Results: Update Book
 **/
 Router.patch("/:id", upload.single("myImage"), booksController.updateBook);
+
+Router.get("/authorBooks/:authorId", booksController.getBooksByAuthor);
 
 module.exports = Router;

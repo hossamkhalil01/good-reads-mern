@@ -1,17 +1,12 @@
-.book-img {
-  width: 30%;
+.author-img {
+  width: 40%;
   height: 100%;
   object-fit: cover;
   display: block;
   margin: auto;
 }
 
-.rating-component {
-  display: flex;
-  justify-content: center;
-}
-
-.book-content {
+.author-content {
   margin-bottom: 10%;
   /* height: 100vh; */
 }

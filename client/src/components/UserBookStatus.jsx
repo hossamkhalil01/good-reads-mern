@@ -4,7 +4,7 @@ import { useState } from "react";
 import { currentUser } from "../services/authService";
 import { bookStatus, updateUserBookStatus } from "../services/userBooksService";
 
-const userId = currentUser._id;
+const userId = currentUser?._id;
 
 export default function UserBookStatus({ bookId, status, onStatusChange }) {
   const [selected, setSelected] = useState(status ? status : "");
