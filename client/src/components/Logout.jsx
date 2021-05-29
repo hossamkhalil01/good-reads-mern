@@ -1,7 +1,7 @@
-import { Button } from "@material-ui/core";
 import React from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import { logout } from "../services/authService";
+import "../styles/Logout.css";
 
 const Logout = (props) => {
   let history = useHistory();
@@ -13,14 +13,13 @@ const Logout = (props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      encType="multipart/form-data"
-      className="mt-5"
-    >
-      <Button variant="contained" color="primary" type="submit">
+    <form onSubmit={handleSubmit} className="Logout">
+      {/* <Button variant="contained" color="primary" type="submit">
         Log Out
-      </Button>
+      </Button> */}
+      <button type="submit" className="logout-btn">
+        Log Out
+      </button>
     </form>
   );
 };

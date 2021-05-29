@@ -1,0 +1,11 @@
+.logout-btn {
+  border: none;
+  background: #929293;
+  color: #fff;
+  border-radius: 50px;
+  padding: 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+}
