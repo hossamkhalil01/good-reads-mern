@@ -4,7 +4,12 @@ import Card from "../components/Card";
 import Category from "../components/Categories";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
+import Paginator from "../components/Paginator";
 import { getBooks } from "../services/booksService";
+import {
+  createPaginationParams,
+  parsePaginatedResponse,
+} from "../utils/pagination";
 import { capitalize } from "../utils/utils";
 
 const BooksPage = () => {
@@ -12,24 +17,32 @@ const BooksPage = () => {
   const initCategory = location.category ? location.category : { label: "all" };
 
   const [category, setCategory] = useState(initCategory);
-
+  const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getFilterdBooks(category._id);
+    handlePageChange();
   }, [category]);
 
-  const getFilterdBooks = async (categoryId) => {
-    const {
-      data: {
-        data: { docs },
-      },
-    } = await getBooks({ categoryId });
-    setBooks(docs);
+  const handlePageChange = async (newPage) => {
+    // construct the params
+    const params = createPaginationParams(
+      { categories: category?._id },
+      { ...pagination, page: newPage }
+    );
+
+    // get the new page from api
+    const { data, paginationInfo } = parsePaginatedResponse(
+      await getBooks(params)
+    );
+
+    // set the values
+    setPagination(paginationInfo);
+    setBooks(data);
   };
 
   return (
-    <div >
+    <div>
       <Navbar />
       <div className="mt-5 container main-content">
         <div className="row">
@@ -55,6 +68,14 @@ const BooksPage = () => {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-4">
+            <Paginator
+              paginationInfo={pagination}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
       </div>

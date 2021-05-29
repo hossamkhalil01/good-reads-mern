@@ -18,6 +18,7 @@ export const BookPage = () => {
   const { id } = useParams();
   const [book, setBook] = useState({});
   const [updatedUser, setUpdatedUser] = useState({});
+  const [updatedReviews, onUpdateReviews] = useState({});
 
   const retrieveBook = async (bookId) => {
     const data = await getBook(bookId);
@@ -104,12 +105,12 @@ export const BookPage = () => {
         </div>
         <div className="row justify-content-center mt-5">
           <div className="col-md-10">
-            <AddReview bookId={id} />
+            <AddReview onReviewsChanged={onUpdateReviews} bookId={id} />
           </div>
         </div>
         <div className="row justify-content-center mt-5">
           <div className="col-md-10">
-            <Reviews bookId={id} />
+            <Reviews isUpdated={updatedReviews} bookId={id} />
           </div>
         </div>
       </div>
