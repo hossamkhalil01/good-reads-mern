@@ -2,6 +2,7 @@ const express = require("express");
 const booksController = require("../controllers/booksController");
 const rateRouter = require("../routes/rates");
 const reviewRouter = require("../routes/reviews");
+const passport = require("passport");
 
 const path = require("path");
 const multer = require("multer");
@@ -66,21 +67,35 @@ POST
 Route: / 
 Results: Create New Book
 **/
-Router.post("/", upload.single("myImage"), booksController.createBook);
+Router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("myImage"),
+  booksController.createBook
+);
 
 /** 
 DELETE 
 Route: / 
 Results: Delete Book
 **/
-Router.delete("/:id", booksController.deleteBook);
+Router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  booksController.deleteBook
+);
 
 /** 
 PUT 
 Route: / 
 Results: Update Book
 **/
-Router.patch("/:id", upload.single("myImage"), booksController.updateBook);
+Router.patch(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("myImage"),
+  booksController.updateBook
+);
 
 Router.get("/authorBooks/:authorId", booksController.getBooksByAuthor);
 

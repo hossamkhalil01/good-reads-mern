@@ -11,7 +11,7 @@ function PrivateRoute(props) {
   } //redirect if there is no user
   return (
     <Redirect
-      to={{ pathname: "/registration", state: { referer: props.location } }}
+      to={{ pathname: "/login", state: { referer: props.location } }}
     />
   );
 }

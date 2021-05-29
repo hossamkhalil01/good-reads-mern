@@ -1,13 +1,9 @@
 const express = require("express");
 const usersController = require("../controllers/usersController");
-const shelfBooksRouter = require("./userShelfBooks");
+const shelfBooksRouter = require("./shelf");
 
 // init router
 const Router = express.Router();
-
-// add shelf sub routes
-Router.use("/:userId/shelf", shelfBooksRouter);
-
 
 /** 
 GET 

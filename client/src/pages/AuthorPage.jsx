@@ -56,7 +56,7 @@ export const AuthorPage = () => {
   };
 
   const getUserBook = (book) => {
-    const shelf = updatedUser.shelf;
+    const shelf = updatedUser?.shelf;
     const userBook = shelf.find((userBook) => {
       return userBook.book == book._id;
     });
@@ -68,7 +68,9 @@ export const AuthorPage = () => {
   useEffect(() => {
     retriveAuthor(id);
     handlePageChange();
-    getUpdatedUser(currentUser._id);
+    if (currentUser) {
+      getUpdatedUser(currentUser._id);
+    }
   }, [id]);
 
   return (

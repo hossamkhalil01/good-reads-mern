@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getCategories } from "../../services/categoriesService";
 import { imageBase } from "../../utils/urls";
-import { currentUser } from "../../services/authService";
+import { capitalize } from "../../utils/utils";
+import Logout from "../Logout";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"))._id;
-
+  let user = localStorage.getItem("user");
+  
+  
   useEffect(() => {
     const getAllCategories = async () => {
       const {
@@ -40,6 +42,12 @@ export default function NavBar() {
                 Home
               </NavLink>
             </li>
+
+            {/* Show shelf for logged in user */}
+            {user ? (<li><NavLink activeClassName="active" to="/shelf" exact>
+              My Shelf
+            </NavLink> </li>) : ''}
+
             <li className="dropdown">
               <a href="#">
                 <span>Categories</span> <i className="bi bi-chevron-down"></i>
@@ -47,12 +55,11 @@ export default function NavBar() {
               <ul>
                 {categories.map((category) => (
                   <li key={category._id}>
-                    {" "}
                     <NavLink
                       activeClassName=""
                       to={{ pathname: "/books", category: category }}
                     >
-                      {category.label}{" "}
+                      {capitalize(category.label)}
                     </NavLink>
                   </li>
                 ))}
@@ -81,17 +88,22 @@ export default function NavBar() {
           </ul>
           <i className="bi bi-list mobile-nav-toggle"></i>
         </nav>
+        {!user ? (
+          <div className="ms-auto d-flex">
+            <NavLink className="login-link fs-6" to="/login" exact>
+              Login
+            </NavLink>
 
-        <div className="ms-auto d-flex">
-        <NavLink className="login-link fs-6" to="/registration" exact>
-            Login
-          </NavLink>
-
-          <NavLink className="register-btn" to="/registration">
-            Register
-          </NavLink>
-        </div>
+            <NavLink className="register-btn" to="/registration">
+              Register
+            </NavLink>
+          </div>
+        ) : (
+          <div className="ms-auto d-flex">
+            <Logout />
+          </div>
+        )}
       </div>
-    </header>
+    </header >
   );
 }

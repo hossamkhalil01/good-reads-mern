@@ -22,7 +22,6 @@ export const BookPage = () => {
 
   const retrieveBook = async (bookId) => {
     const data = await getBook(bookId);
-    console.log(data.data.data);
 
     setBook(data.data.data);
   };
@@ -34,9 +33,9 @@ export const BookPage = () => {
   };
 
   const getUserBook = () => {
-    const shelf = updatedUser.shelf;
+    const shelf = updatedUser?.shelf;
     const userBook = shelf.find((userBook) => {
-      return userBook.book == book._id;
+      return userBook.book === book._id;
     });
 
     if (userBook) return userBook.status;
@@ -45,7 +44,9 @@ export const BookPage = () => {
 
   useEffect(() => {
     retrieveBook(id);
-    getUpdatedUser(currentUser._id);
+    if (currentUser) {
+      getUpdatedUser(currentUser._id);
+    }
   }, [id]);
 
   return (
@@ -83,16 +84,21 @@ export const BookPage = () => {
         </div>
         <div className="row">
           <div className="col-md-4 justify-content-center">
-            <div className="rating-component mt-3">
+            <div className="col-3 m-auto rating-component  text-center mt-3">
+              <UserBookStatus
+                bookId={id}
+                onStatusChange={() => { }}
+              />
               {updatedUser?.shelf && book?.title ? (
                 <UserBookStatus
                   bookId={id}
                   status={getUserBook}
-                  onStatusChange={() => {}}
+                  onStatusChange={() => { }}
                 />
               ) : (
                 ""
               )}
+
             </div>
           </div>
         </div>

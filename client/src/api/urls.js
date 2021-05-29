@@ -6,6 +6,7 @@ export const booksBase = "books/";
 export const usersBase = "users/";
 export const categoriesBase = "categories/";
 export const authorsBase = "authors/";
+export const shelfBase = "shelf/";
 
 export const getRatesUrl = (bookId) => {
   return `${booksBase}${bookId}/rates/`;
@@ -13,14 +14,6 @@ export const getRatesUrl = (bookId) => {
 
 export const getReviewsUrl = (bookId) => {
   return `${booksBase}${bookId}/reviews/`;
-};
-
-export const getUserShelfUrl = (userId) => {
-  return `${usersBase}${userId}/shelf/`;
-};
-
-export const getShelfBookUrl = (userId, bookId) => {
-  return getUserShelfUrl(userId) + bookId;
 };
 
 export const getSearchUrl = (q) => {

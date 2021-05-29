@@ -6,8 +6,10 @@ import AuthorsPage from "../pages/AuthorsPage";
 import { BookPage } from "../pages/BookPage";
 import BooksPage from "../pages/BooksPage";
 import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import { SearchResult } from "../pages/SearchResultPage";
+import ShelfPage from "../pages/ShelfPage";
 import AdminDashboard from "./admin/AdminDashboard";
 import UserProfilePage from "../pages/UserProfilePage"
 export default function Router() {
@@ -17,27 +19,33 @@ export default function Router() {
         <PrivateRoute path="/admin/dashboard" exact>
           <AdminDashboard />
         </PrivateRoute>
+        <PrivateRoute path="/shelf">
+          <ShelfPage />
+        </PrivateRoute>
         <Route path="/registration">
           <RegistrationPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
         </Route>
         <Route path="/books">
           <BooksPage />
         </Route>
-        <PrivateRoute path="/home">
+        <Route path="/home">
           <HomePage />
-        </PrivateRoute>
-        <PrivateRoute path="/search/:key">
+        </Route>
+        <Route path="/search/:key">
           <SearchResult />
-        </PrivateRoute>
-        <PrivateRoute path="/authors">
+        </Route>
+        <Route path="/authors">
           <AuthorsPage />
-        </PrivateRoute>
-        <PrivateRoute path="/author/:id">
+        </Route>
+        <Route path="/author/:id">
           <AuthorPage />
-        </PrivateRoute>
-        <PrivateRoute path="/book/:id">
+        </Route>
+        <Route path="/book/:id">
           <BookPage />
-        </PrivateRoute>
+        </Route>
         <Route path="/user/:id">
           <UserProfilePage />
         </Route>
@@ -45,6 +53,7 @@ export default function Router() {
           <Redirect to="/home"></Redirect>
         </Route>
         
+
       </Switch>
     </BrowserRouter>
   );

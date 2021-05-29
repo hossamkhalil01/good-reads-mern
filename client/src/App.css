@@ -32,6 +32,17 @@ h6 {
   font-family: "Raleway", sans-serif;
 }
 
+.active-selection {
+  background: #7ed899 !important;
+  color: white;
+  cursor: pointer !important;
+}
+
+.list-group-item {
+  cursor: pointer !important;
+}
+
+
 /*--------------------------------------------------------------
   # Back to top button
   --------------------------------------------------------------*/
@@ -64,6 +75,8 @@ h6 {
   visibility: visible;
   opacity: 1;
 }
+
+.active {}
 
 /*--------------------------------------------------------------
   # Preloader
@@ -242,7 +255,7 @@ h6 {
 
 .navbar a:hover,
 .navbar .active,
-.navbar li:hover > a {
+.navbar li:hover>a {
   color: #5fcf80;
 }
 
@@ -279,11 +292,11 @@ h6 {
 
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
-.navbar .dropdown ul li:hover > a {
+.navbar .dropdown ul li:hover>a {
   color: #5fcf80;
 }
 
-.navbar .dropdown:hover > ul {
+.navbar .dropdown:hover>ul {
   opacity: 1;
   top: 100%;
   visibility: visible;
@@ -295,7 +308,7 @@ h6 {
   visibility: hidden;
 }
 
-.navbar .dropdown .dropdown:hover > ul {
+.navbar .dropdown .dropdown:hover>ul {
   opacity: 1;
   top: 0;
   left: 100%;
@@ -307,7 +320,7 @@ h6 {
     left: -90%;
   }
 
-  .navbar .dropdown .dropdown:hover > ul {
+  .navbar .dropdown .dropdown:hover>ul {
     left: -100%;
   }
 }
@@ -378,7 +391,7 @@ h6 {
 
 .navbar-mobile a:hover,
 .navbar-mobile .active,
-.navbar-mobile li:hover > a {
+.navbar-mobile li:hover>a {
   color: #5fcf80;
 }
 
@@ -412,11 +425,11 @@ h6 {
 
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
-.navbar-mobile .dropdown ul li:hover > a {
+.navbar-mobile .dropdown ul li:hover>a {
   color: #5fcf80;
 }
 
-.navbar-mobile .dropdown > .dropdown-active {
+.navbar-mobile .dropdown>.dropdown-active {
   display: block;
 }
 
@@ -1350,7 +1363,7 @@ section {
   font-weight: 600;
 }
 
-.contact .php-email-form .error-message br + br {
+.contact .php-email-form .error-message br+br {
   margin-top: 25px;
 }
 

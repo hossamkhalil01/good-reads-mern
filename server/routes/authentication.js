@@ -9,6 +9,22 @@ const {
   errorMessages,
 } = require("../utils/responses");
 
+const multer = require("multer");
+
+// Set The Storage Engine
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/img/avatars/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+// Init Upload
+const upload = multer({
+  storage: storage,
+});
+
 // init router
 const Router = express.Router();
 
@@ -51,9 +67,27 @@ Router.post("/login", async (req, res) => {
   }
 });
 
-Router.post("/register", async (req, res) => {
+Router.post("/register", upload.single("myImage"), async (req, res) => {
+  const body = JSON.parse(req.body.body);
+  let avatar = "public/img/avatars/default.png";
+
+  if (req.file) {
+    avatar = req.file.destination + req.file.filename;
+  }
+
+  const email = body.email;
+  const firstName = body.firstName;
+  const lastName = body.lastName;
+  const password = body.password;
+
   try {
-    let user = await User.create(req.body);
+    let user = await User.create({
+      email,
+      firstName,
+      lastName,
+      password,
+      avatar,
+    });
     const jwt = issueJWT.issueJWT(user);
 
     delete user._doc.password;
