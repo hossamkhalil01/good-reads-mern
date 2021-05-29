@@ -22,7 +22,6 @@ export const BookPage = () => {
 
   const retrieveBook = async (bookId) => {
     const data = await getBook(bookId);
-    console.log(data.data.data);
 
     setBook(data.data.data);
   };
@@ -34,7 +33,7 @@ export const BookPage = () => {
   };
 
   const getUserBook = () => {
-    const shelf = updatedUser.shelf;
+    const shelf = updatedUser?.shelf;
     const userBook = shelf.find((userBook) => {
       return userBook.book == book._id;
     });
@@ -45,7 +44,9 @@ export const BookPage = () => {
 
   useEffect(() => {
     retrieveBook(id);
-    getUpdatedUser(currentUser._id);
+    if (currentUser) {
+      getUpdatedUser(currentUser._id);
+    }
   }, [id]);
 
   return (

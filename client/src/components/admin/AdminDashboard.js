@@ -2,12 +2,12 @@ import classnames from "classnames";
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { Col, Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
-import { currentUser } from "../../services/authService";
 import AuthorView from "../admin/authors/AuthorView";
 import BookView from "../admin/books/BookView";
 import CategoriesView from "../admin/categories/CategoriesView";
 
 export default class Example extends React.Component {
+  user = JSON.parse(localStorage.getItem("user"));
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -41,7 +41,7 @@ export default class Example extends React.Component {
   }
 
   render() {
-    if (currentUser.isAdmin) {
+    if (this.user?.isAdmin) {
       return (
         <div className="AdminDashboard">
           <Nav tabs>
