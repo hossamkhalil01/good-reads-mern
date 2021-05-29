@@ -2,7 +2,11 @@ import requests from "../api/requests";
 import { authorsBase } from "../api/urls";
 
 export const getAuthors = async (params) => {
-  return await requests.get('authors', params);
+  return await requests.get("authors", params);
+};
+
+export const getAuthor = async (id) => {
+  return await requests.get(`${authorsBase}${id}`);
 };
 
 export const updateAuthor = async (authorId, body) => {

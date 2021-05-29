@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { hostUrl } from "../api/urls";
+import "../styles/Card.css";
 import { capitalize } from "../utils/utils";
 
 const Card = ({ object, type }) => {
@@ -26,10 +27,10 @@ const Card = ({ object, type }) => {
       </div>
     </div>
   ) : (
-    <div className="card">
+    <div className="card Card">
       <img
         src={`${hostUrl}${object?.photo}`}
-        className="card-img-top"
+        className="custom-card-img"
         alt={`${object?.firstName + object?.lastName}'s cover.`}
       />
       <div className="card-body">

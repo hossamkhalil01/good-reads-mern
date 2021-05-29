@@ -49,6 +49,31 @@ const getBooks = async (req, res) => {
   }
 };
 
+const getBooksByAuthor = async (req, res) => {
+  // process the query params
+  const authorId = req.params.authorId;
+
+  const [{ limit, page }, filter] = extractPaginationInfo(req.query);
+  // the pagination options
+  const options = {
+    sort: { title: -1 },
+    populate: ["authors", "categories"],
+    lean: true,
+    page,
+    limit,
+  };
+
+  try {
+    // get the books
+    const books = await Book.paginate({ authors: authorId }, options);
+
+    // build the resulting object
+    return sendResponse(res, books, statusCodes.success.ok);
+  } catch (error) {
+    return sendError(res, error.message, statusCodes.error.invalidData);
+  }
+};
+
 const manipulateSearchParams = (key) => {
   return { $regex: key };
 };
@@ -130,4 +155,5 @@ module.exports = {
   createBook,
   deleteBook,
   updateBook,
+  getBooksByAuthor,
 };

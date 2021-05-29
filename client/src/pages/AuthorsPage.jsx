@@ -34,7 +34,7 @@ const Authors = () => {
   return (
     <div>
       <Navbar />
-      <div className="mt-5 container">
+      <div className="mt-5 container main-content">
         <div className="row">
           {authors.map((author) => (
             <div key={author?._id} className="col-3 mb-3">

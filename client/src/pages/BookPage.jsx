@@ -22,6 +22,7 @@ export const BookPage = () => {
 
   const retrieveBook = async (bookId) => {
     const data = await getBook(bookId);
+    console.log(data.data.data);
 
     setBook(data.data.data);
   };
@@ -54,7 +55,11 @@ export const BookPage = () => {
         <div className="row mt-5">
           <div className="col-md-4 justify-content-center">
             {book?.coverImage ? (
-              <img src={`${hostUrl}${book?.coverImage}`} alt="" />
+              <img
+                className="book-img"
+                src={`${hostUrl}${book?.coverImage}`}
+                alt=""
+              />
             ) : (
               ""
             )}
@@ -64,7 +69,8 @@ export const BookPage = () => {
               <div>
                 <h1>{capitalize(book?.title)}</h1>
                 <h6>
-                  by {book?.authors[0].firstName} {book?.authors[0].lastName}
+                  by {capitalize(book?.authors[0].firstName)}{" "}
+                  {capitalize(book?.authors[0].lastName)}
                 </h6>
                 <h6>{capitalize(book?.categories[0].label)}</h6>
                 <AvgRating bookId={id} />

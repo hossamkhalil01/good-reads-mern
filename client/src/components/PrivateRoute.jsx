@@ -1,11 +1,12 @@
 import React from "react";
 import { Redirect, Route, withRouter } from "react-router-dom";
-import { checkTokenValid,currentUser } from "../services/authService";
+import { checkTokenValid } from "../services/authService";
 function PrivateRoute(props) {
   const { component: Component, ...rest } = props;
   checkTokenValid();
+  let user = localStorage.getItem("user");
 
-  if (currentUser) {
+  if (user) {
     return <Route {...rest} render={(props) => <Component {...props} />} />;
   } //redirect if there is no user
   return (
