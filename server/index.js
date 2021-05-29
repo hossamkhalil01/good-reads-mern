@@ -38,7 +38,8 @@ require("./utils/passport")(passport);
 
 app.use(passport.initialize());
 
-app.use("/public",express.static('public/'));
+app.use("/public", express.static('public/'));
+
 // add resources routers
 app.use("/auth", require("./routes/authentication"));
 app.use(
@@ -46,6 +47,7 @@ app.use(
   passport.authenticate("jwt", { session: false }),
   require("./routes/users")
 );
+
 app.use(
   "/books",
   passport.authenticate("jwt", { session: false }),
@@ -60,6 +62,11 @@ app.use(
   "/authors",
   passport.authenticate("jwt", { session: false }),
   require("./routes/authors")
+);
+app.use(
+  "/shelf",
+  passport.authenticate("jwt", { session: false }),
+  require("./routes/shelf")
 );
 
 app.use("/search", require("./routes/search"));

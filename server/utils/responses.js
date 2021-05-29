@@ -18,11 +18,13 @@ const statusCodes = {
     notFound: 404,
     invalidMediaType: 415,
     invalidData: 422,
+    serverError: 500,
   },
 };
 
 const errorMessages = {
   notFound: "Not found",
+  missingParam: "Missing a required field",
 };
 
 module.exports = { errorMessages, sendError, sendResponse, statusCodes };

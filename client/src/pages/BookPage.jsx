@@ -35,7 +35,7 @@ export const BookPage = () => {
   const getUserBook = () => {
     const shelf = updatedUser.shelf;
     const userBook = shelf.find((userBook) => {
-      return userBook.book == book._id;
+      return userBook.book === book._id;
     });
 
     if (userBook) return userBook.status;
@@ -82,7 +82,7 @@ export const BookPage = () => {
                 <UserBookStatus
                   bookId={id}
                   status={getUserBook}
-                  onStatusChange={() => {}}
+                  onStatusChange={() => { }}
                 />
               ) : (
                 ""

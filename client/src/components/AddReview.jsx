@@ -1,12 +1,19 @@
 import { useState } from "react";
+import { currentUser } from "../services/authService";
 import { addReview } from "../services/reviewsServices";
+
+
+const userId = currentUser?._id;
+
 export const AddReview = ({ bookId, onReviewsChanged }) => {
+
   const [review, updateReview] = useState("");
   const [error, setError] = useState("");
+
   const handleReviewSubmit = async () => {
     if (review === "") return setError("you can't add empty review ");
     addReview(bookId, {
-      userId: "60a981eb95ff413435e2364f",
+      userId,
       review,
     })
       .then((res) => {
@@ -15,7 +22,6 @@ export const AddReview = ({ bookId, onReviewsChanged }) => {
         onReviewsChanged((review) => !review);
       })
       .catch((err) => {
-        console.log(err);
         setError("you can't review same book twice");
       });
   };
