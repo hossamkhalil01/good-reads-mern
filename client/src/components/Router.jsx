@@ -6,6 +6,7 @@ import AuthorsPage from "../pages/AuthorsPage";
 import { BookPage } from "../pages/BookPage";
 import BooksPage from "../pages/BooksPage";
 import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import { SearchResult } from "../pages/SearchResultPage";
 import AdminDashboard from "./admin/AdminDashboard";
@@ -18,6 +19,9 @@ export default function Router() {
         </PrivateRoute>
         <Route path="/registration">
           <RegistrationPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
         </Route>
         <Route path="/books">
           <BooksPage />
