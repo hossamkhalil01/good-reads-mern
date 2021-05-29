@@ -69,8 +69,6 @@ Router.post("/login", async (req, res) => {
 
 Router.post("/register", upload.single("myImage"), async (req, res) => {
   const body = JSON.parse(req.body.body);
-  console.log(body);
-  console.log(req.file);
   let avatar = "public/img/avatars/default.png";
 
   if (req.file) {
