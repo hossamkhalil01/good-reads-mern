@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { hostUrl } from "../api/urls";
 import AvgRating from "../components/AvgRate";
 import Footer from "../components/layouts/Footer";
@@ -40,7 +41,6 @@ export const AuthorPage = () => {
     // set the values
     setPagination(paginationInfo);
     setBooks(data);
-    console.log(data);
   };
 
   const getUpdatedUser = async (userId) => {
@@ -51,7 +51,7 @@ export const AuthorPage = () => {
 
   const retriveAuthor = async (authorId) => {
     const data = await getAuthor(authorId);
-    console.log(data.data.data);
+
     setAuthor(data.data.data);
   };
 
@@ -60,19 +60,13 @@ export const AuthorPage = () => {
     const userBook = shelf.find((userBook) => {
       return userBook.book == book._id;
     });
-    console.log(userBook);
+
     if (userBook) return userBook.status;
     return;
   };
 
-  const retriveAuthorbooks = async (authorId) => {
-    const data = await getAuthorBooks(authorId);
-    console.log(data);
-  };
-
   useEffect(() => {
     retriveAuthor(id);
-    // retriveAuthorbooks(id);
     handlePageChange();
     getUpdatedUser(currentUser._id);
   }, [id]);
@@ -135,7 +129,9 @@ export const AuthorPage = () => {
                   />
                 </div>
                 <div className="col-md-4">
-                  <h5>{capitalize(book?.title)}</h5>
+                  <Link to={`/book/${book?._id}`}>
+                    <h5>{capitalize(book?.title)}</h5>
+                  </Link>
                   <AvgRating bookId={book?._id} />
                 </div>
                 <div className="col-md-4">
