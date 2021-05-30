@@ -4,15 +4,22 @@ import { getCategories } from "../../services/categoriesService";
 import { imageBase } from "../../utils/urls";
 import { capitalize } from "../../utils/utils";
 import Logout from "../Logout";
+import { currentUser } from "../../services/authService";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
+  const [userId, setUserId] = useState(0);
   let user = localStorage.getItem("user");
-  const userId = JSON.parse(localStorage.getItem("user"))._id;
-
   
+ 
+  
+
   useEffect(() => {
+    if(currentUser){
+      setUserId(JSON.parse(localStorage.getItem("user"))._id);
+   }
     const getAllCategories = async () => {
+      
       const {
         data: { data },
       } = await getCategories({ limit: 5 });
@@ -107,4 +114,5 @@ export default function NavBar() {
       </div>
     </header >
   );
+        
 }

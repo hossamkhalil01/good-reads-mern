@@ -14,6 +14,7 @@ import { getUser } from "../services/userService";
 
 
 
+
 function UserProfilePage() {
         const [user, setUser] = useState({});
         const { id } = useParams();
@@ -29,7 +30,12 @@ function UserProfilePage() {
         };
 
         useEffect(() => {
-                retrieveUser(id);
+                if(currentUser){
+                        
+                        retrieveUser(id);
+                        console.log("omnia");
+                     }
+                
                 //console.log(user);
         });
 
@@ -41,7 +47,7 @@ function UserProfilePage() {
 
                 <div>
                         <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={user.avatar} />
+                                <Card.Img variant="top" src={`${hostUrl}${user.avatar}`} />
                                 <Card.Body>
                                         <Card.Title><b>{user.firstName} {user.lastName}</b></Card.Title>
                                         <Card.Text>
@@ -93,7 +99,7 @@ function UserProfilePage() {
                                                 <Modal.Footer>
                                                         <input
                                                                         type='submit'
-                                                                        class="btn btn-info"
+                                                                        className="btn btn-info"
                                                                 />
                                                         <Button variant="secondary" onClick={handleClose}>
                                                                 Close
