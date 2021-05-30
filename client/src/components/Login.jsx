@@ -15,6 +15,8 @@ import React from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import { authUrl } from "../api/urls";
 import { setLocalStorage } from "../services/authService";
+import setUserId from "./layouts/Navbar";
+import {user} from "./layouts/Navbar";
 
 const Login = (props) => {
   let history = useHistory();
@@ -98,6 +100,7 @@ const Login = (props) => {
             history.push(props.location.state.referer);
           } else {
             history.push("/");
+            
           }
         })
         .catch((err) => {

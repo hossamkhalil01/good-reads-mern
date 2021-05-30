@@ -10,16 +10,18 @@ export default function NavBar() {
   const [categories, setCategories] = useState([]);
   const [userId, setUserId] = useState(0);
   let user = localStorage.getItem("user");
-  
- 
-  
+
+
+  console.log(userId);
+
 
   useEffect(() => {
-    if(currentUser){
-      setUserId(JSON.parse(localStorage.getItem("user"))._id);
-   }
+    if (currentUser) {
+      setUserId(currentUser._id);
+    }
+
     const getAllCategories = async () => {
-      
+
       const {
         data: { data },
       } = await getCategories({ limit: 5 });
@@ -88,15 +90,20 @@ export default function NavBar() {
                 Contact
               </NavLink>
             </li>
+            {user &&
             <li>
-              <NavLink activeClassName="active" to={`/user/${userId}`} exact>
-                Profile
-              </NavLink>
+            <NavLink activeClassName="active" to={`/user/${userId}`} exact>
+              Profile
+            </NavLink>
+          
             </li>
+              }
+
           </ul>
           <i className="bi bi-list mobile-nav-toggle"></i>
         </nav>
         {!user ? (
+
           <div className="ms-auto d-flex">
             <NavLink className="login-link fs-6" to="/login" exact>
               Login
@@ -108,11 +115,13 @@ export default function NavBar() {
           </div>
         ) : (
           <div className="ms-auto d-flex">
+
+
             <Logout />
           </div>
         )}
       </div>
     </header >
   );
-        
+
 }
