@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { hostUrl , imagesBase} from "../api/urls";
+import { hostUrl, imagesBase } from "../api/urls";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import { currentUser } from "../services/authService";
@@ -8,7 +8,8 @@ import { capitalize } from "../utils/utils";
 import React from "react";
 import ReactDOM from 'react-dom';
 import { Button, form, Nav, Card, Modal } from 'react-bootstrap';
-import { getUser } from "../services/userService";
+import { getUser , updateUser } from "../services/userService";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 
 
@@ -16,9 +17,13 @@ import { getUser } from "../services/userService";
 
 function UserProfilePage() {
         const [user, setUser] = useState({});
+        
         const { id } = useParams();
         const [show, setShow] = useState(false);
-        const path="/avatars/";
+        const path = "/avatars/";
+        const [fname, setFname] = useState(user.firstName);
+        const [lname, setLname] = useState(user.lastName);
+        const [email, setEmail] = useState(user.email);
 
         const handleClose = () => setShow(false);
         const handleShow = () => setShow(true);
@@ -28,91 +33,110 @@ function UserProfilePage() {
 
                 setUser(data.data.data);
         };
+        const fff={firstName:fname}
+
+        const editUser = async (id,body) => {
+                const data = await updateUser(id, body);
+
+               
+        };
+        
+        
 
         useEffect(() => {
-                if (currentUser) {
+                
 
-                        retrieveUser(id);
-                        
-                }
+                retrieveUser(id);      
 
                 
-        });
 
+
+        },[id]);
+        const changeHandler = (e) => setFname(e.target.value);
+        
+        const mySubmitHandler = (event) => {
+                
+                editUser(id,fff);
+                
+                
+              }
 
 
         return (
 
 
 
-                <div style={{display:"flex", alignItems: "center",displayContent: "center"}} >
+                <div style={{ display: "flex", alignItems: "center", displayContent: "center" }} >
                         <img src="/assets/img/Wavy_Bus-01_Single-02.jpg" width="500" height="400" />
-                        
+
                         <div >
-                        <Card style={{ width: '18rem'}}>
-                                <Card.Img variant="top" src={`${hostUrl}${imagesBase}${path}${user.avatar}`} />
-                                <Card.Body>
-                                        <Card.Title><b>{user.firstName} {user.lastName}</b></Card.Title>
-                                        <Card.Text>
-                                                <h5>{user.email}</h5>
-                                        </Card.Text>
-                                        <Button variant="warning" onClick={handleShow}>
-                                                Edit
+                                <Card style={{ width: '18rem' }}>
+                                        <Card.Img variant="top" src={`${hostUrl}${imagesBase}${path}${user.avatar}`} />
+                                        <Card.Body>
+                                                <Card.Title><b>{user.firstName} {user.lastName}</b></Card.Title>
+                                                <Card.Text>
+                                                        <h5>{user.email}</h5>
+                                                </Card.Text>
+                                                <div style={{ display: "flex" }}>
+                                                        <Button variant="warning" onClick={handleShow}>
+                                                                Edit Information
+      </Button>
+                                                        <Button style={{ marginLeft: 8 }} variant="warning" onClick={handleShow}>
+                                                                Change Profile Picture
       </Button>
 
-                                        <Modal show={show} onHide={handleClose}>
-                                                <form>
-                                                        <Modal.Header closeButton>
-                                                                <Modal.Title>Edit Your Information</Modal.Title>
-                                                        </Modal.Header>
+                                                </div>
 
-                                                        <Modal.Body>
 
-                                                                <label>FirstName: </label><br></br>
+                                                <Modal show={show} onHide={handleClose}>
+                                                        <form onSubmit={mySubmitHandler}> 
+                                                                <Modal.Header closeButton>
+                                                                        <Modal.Title>Edit Your Information</Modal.Title>
+                                                                </Modal.Header>
 
-                                                                <input
-                                                                        type="text"
-                                                                /><br></br>
+                                                                <Modal.Body>
 
-                                                                <label>LastName: </label><br></br>
+                                                                        <label>FirstName: </label><br></br>
 
-                                                                <input
-                                                                        type="text"
-                                                                /><br></br>
-                                                                <label>Email: </label><br></br>
+                                                                        <input
+                                                                                type="text"
+                                                                                value={fname}
+                                                                                onChange={changeHandler}
+                                                                        /><br></br>
 
-                                                                <input
-                                                                        type="text"
-                                                                /><br></br>
-                                                                <label>New Password: </label><br></br>
+                                                                        <label>LastName: </label><br></br>
 
-                                                                <input
-                                                                        type="text"
-                                                                /><br></br>
-                                                                <label>Confirm Password: </label><br></br>
+                                                                        <input
+                                                                                type="text"
+                                                                                value={lname}
+                                                                        /><br></br>
+                                                                        <label>Email: </label><br></br>
 
-                                                                <input
-                                                                        type="text"
-                                                                /><br></br>
+                                                                        <input
+                                                                                type="text"
+                                                                                value={email}
+
+                                                                        /><br></br>
 
 
 
 
-                                                        </Modal.Body>
-                                                        <Modal.Footer>
-                                                                <input
-                                                                        type='submit'
-                                                                        className="btn btn-info"
-                                                                />
-                                                                <Button variant="secondary" onClick={handleClose}>
-                                                                        Close
+                                                                </Modal.Body>
+                                                                <Modal.Footer>
+                                                                        <input
+                                                                                type='submit'
+                                                                                className="btn btn-info"
+                                                                                value="Save Changes"
+                                                                        />
+                                                                        <Button variant="secondary" onClick={handleClose}>
+                                                                                Close
           </Button>
 
-                                                        </Modal.Footer>
-                                                </form>
-                                        </Modal>
-                                </Card.Body>
-                        </Card>
+                                                                </Modal.Footer>
+                                                        </form>
+                                                </Modal>
+                                        </Card.Body>
+                                </Card>
                         </div>
 
 

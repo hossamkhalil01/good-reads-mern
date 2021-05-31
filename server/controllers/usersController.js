@@ -91,6 +91,7 @@ const updateUser = async (req, res) => {
 
     // updated
     return sendResponse(res, updatedUser, statusCodes.success.ok);
+    
   } catch (error) {
     // invalid params
     return sendError(res, error.message, statusCodes.error.invalidData);
