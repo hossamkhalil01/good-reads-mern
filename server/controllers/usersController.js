@@ -51,6 +51,7 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
+    let user.avatar = "public/img/avatars/default.png";
     return sendResponse(res, user, statusCodes.success.created);
   } catch (error) {
     return sendError(res, error.message, statusCodes.error.invalidData);
@@ -78,6 +79,14 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const id = req.params.id;
   const updates = req.body;
+  
+  
+    if (req.file) {
+      avatar = req.file.destination + req.file.filename;
+      updates.avatar=avatar;
+  }
+  
+
 
   try {
     const updatedUser = await User.findOneAndUpdate({ _id: id }, updates, {

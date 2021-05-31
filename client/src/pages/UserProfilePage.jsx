@@ -32,6 +32,9 @@ function UserProfilePage() {
         const handleShowModalChangeProfile = () => setShowModalChangeProfile(true);
         const handleCloseModalChangeProfile = () => setShowModalChangeProfile(false);
 
+
+
+
         const retrieveUser = async (id) => {
                 const data = await getUser(id);
 
@@ -69,15 +72,22 @@ function UserProfilePage() {
         const onFileChange = event => {
 
                 // Update the state
-                setSelectedFile( event.target.files[0] );
+                setSelectedFile(event.target.files[0]);
 
         };
 
         const mySubmitHandlerChangeProfile = (event) => {
                 if (selectedFile != null) {
-                       // event.preventDefault();
+                        event.preventDefault();
+                        const formData = new FormData();
+                        formData.append("myImage", selectedFile);
+                        
 
-                        editUser(id,{avatar:selectedFile.name});
+                        editUser(id, formData);
+                        setSelectedFile({});
+
+                        //window.location.reload();
+
 
                 }
                 else {
@@ -85,7 +95,7 @@ function UserProfilePage() {
                 }
         }
 
-        
+
         return (
 
                 <div><Navbar />
@@ -96,7 +106,7 @@ function UserProfilePage() {
 
                                 <div >
                                         <Card style={{ width: '18rem', marginLeft: 20 }}>
-                                                <Card.Img variant="top" src={`${hostUrl}${imagesBase}${path}${user.avatar}`} />
+                                                <Card.Img variant="top" src={`${hostUrl}${user.avatar}`} />
                                                 <Card.Body>
                                                         <Card.Title><b>{user.firstName} {user.lastName}</b></Card.Title>
                                                         <Card.Text>
@@ -150,6 +160,9 @@ function UserProfilePage() {
                                                                         <Modal.Footer>
                                                                                 <input
                                                                                         type='submit'
+                                                                                        accept="image/*"
+                                                                                        id="avatar"
+                                                                                        multiple
                                                                                         className="btn btn-info"
                                                                                         value="Save Changes"
                                                                                 />
