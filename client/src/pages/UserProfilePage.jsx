@@ -40,7 +40,7 @@ function UserProfilePage() {
 
                 setUser(data.data.data);
         };
-        const fff = { firstName: fname }
+        const fff = { firstName: fname, lastName: lname, email: email }
 
 
         const editUser = async (id, body) => {
@@ -60,11 +60,15 @@ function UserProfilePage() {
 
 
         }, [id]);
-        const changeHandler = (e) => setFname(e.target.value);
+        const changeHandlerFname = (e) => setFname(e.target.value);
+        const changeHandlerLname = (e) => setLname(e.target.value);
+        const changeHandlerEmail = (e) => setEmail(e.target.value);
 
         const mySubmitHandler = (event) => {
 
+                event.preventDefault();
                 editUser(id, fff);
+                window.location.reload();
 
 
         }
@@ -106,13 +110,13 @@ function UserProfilePage() {
 
                                 <div >
                                         <Card style={{ width: '18rem', marginLeft: 20 }}>
-                                                {user.avatar=="default.png" ? (
+                                                {user.avatar == "default.png" ? (
                                                         <Card.Img variant="top" src={`${hostUrl}${imagesBase}${path}${user.avatar}`} />
-                                                 
+
                                                 ) : (
                                                         <Card.Img variant="top" src={`${hostUrl}${user.avatar}`} />
                                                 )}
-                                                
+
                                                 <Card.Body>
                                                         <Card.Title><b>{user.firstName} {user.lastName}</b></Card.Title>
                                                         <Card.Text>
@@ -142,7 +146,8 @@ function UserProfilePage() {
                                                                                 <input
                                                                                         type="text"
                                                                                         value={fname}
-                                                                                        onChange={changeHandler}
+                                                                                        onChange={changeHandlerFname}
+                                                                                        required
                                                                                 /><br></br>
 
                                                                                 <label>LastName: </label><br></br>
@@ -150,12 +155,16 @@ function UserProfilePage() {
                                                                                 <input
                                                                                         type="text"
                                                                                         value={lname}
+                                                                                        onChange={changeHandlerLname}
+                                                                                        required
                                                                                 /><br></br>
                                                                                 <label>Email: </label><br></br>
 
                                                                                 <input
-                                                                                        type="text"
+                                                                                        type="email"
                                                                                         value={email}
+                                                                                        onChange={changeHandlerEmail}
+                                                                                        required
 
                                                                                 /><br></br>
 
