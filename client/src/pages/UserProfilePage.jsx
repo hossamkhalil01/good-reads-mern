@@ -81,12 +81,12 @@ function UserProfilePage() {
                         event.preventDefault();
                         const formData = new FormData();
                         formData.append("myImage", selectedFile);
-                        
+
 
                         editUser(id, formData);
                         setSelectedFile({});
 
-                        //window.location.reload();
+                        window.location.reload();
 
 
                 }
@@ -106,7 +106,13 @@ function UserProfilePage() {
 
                                 <div >
                                         <Card style={{ width: '18rem', marginLeft: 20 }}>
-                                                <Card.Img variant="top" src={`${hostUrl}${user.avatar}`} />
+                                                {user.avatar=="default.png" ? (
+                                                        <Card.Img variant="top" src={`${hostUrl}${imagesBase}${path}${user.avatar}`} />
+                                                 
+                                                ) : (
+                                                        <Card.Img variant="top" src={`${hostUrl}${user.avatar}`} />
+                                                )}
+                                                
                                                 <Card.Body>
                                                         <Card.Title><b>{user.firstName} {user.lastName}</b></Card.Title>
                                                         <Card.Text>
