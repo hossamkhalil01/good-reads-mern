@@ -20,13 +20,17 @@ function UserProfilePage() {
 
         const { id } = useParams();
         const [show, setShow] = useState(false);
+        const [showModalChangeProfile, setShowModalChangeProfile] = useState(false);
         const path = "/avatars/";
         const [fname, setFname] = useState(user.firstName);
         const [lname, setLname] = useState(user.lastName);
         const [email, setEmail] = useState(user.email);
-
+        const [selectedFile, setSelectedFile] = useState({});
+        const [updatedImage, setUpdatedImage] = useState({});
         const handleClose = () => setShow(false);
         const handleShow = () => setShow(true);
+        const handleShowModalChangeProfile = () => setShowModalChangeProfile(true);
+        const handleCloseModalChangeProfile = () => setShowModalChangeProfile(false);
 
         const retrieveUser = async (id) => {
                 const data = await getUser(id);
@@ -34,6 +38,7 @@ function UserProfilePage() {
                 setUser(data.data.data);
         };
         const fff = { firstName: fname }
+
 
         const editUser = async (id, body) => {
                 const data = await updateUser(id, body);
@@ -61,7 +66,26 @@ function UserProfilePage() {
 
         }
 
+        const onFileChange = event => {
 
+                // Update the state
+                setSelectedFile( event.target.files[0] );
+
+        };
+
+        const mySubmitHandlerChangeProfile = (event) => {
+                if (selectedFile != null) {
+                       // event.preventDefault();
+
+                        editUser(id,{avatar:selectedFile.name});
+
+                }
+                else {
+                        alert("You didn't select image.")
+                }
+        }
+
+        
         return (
 
                 <div><Navbar />
@@ -71,7 +95,7 @@ function UserProfilePage() {
                                 <img src="/assets/img/idCard.jpeg" width="500" height="350" />
 
                                 <div >
-                                        <Card style={{ width: '18rem' ,marginLeft:20}}>
+                                        <Card style={{ width: '18rem', marginLeft: 20 }}>
                                                 <Card.Img variant="top" src={`${hostUrl}${imagesBase}${path}${user.avatar}`} />
                                                 <Card.Body>
                                                         <Card.Title><b>{user.firstName} {user.lastName}</b></Card.Title>
@@ -79,10 +103,10 @@ function UserProfilePage() {
                                                                 <h5>{user.email}</h5>
                                                         </Card.Text>
                                                         <div style={{ display: "flex" }}>
-                                                                <Button variant="warning" onClick={handleShow}>
+                                                                <Button variant="success" onClick={handleShow}>
                                                                         Edit Information
       </Button>
-                                                                <Button style={{ marginLeft: 8 }} variant="warning" onClick={handleShow}>
+                                                                <Button style={{ marginLeft: 8 }} variant="success" onClick={handleShowModalChangeProfile}>
                                                                         Change Profile Picture
       </Button>
 
@@ -130,6 +154,34 @@ function UserProfilePage() {
                                                                                         value="Save Changes"
                                                                                 />
                                                                                 <Button variant="secondary" onClick={handleClose}>
+                                                                                        Close
+          </Button>
+
+                                                                        </Modal.Footer>
+                                                                </form>
+                                                        </Modal>
+
+                                                        <Modal show={showModalChangeProfile} onHide={handleCloseModalChangeProfile}>
+                                                                <form onSubmit={mySubmitHandlerChangeProfile}>
+                                                                        <Modal.Header closeButton>
+                                                                                <Modal.Title>Change Profile Picture</Modal.Title>
+                                                                        </Modal.Header>
+
+                                                                        <Modal.Body>
+
+                                                                                <h1>Select Image</h1>
+                                                                                <input type="file" name="myImage" onChange={onFileChange} />
+
+
+
+                                                                        </Modal.Body>
+                                                                        <Modal.Footer>
+                                                                                <input
+                                                                                        type='submit'
+                                                                                        className="btn btn-info"
+                                                                                        value="Upload"
+                                                                                />
+                                                                                <Button variant="secondary" onClick={handleCloseModalChangeProfile}>
                                                                                         Close
           </Button>
 
