@@ -78,6 +78,14 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const id = req.params.id;
   const updates = req.body;
+  let avatar = "public/img/avatars/default.png";
+  
+    if (req.file) {
+      avatar = req.file.destination + req.file.filename;
+      updates.avatar=avatar;
+  }
+  
+
 
   try {
     const updatedUser = await User.findOneAndUpdate({ _id: id }, updates, {
@@ -91,6 +99,7 @@ const updateUser = async (req, res) => {
 
     // updated
     return sendResponse(res, updatedUser, statusCodes.success.ok);
+    
   } catch (error) {
     // invalid params
     return sendError(res, error.message, statusCodes.error.invalidData);

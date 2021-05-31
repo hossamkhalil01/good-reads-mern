@@ -11,6 +11,7 @@ import RegistrationPage from "../pages/RegistrationPage";
 import { SearchResult } from "../pages/SearchResultPage";
 import ShelfPage from "../pages/ShelfPage";
 import AdminDashboard from "./admin/AdminDashboard";
+import UserProfilePage from "../pages/UserProfilePage"
 export default function Router() {
   return (
     <BrowserRouter>
@@ -45,9 +46,13 @@ export default function Router() {
         <Route path="/book/:id">
           <BookPage />
         </Route>
+        <PrivateRoute path="/user/:id">
+          <UserProfilePage />
+        </PrivateRoute>
         <Route path="/">
           <Redirect to="/home"></Redirect>
         </Route>
+        
 
       </Switch>
     </BrowserRouter>
